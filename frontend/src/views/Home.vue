@@ -6,13 +6,23 @@
 </template>
 
 <script lang="ts">
+import axios from "axios";
 import { Component, Vue } from "vue-property-decorator";
 import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
 @Component({
   components: {
     HelloWorld,
+
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  async mounted() {
+const res = await axios.post('http://localhost:8000/register', {
+email: "test"
+});
+console.log(res.data);
+}
+
+}
 </script>
