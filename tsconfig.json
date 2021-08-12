@@ -23,10 +23,11 @@
       "@src/*": ["src/*"],
       "@config/*": ["config/*"],
       "@common/*": ["src/common/*"],
+      "@frontend/*": ["frontend/*"],
       "@backend/*": ["backend/*"],
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts", "backend/**/*.ts", "frontend/**/*.ts"],
   "exclude": ["node_modules"]
 }

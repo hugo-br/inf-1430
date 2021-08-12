@@ -1,3 +1,4 @@
+# Dependance
 node_modules
 /coverage/
 /.out/
@@ -16,5 +17,7 @@ yarn-*.log
 .env.local
 .env.*.local
 
+# Configuration
 /config
-config
+/config/*
+config/*

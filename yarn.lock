@@ -1234,6 +1234,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/compression@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@types/compression/-/compression-1.7.1.tgz#d935a1cd6f5cd9a4dc8b0d8aadf2ee91a2975acc"
+  integrity sha512-d6K1bU3qIjtfB2u+A1N0WDf62LpewRjrvbqY79qlPwk2otgQ4mWB4+LzPCWTvGmcuVwo+zAroEhsNlJavRcFvg==
+  dependencies:
+    "@types/express" "*"
+
 "@types/config@^0.0.38":
   version "0.0.38"
   resolved "https://registry.yarnpkg.com/@types/config/-/config-0.0.38.tgz#ca30679b21b5b297299467e3a3f1c8e2e64b9170"

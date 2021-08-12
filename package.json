@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve frontend": "vue-cli-service serve",
-    "serve backend": "nodemon --config nodemon.json backend/app.ts",
+    "serve:frontend": "vue-cli-service serve frontend/main.ts",
+    "serve:backend": "nodemon --config nodemon.json backend/app.ts",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
@@ -15,6 +15,7 @@
     "fix:format": "prettier --write ./**/*.{js,ts,json,vue,css,less,html}"
   },
   "dependencies": {
+    "@types/compression": "^1.7.1",
     "@types/express-serve-static-core": "^4.17.24",
     "@types/morgan": "^1.9.3",
     "axios": "^0.21.1",
