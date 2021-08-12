@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "types": ["node","webpack-env", "jest"],
+    "strict": true,
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "removeComments": true,
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": ".out/src",
+    "baseUrl": ".",
+    "paths": {
+      "@root/*": ["./*"],
+      "@src/*": ["src/*"],
+      "@config/*": ["config/*"],
+      "@common/*": ["src/common/*"],
+      "@backend/*": ["backend/*"],
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+  },
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules"]
+}
