@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "target": "es2015",
     "module": "commonjs",
-    "types": ["node","webpack-env", "jest"],
+    "types": ["node", "webpack-env", "jest"],
     "strict": true,
     "jsx": "preserve",
     "esModuleInterop": true,
@@ -18,6 +19,7 @@
     "allowSyntheticDefaultImports": true,
     "outDir": ".out/src",
     "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
       "@root/*": ["./*"],
       "@src/*": ["src/*"],
@@ -25,9 +27,17 @@
       "@common/*": ["src/common/*"],
       "@frontend/*": ["frontend/*"],
       "@backend/*": ["backend/*"],
+      "@public/*": ["public/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts", "backend/**/*.ts", "frontend/**/*.ts"],
+  "include": [
+    "./src/**/*",
+    "./tests/**/*",
+    "./backend/**/*",
+    "./frontend/**/*",
+    "./public/**/*",
+    "**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
