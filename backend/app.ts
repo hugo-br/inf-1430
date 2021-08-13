@@ -8,12 +8,14 @@ import config from "config";
 import connect from "./db/connect";
 import routes from "./routes/routes";
 import compression from "compression";
+import { deserializeUser } from "./middleware";
 
 const app = express();
 const host = config.get("host") as string;
 const port = config.get("port") as number;
 
 // middleware
+app.use(deserializeUser);
 app.use(compression()); //Compress all routes
 //app.use(morgan('combined') as any);
 app.use(express.json() as RequestHandler);

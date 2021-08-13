@@ -1,25 +1,43 @@
 import { Express, Request, Response } from "express";
 import { createUserHandler } from "@backend/controller/user.controller";
-import { createUserSchema } from "@backend/schema/user.schema";
-import validate from "@backend/middleware/validateRequest";
+import { createSessionHandler, invalidateSession, getSessionInfo } from "@backend/controller/session.controller";
+import {createUserSchema,createSessionSchema} from "@backend/schema/user.schema";
+import { validate, requireUser} from "@backend/middleware";
 
 export default (app: Express) => {
   // *** Utilisateur ***
 
   // Inscription
-  // POST /api/user
   app.post("/api/users", validate(createUserSchema), createUserHandler);
 
   // Login
-  // POST /api/session
-
-  // User Session
-  // GET /api/session
+  app.post(
+    "/api/sessions",
+    validate(createSessionSchema),
+    createSessionHandler
+  );
 
   // Logout
-  // DELETE /api/session
+  app.delete(
+    "/api/sessions",
+    requireUser,
+    invalidateSession
+  ); 
+
+  // User Session
+  app.get(
+    "/api/sessions",
+    requireUser,
+    getSessionInfo
+  );
+
 
   // *** Utilisateur ***
+
+
+
+
+
 
   // GET /api/posts /api/posts
 

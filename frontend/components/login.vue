@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="register()">Register</button>
+    <button @click="login()">LOGIN</button>
   </div>
 </template>
 
@@ -9,29 +9,21 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import Api from "../services/Api";
 
 @Component
-export default class Example extends Vue {
+export default class Login extends Vue {
   @Prop() private msg!: string;
 
-  public async register() {
+  public async login() {
     const credentials = {
       email: "test@lol.com",
       password: "eloajksjdhd",
-      passwordConfirmation: "eloajksjdhd",
-      name: "test1",
     };
     Api()
-      .post("users", credentials)
+      .post("sessions", credentials)
       .then((response) => {
         console.log(response);
       })
       .catch((error) => {
-        if (error.code === "409")
-        {
-          console.log("Deja un compte");
-        }
-        console.log(error.response.data);
-      console.log(error.response.status);
-     // console.log(error.response.headers);
+        console.log(error);
       });
   }
 }

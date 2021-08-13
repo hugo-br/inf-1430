@@ -17,7 +17,7 @@ export const createUserSchema = object({
   }),
 });
 
-export const createUserSessionSchema = object({
+export const createSessionSchema = object({
   body: object({
     password: string()
       .required("Password is required")
