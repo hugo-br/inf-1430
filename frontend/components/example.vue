@@ -25,13 +25,12 @@ export default class Example extends Vue {
         console.log(response);
       })
       .catch((error) => {
-        if (error.code === "409")
-        {
+        if (error.code === "409") {
           console.log("Deja un compte");
         }
         console.log(error.response.data);
-      console.log(error.response.status);
-     // console.log(error.response.headers);
+        console.log(error.response.status);
+        // console.log(error.response.headers);
       });
   }
 }

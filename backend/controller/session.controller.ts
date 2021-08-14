@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import { validatePassword } from "../service/user.service";
-import { createAccessToken, createSession, findSessions, updateSession } from "../service/session.service";
+import {
+  createAccessToken,
+  createSession,
+  findSessions,
+  updateSession,
+} from "../service/session.service";
 import { sign } from "../utils/tokens";
 import config from "config";
 import { get } from "lodash";
@@ -26,16 +31,16 @@ export async function createSessionHandler(req: Request, res: Response) {
 }
 
 export async function invalidateSession(req: Request, res: Response) {
-      // trouver session
-      const sectionId = get(req, "user.session");
-     
-      // update
-      await updateSession({_id: sectionId}, {valid: false});
-      return res.sendStatus(200).send("logout");
+  // trouver session
+  const sectionId = get(req, "user.session");
+
+  // update
+  await updateSession({ _id: sectionId }, { valid: false });
+  return res.sendStatus(200).send("logout");
 }
 
 export async function getSessionInfo(req: Request, res: Response) {
-        const userId = get(req, "user._id");
-        const session = await findSessions({user: userId, valid: true});
-        return res.send(session);
+  const userId = get(req, "user._id");
+  const session = await findSessions({ user: userId, valid: true });
+  return res.send(session);
 }

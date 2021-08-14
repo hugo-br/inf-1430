@@ -52,7 +52,7 @@ export async function reIssueAccessToken({
   return accessToken;
 }
 
-export async function updateSession (
+export async function updateSession(
   query: FilterQuery<SessionDocument>,
   update: UpdateQuery<SessionDocument>
 ) {

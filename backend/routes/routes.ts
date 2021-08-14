@@ -1,12 +1,32 @@
 import { Express, Request, Response } from "express";
+import { validate, requireUser } from "@backend/middleware";
 import { createUserHandler } from "@backend/controller/user.controller";
-import { createSessionHandler, invalidateSession, getSessionInfo } from "@backend/controller/session.controller";
-import {createUserSchema,createSessionSchema} from "@backend/schema/user.schema";
-import { validate, requireUser} from "@backend/middleware";
+import {
+  createSessionHandler,
+  invalidateSession,
+  getSessionInfo,
+} from "@backend/controller/session.controller";
+import {
+  createUserSchema,
+  createSessionSchema,
+} from "@backend/schema/user.schema";
+import {
+  createProductSchema,
+  updateProductSchema,
+  deleteProductSchema
+} from "@backend/schema/product.schema";
+import {
+  createProductHandler,
+  updateProductHandler,
+  deleteProductHandler,
+  getProductsHandler
+} from "@backend/controller/product.controller";
+
 
 export default (app: Express) => {
-  // *** Utilisateur ***
 
+
+  //*****************************     Utilisateur    ******************************** */
   // Inscription
   app.post("/api/users", validate(createUserSchema), createUserHandler);
 
@@ -18,41 +38,39 @@ export default (app: Express) => {
   );
 
   // Logout
-  app.delete(
-    "/api/sessions",
-    requireUser,
-    invalidateSession
-  ); 
+  app.delete("/api/sessions", requireUser, invalidateSession);
 
   // User Session
-  app.get(
-    "/api/sessions",
-    requireUser,
-    getSessionInfo
+  app.get("/api/sessions", requireUser, getSessionInfo);
+//***************************************************************************************** */
+
+
+  // *** Products ***
+
+  // creer
+  app.post(
+    "/api/products",
+    [requireUser, validate(createProductSchema)],
+    createProductHandler
   );
 
+  // modifier
+  app.put(
+    "/api/products/:productId",
+    [requireUser, validate(updateProductSchema)],
+    updateProductHandler
+  );
 
-  // *** Utilisateur ***
+  // chercher
+  app.get("/api/products/:productId", getProductsHandler);
 
+  // Supprimer
+  app.delete(
+    "/api/products/:productId",
+    [requireUser, validate(deleteProductSchema)],
+    deleteProductHandler
+  );
 
-
-
-
-
-  // GET /api/posts /api/posts
-
-  app.get("/status", (req: Request, res: Response) => {
-    res.send({
-      message: "hello everyone",
-    });
-  });
-
-  app.post("/register", (req: Request, res: Response) => {
-    res.send({
-      message: `Hello ${req.body.email} your user was registred`,
-    });
-  });
-
-  // Verifier etat server
+  // Verifier l'etat du server
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
 };
