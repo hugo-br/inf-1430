@@ -8,7 +8,7 @@ function connect() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: false
+      useFindAndModify: false,
     })
     .then((db) => console.log("base de donnée connectée"))
     .catch((err) => console.log(err));

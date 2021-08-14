@@ -9,7 +9,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import Api from "../services/Api";
 
 @Component
-export default class Example extends Vue {
+export default class Register extends Vue {
   @Prop() private msg!: string;
 
   public async register() {

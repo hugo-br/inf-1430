@@ -7,6 +7,7 @@ import cors from "cors";
 import config from "config";
 import connect from "./db/connect";
 import routes from "./routes/routes";
+import routesAdmin from "./routes/routes.admin";
 import compression from "compression";
 import { deserializeUser } from "./middleware";
 
@@ -26,4 +27,5 @@ app.listen(port, host, () => {
   console.log(`Listen on http://${host}:${port}`);
   connect();
   routes(app);
+  routesAdmin(app);
 });

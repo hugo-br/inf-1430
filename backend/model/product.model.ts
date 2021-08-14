@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { nanoid } from "nanoid";
-import { UserDocument } from "./user.model";
+import { AdminDocument } from "./admin.model";
 
 export interface ProductDocument extends mongoose.Document {
   name: String;
@@ -11,7 +11,6 @@ export interface ProductDocument extends mongoose.Document {
   startDate: Date;
   endDate: Date;
   price: Number;
-  lastUser: UserDocument["_id"]; 
 }
 
 // creation de la table dans la base de donnnee
@@ -23,15 +22,15 @@ const ProductSchema = new mongoose.Schema(
       unique: true,
       default: () => nanoid(6),
     },
-    name: {type: String},
-    description: {type: String},
-    quantity: {type: Number},
-    createdAt: {type: Date},
-    updatedAt: {type: Date},
-    startDate: {type: Date},
-    endDate: {type: Date},
-    price: {type: Number},
-    lastUser: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    name: { type: String },
+    description: { type: String },
+    quantity: { type: Number },
+    createdAt: { type: Date },
+    updatedAt: { type: Date },
+    startDate: { type: Date },
+    endDate: { type: Date },
+    price: { type: Number },
+    lastUser: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
   },
   { timestamps: true }
 );

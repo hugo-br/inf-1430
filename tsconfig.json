@@ -27,7 +27,8 @@
       "@common/*": ["src/common/*"],
       "@frontend/*": ["frontend/*"],
       "@backend/*": ["backend/*"],
-      "@public/*": ["public/*"]
+      "@public/*": ["public/*"],
+      "@schema/*": ["backend/schema/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },

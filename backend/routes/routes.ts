@@ -10,22 +10,9 @@ import {
   createUserSchema,
   createSessionSchema,
 } from "@backend/schema/user.schema";
-import {
-  createProductSchema,
-  updateProductSchema,
-  deleteProductSchema
-} from "@backend/schema/product.schema";
-import {
-  createProductHandler,
-  updateProductHandler,
-  deleteProductHandler,
-  getProductsHandler
-} from "@backend/controller/product.controller";
-
+import { getProductsHandler } from "@backend/controller/product.controller";
 
 export default (app: Express) => {
-
-
   //*****************************     Utilisateur    ******************************** */
   // Inscription
   app.post("/api/users", validate(createUserSchema), createUserHandler);
@@ -42,35 +29,12 @@ export default (app: Express) => {
 
   // User Session
   app.get("/api/sessions", requireUser, getSessionInfo);
-//***************************************************************************************** */
-
+  //***************************************************************************************** */
 
   // *** Products ***
-
-  // creer
-  app.post(
-    "/api/products",
-    [requireUser, validate(createProductSchema)],
-    createProductHandler
-  );
-
-  // modifier
-  app.put(
-    "/api/products/:productId",
-    [requireUser, validate(updateProductSchema)],
-    updateProductHandler
-  );
-
   // chercher
   app.get("/api/products/:productId", getProductsHandler);
 
-  // Supprimer
-  app.delete(
-    "/api/products/:productId",
-    [requireUser, validate(deleteProductSchema)],
-    deleteProductHandler
-  );
-
   // Verifier l'etat du server
-  app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
+  app.get("/check", (req: Request, res: Response) => res.sendStatus(200));
 };

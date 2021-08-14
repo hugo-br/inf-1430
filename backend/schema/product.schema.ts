@@ -1,11 +1,13 @@
-import { object, string } from "yup";
+import { object, string, number } from "yup";
 
 const payload = {
   body: object({
-    title: string().required("Title is required"),
+    name: string().required("Name is required"),
     description: string()
-      .required("Body is required")
-      .min(120, "Body is too short - should be 120 chars minimum."),
+      .required("description is required")
+      .min(10, "description is too short - should be 120 chars minimum."),
+    quantity: number(),
+    price: number()
   }),
 };
 
