@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import config from "config";
 
-export interface UserDocument extends mongoose.Document {
+export interface AdminDocument extends mongoose.Document {
   email: string;
   name: string;
   password: string;
@@ -12,7 +12,7 @@ export interface UserDocument extends mongoose.Document {
 }
 
 // creation de la database
-const UserSchema = new mongoose.Schema(
+const AdminSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
@@ -21,8 +21,8 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-UserSchema.pre("save", async function (next: mongoose.HookNextFunction) {
-  let user = this as UserDocument;
+AdminSchema.pre("save", async function (next: mongoose.HookNextFunction) {
+  let user = this as AdminDocument;
   if (!user.isModified("password")) return next();
   const salt = await bcrypt.genSalt(config.get("saltWorkFactor"));
   const hash = await bcrypt.hashSync(user.password, salt);
@@ -31,12 +31,12 @@ UserSchema.pre("save", async function (next: mongoose.HookNextFunction) {
 });
 
 // Used for logging in
-UserSchema.methods.comparePassword = async function (
+AdminSchema.methods.comparePassword = async function (
   candidatePassword: string
 ) {
-  const user = this as UserDocument;
+  const user = this as AdminDocument;
   return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
 };
 
-const User = mongoose.model<UserDocument>("User", UserSchema);
-export default User;
+const Admin = mongoose.model<AdminDocument>("Admin", AdminSchema);
+export default Admin;

@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
 import config from "config";
-import log from "../logger";
 
 function connect() {
   const dbUri = config.get("dburi") as string;
-  console.log("here");
   return mongoose
     .connect(dbUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
     })
-    .then((db) => console.log("db is connected"))
+    .then((db) => console.log("base de donnée connectée"))
     .catch((err) => console.log(err));
 }
 

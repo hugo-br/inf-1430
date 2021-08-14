@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="sendEmail()">Click ME</button>
+    <button @click="register()">Register</button>
   </div>
 </template>
 
@@ -9,12 +9,12 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import Api from "../services/Api";
 
 @Component
-export default class Example extends Vue {
+export default class Register extends Vue {
   @Prop() private msg!: string;
 
-  public async sendEmail() {
+  public async register() {
     const credentials = {
-      email: "testlol.com",
+      email: "test@lol.com",
       password: "eloajksjdhd",
       passwordConfirmation: "eloajksjdhd",
       name: "test1",
@@ -25,7 +25,12 @@ export default class Example extends Vue {
         console.log(response);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.code === "409") {
+          console.log("Deja un compte");
+        }
+        console.log(error.response.data);
+        console.log(error.response.status);
+        // console.log(error.response.headers);
       });
   }
 }

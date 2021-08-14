@@ -1,40 +1,40 @@
 import { Express, Request, Response } from "express";
+import { validate, requireUser } from "@backend/middleware";
 import { createUserHandler } from "@backend/controller/user.controller";
-import { createUserSchema } from "@backend/schema/user.schema";
-import validate from "@backend/middleware/validateRequest";
+import {
+  createSessionHandler,
+  invalidateSession,
+  getSessionInfo,
+} from "@backend/controller/session.controller";
+import {
+  createUserSchema,
+  createSessionSchema,
+} from "@backend/schema/user.schema";
+import { getProductsHandler } from "@backend/controller/product.controller";
 
 export default (app: Express) => {
-  // *** Utilisateur ***
-
+  //*****************************     Utilisateur    ******************************** */
   // Inscription
-  // POST /api/user
   app.post("/api/users", validate(createUserSchema), createUserHandler);
 
   // Login
-  // POST /api/session
-
-  // User Session
-  // GET /api/session
+  app.post(
+    "/api/sessions",
+    validate(createSessionSchema),
+    createSessionHandler
+  );
 
   // Logout
-  // DELETE /api/session
+  app.delete("/api/sessions", requireUser, invalidateSession);
 
-  // *** Utilisateur ***
+  // User Session
+  app.get("/api/sessions", requireUser, getSessionInfo);
+  //***************************************************************************************** */
 
-  // GET /api/posts /api/posts
+  // *** Products ***
+  // chercher
+  app.get("/api/products/:productId", getProductsHandler);
 
-  app.get("/status", (req: Request, res: Response) => {
-    res.send({
-      message: "hello everyone",
-    });
-  });
-
-  app.post("/register", (req: Request, res: Response) => {
-    res.send({
-      message: `Hello ${req.body.email} your user was registred`,
-    });
-  });
-
-  // Verifier etat server
-  app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
+  // Verifier l'etat du server
+  app.get("/check", (req: Request, res: Response) => res.sendStatus(200));
 };
