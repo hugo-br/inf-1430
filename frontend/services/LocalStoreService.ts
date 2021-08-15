@@ -1,40 +1,45 @@
-const LocalStorageService = (function(){
-    let _service: string;
+interface localStorage {
+  access_token: string;
+  refresh_token: string;
+}
 
-    function _getService() {
-        if(!_service) {
-          _service = "";
-          return _service
-      }
-      return _service
+const LocalStorageService = (function () {
+  let _service: localStorage;
+
+  function _getService(): localStorage {
+    if (!_service) {
+      _service.access_token = "";
+      _service.refresh_token = "";
+      return _service;
     }
+    return _service;
+  }
 
-    function _setToken(tokenObj: {access_token: string, refresh_token: string}) {
-      localStorage.setItem('access_token', tokenObj.access_token);
-      localStorage.setItem('refresh_token', tokenObj.refresh_token);
-    }
+  function _setToken(tokenObj: localStorage): void {
+    localStorage.setItem("access_token", tokenObj.access_token);
+    localStorage.setItem("refresh_token", tokenObj.refresh_token);
+  }
 
-    function _getAccessToken() {
-      return localStorage.getItem('access_token');
-    }
+  function _getAccessToken(): string {
+    return localStorage.getItem("access_token");
+  }
 
-    function _getRefreshToken() {
-      return localStorage.getItem('refresh_token');
-    }
+  function _getRefreshToken(): string {
+    return localStorage.getItem("refresh_token");
+  }
 
-    function _clearToken() {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-    }
+  function _clearToken(): void {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+  }
 
-   return {
-      getService : _getService,
-      setToken : _setToken,
-      getAccessToken : _getAccessToken,
-      getRefreshToken : _getRefreshToken,
-      clearToken : _clearToken
-    }
-   })();
+  return {
+    getService: _getService,
+    setToken: _setToken,
+    getAccessToken: _getAccessToken,
+    getRefreshToken: _getRefreshToken,
+    clearToken: _clearToken,
+  };
+})();
 
-
-   export default LocalStorageService;
+export default LocalStorageService;

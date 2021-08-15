@@ -7,6 +7,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Api from "../services/Api";
+import LocalStorageService from "../services/LocalStoreService";
 
 @Component
 export default class Login extends Vue {
@@ -21,6 +22,11 @@ export default class Login extends Vue {
       .post("sessions", credentials)
       .then((response) => {
         console.log(response);
+        LocalStorageService.clearToken();
+        LocalStorageService.setToken({
+          access_token: String(response.data.accessToken),
+          refresh_token: String(response.data.refreshToken),
+        });
       })
       .catch((error) => {
         console.log(error);

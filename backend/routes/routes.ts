@@ -1,15 +1,12 @@
 import { Express, Request, Response } from "express";
-import { validate, requireUser } from "@backend/middleware";
+import { validate, requireUser } from "@middleware/index";
 import { createUserHandler } from "@backend/controller/user.controller";
 import {
   createSessionHandler,
   invalidateSession,
   getSessionInfo,
 } from "@backend/controller/session.controller";
-import {
-  createUserSchema,
-  createSessionSchema,
-} from "@backend/schema/user.schema";
+import { createUserSchema, createSessionSchema } from "@schema/user.schema";
 import { getProductsHandler } from "@backend/controller/product.controller";
 
 export default (app: Express) => {

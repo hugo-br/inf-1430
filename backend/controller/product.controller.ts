@@ -32,7 +32,14 @@ export async function updateProductHandler(req: Request, res: Response) {
 }
 
 // retourner
-export async function getProductsHandler(req: Request, res: Response) {}
+export async function getProductsHandler(req: Request, res: Response) {
+  const prodId = get(req, "params.prodId");
+  const product = await findProduct({ prodId });
+  if (!product) {
+    return res.sendStatus(404).send("aucun produit");
+  }
+  return res.send(product);
+}
 
 // supprimer
 export async function deleteProductHandler(req: Request, res: Response) {

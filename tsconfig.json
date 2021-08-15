@@ -28,17 +28,26 @@
       "@frontend/*": ["frontend/*"],
       "@backend/*": ["backend/*"],
       "@public/*": ["public/*"],
-      "@schema/*": ["backend/schema/*"]
+      "@schema/*": ["backend/schema/*"],
+      "@controller/*": ["backend/controller/*"],
+      "@middleware/*": ["backend/middleware/*"],
+      "@model/*": ["backend/model/*"],
+      "@service/*": ["backend/service/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
+    "**/*.ts",
     "./src/**/*",
     "./tests/**/*",
     "./backend/**/*",
     "./frontend/**/*",
     "./public/**/*",
-    "**/*.ts"
+    "./backend/schema/**/*",
+    "./backend/controller/**/*",
+    "./backend/middleware/**/*",
+    "./backend/model/**/*",
+    "./backend/service/**/*"
   ],
   "exclude": ["node_modules"]
 }
