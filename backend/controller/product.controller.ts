@@ -33,8 +33,9 @@ export async function updateProductHandler(req: Request, res: Response) {
 
 // retourner
 export async function getProductsHandler(req: Request, res: Response) {
-  const prodId = get(req, "params.prodId");
-  const product = await findProduct({ prodId });
+  const prodId = get(req, "params.productId");
+  console.log(prodId);
+  const product = await findProduct({'productId': prodId });
   if (!product) {
     return res.sendStatus(404).send("aucun produit");
   }

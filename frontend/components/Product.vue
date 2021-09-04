@@ -1,30 +1,50 @@
 <template>
   <div>
+    GET
     <button @click="getProduct()">Get Product</button>
+  <div v-if='isLoaded === true' >
+    <span>{{product.name}}</span>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import Api from "../services/Api";
+import getProduct, {Product} from "../services/ProductsService";
 
 @Component
 export default class Products extends Vue {
-  @Prop() private msg!: string;
+ public isLoaded = false;
+ public product:Product = null;
 
-  public async getProduct() {
-    Api()
-      .get("/products/LkRzJY")
-      .then((response) => {
-        console.log(response);
+ public mounted() {
+   this.$nextTick(() => {
+   getProduct("y0DXal")
+    .then(result => {
+      console.log('(1) Outside result:', result); 
+        this.$nextTick(function () {
+          this.product= result;
+          this.isLoaded = true;
+        });
       })
-      .catch((error) => {
-        console.log(error);
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      });
+    .catch(error => console.error('(1) Outside error:', error))  
+  });
+ };
+
+/*
+   async onMounted() => {
+    getProduct("LkRzJY")
+    .then(result => {
+      console.log('(1) Outside result:', result); 
+        this.$nextTick(function () {
+          this.product= result;
+          this.isLoaded = true;
+        });
+      })
+    .catch(error => console.error('(1) Outside error:', error))
   }
+  */
 }
 </script>
 

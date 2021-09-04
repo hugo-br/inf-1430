@@ -6,43 +6,22 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+//import ProductsService from "../services/ProductsService";
 import ApiAdmin from "../services/ApiAdmin";
-import LocalStorageService from "../services/LocalStoreService";
 
 @Component
 export default class FormProducts extends Vue {
   @Prop() private msg!: string;
-  public accessToken: string = "";
-  public refreshToken: string = "";
-
-  created() {
-    this.accessToken = LocalStorageService.getAccessToken() || "";
-    this.refreshToken = LocalStorageService.getRefreshToken() || "";
-  }
 
   public async addProduct() {
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${this.accessToken}`,
-      "x-refresh": this.refreshToken,
-    };
-
-    const headers2 = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${LocalStorageService.getAccessToken()}`,
-      "x-refresh": LocalStorageService.getRefreshToken(),
-    };
-
     const product = {
-      name: "produit test 56",
+      name: "produit test 55",
       description: "Une description assez longue",
       quantity: 21,
       price: 31,
     };
     ApiAdmin()
-      .post("/products", product, {
-        headers: headers2,
-      })
+      .post("/products", product)
       .then((response) => {
         console.log(response);
       })
