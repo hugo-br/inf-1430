@@ -1,4 +1,4 @@
-# INF 1430
+# Projet Rubydor
 
 ## Project setup
 ```
