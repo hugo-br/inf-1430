@@ -7,7 +7,7 @@ const payload = {
       .required("description is required")
       .min(10, "description is too short - should be 120 chars minimum."),
     quantity: number(),
-    price: number()
+    price: number(),
   }),
 };
 

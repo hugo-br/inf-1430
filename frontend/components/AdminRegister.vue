@@ -14,7 +14,7 @@ export default class RegisterAdmin extends Vue {
 
   public async register() {
     const credentials = {
-      email: "test@admin.com",
+      email: "test22@admin.com",
       password: "hsjhjkah",
       passwordConfirmation: "hsjhjkah",
       name: "test-admin",

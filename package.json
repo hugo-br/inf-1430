@@ -131,6 +131,11 @@
     "@root": ".",
     "@frontend": "frontend/",
     "@components": "frontend/components/",
-    "@backend": "backend/"
+    "@backend": "backend/",
+    "@controller": "backend/controller/",
+    "@middleware": "backend/middleware/",
+    "@model": "backend/model/",
+    "@schema": "backend/schema/",
+    "@service": "backend/service/"
   }
 }

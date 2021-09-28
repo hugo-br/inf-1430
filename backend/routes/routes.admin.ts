@@ -20,38 +20,52 @@ import {
   updateProductHandler,
   deleteProductHandler,
 } from "@backend/controller/product.controller";
+import {
+  createCategorySchema,
+  updateCategorySchema,
+  deleteCategorySchema,
+} from "@backend/schema/category.schema";
+import {
+  createCategoryHandler,
+  updateCategoryHandler,
+  deleteCategoryHandler,
+} from "@backend/controller/category.controller";
+
+
+
 
 const routesAdmin = (app: Express) => {
-  //*****************************     Utilisateur    ******************************** */
-  // Inscription
+
+
+//*** Utilisateurs */ 
+
+  // POST : Inscription
   app.post("/api/admin", validate(createAdminSchema), createAdminHandler);
 
-  // Login
+  // POST: Login
   app.post(
     "/api/admin/sessions",
     validate(createAdminSessionSchema),
     createAdminSessionHandler
   );
 
-  // Logout
+  // DELETE: Logout
   app.delete("/api/admin/sessions", requireAdmin, invalidateAdminSession);
 
-  // User Session
+  // GET: User Session
   app.get("/api/admin/sessions", requireAdmin, getAdminSessionInfo);
   //***************************************************************************************** */
 
-  //************************************************************
-  // Produits
-  //************************************************************/
+//*** Produits  */  
 
-  // creer
+  // POST: creer
   app.post(
     "/api/admin/products",
     [requireAdmin, validate(createProductSchema)],
     createProductHandler
   );
 
-  // modifier
+  // PUT :modifier
   app.put(
     "/api/admin/products/:productId",
     [requireAdmin, validate(updateProductSchema)],
@@ -64,6 +78,33 @@ const routesAdmin = (app: Express) => {
     [requireAdmin, validate(deleteProductSchema)],
     deleteProductHandler
   );
+
+
+
+//*** Categories  */  
+
+  // creer
+  app.post(
+    "/api/admin/categories",
+    [requireAdmin, validate(createCategorySchema)],
+    createCategoryHandler
+  );
+
+  // modifier
+  app.put(
+    "/api/admin/categories/:categoryId",
+    [requireAdmin, validate(updateCategorySchema)],
+    updateCategoryHandler
+  );
+
+  // Supprimer
+  app.delete(
+    "/api/admin/categories/:categoryId",
+    [requireAdmin, validate(deleteCategorySchema)],
+    deleteCategoryHandler
+  );
+
+
 
   // Verifier l'etat du server
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
