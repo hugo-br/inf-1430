@@ -22,7 +22,7 @@ export default class Products extends Vue {
    this.$nextTick(() => {
    getProduct("y0DXal")
     .then(result => {
-      console.log('(1) Outside result:', result); 
+      console.log(result); 
         this.$nextTick(function () {
           this.product= result;
           this.isLoaded = true;
