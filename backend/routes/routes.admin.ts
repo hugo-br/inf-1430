@@ -31,13 +31,8 @@ import {
   deleteCategoryHandler,
 } from "@backend/controller/category.controller";
 
-
-
-
 const routesAdmin = (app: Express) => {
-
-
-//*** Utilisateurs */ 
+  //*** Utilisateurs */
 
   // POST : Inscription
   app.post("/api/admin", validate(createAdminSchema), createAdminHandler);
@@ -56,7 +51,7 @@ const routesAdmin = (app: Express) => {
   app.get("/api/admin/sessions", requireAdmin, getAdminSessionInfo);
   //***************************************************************************************** */
 
-//*** Produits  */  
+  //*** Produits  */
 
   // POST: creer
   app.post(
@@ -79,9 +74,7 @@ const routesAdmin = (app: Express) => {
     deleteProductHandler
   );
 
-
-
-//*** Categories  */  
+  //*** Categories  */
 
   // creer
   app.post(
@@ -103,8 +96,6 @@ const routesAdmin = (app: Express) => {
     [requireAdmin, validate(deleteCategorySchema)],
     deleteCategoryHandler
   );
-
-
 
   // Verifier l'etat du server
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));

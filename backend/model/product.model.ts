@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { customAlphabet } from "nanoid";
-const nanoid = customAlphabet('abcd1234567890', 6);
+const nanoid = customAlphabet("abcd1234567890", 6);
 
 export interface ProductDocument extends mongoose.Document {
   name: String;
@@ -12,7 +12,6 @@ export interface ProductDocument extends mongoose.Document {
   endDate: Date;
   price: Number;
 }
-
 
 // creation de la table dans la base de donnnee
 const ProductSchema = new mongoose.Schema(

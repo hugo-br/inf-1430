@@ -9,8 +9,6 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "vue lint": "vue-cli-service",
-    "lint": "lint eslint src/**/*.{js,ts}",
-    "lint:fix": "eslint src/**/*.{js,ts}  --fix",
     "ci:prettier": "prettier --check ./**/*.{js,ts,json,vue,css,less,html}",
     "fix:format": "prettier --write ./**/*.{js,ts,json,vue,css,less,html}"
   },
@@ -38,6 +36,7 @@
     "tsyringe": "^4.6.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
+    "vue-i18n": "^8.26.2",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0",

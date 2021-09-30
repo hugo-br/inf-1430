@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { customAlphabet } from "nanoid";
-const nanoid = customAlphabet('wxyz1234567890', 6);
+const nanoid = customAlphabet("wxyz1234567890", 6);
 
 export interface CategoryDocument extends mongoose.Document {
   name: String;
@@ -26,7 +26,7 @@ const CategorySchema = new mongoose.Schema(
     updatedAt: { type: Date },
     startDate: { type: Date },
     endDate: { type: Date },
-    lastUser: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" }
+    lastUser: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
   },
   { timestamps: true }
 );
