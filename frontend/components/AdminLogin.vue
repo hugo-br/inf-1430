@@ -27,6 +27,7 @@ export default class AdminLogin extends Vue {
           access_token: String(response.data.accessToken),
           refresh_token: String(response.data.refreshToken),
         });
+        // TODO: set store user tokens
       })
       .catch((error) => {
         console.log(error);
