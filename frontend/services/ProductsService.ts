@@ -14,7 +14,7 @@ export interface Product {
 
 export default async function getProduct(produtId: string): Promise<any> {
     console.log(produtId);
-    return Api()
+  /*  return Api()
       .get(`/products/${produtId}`)
       .then((response) => {
        return response.data;
@@ -27,4 +27,5 @@ export default async function getProduct(produtId: string): Promise<any> {
         return Promise.reject(error); 
 
       });
+      */
   }
