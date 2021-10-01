@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="dark w-full h-screen dark:bg-blue-800">
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">{{ $t("titles.main") }}</router-link>
