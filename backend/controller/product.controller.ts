@@ -11,8 +11,12 @@ import {
 export async function createProductHandler(req: Request, res: Response) {
   const adminId = get(req, "user._id");
   const body = req.body;
-  const product = await createProduct({ ...body, lastUser: adminId });
-  return res.send("Produit ajouter");
+  try {
+    const product = await createProduct({ ...body, lastUser: adminId });
+    return res.send("Product added");
+  } catch(err: any) {
+    return res.send("Error : " + err);
+  }
 }
 
 // modifier

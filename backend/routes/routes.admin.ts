@@ -92,7 +92,7 @@ const routesAdmin = (app: Express) => {
     updateCategoryHandler
   );
 
-  // [DELETE]: modifier une category
+  // [DELETE]: supprimer une category
   app.delete(
     "/api/admin/categories/:categoryId",
     [requireAdmin, validate(deleteCategorySchema)],

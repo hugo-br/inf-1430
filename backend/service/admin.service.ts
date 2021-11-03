@@ -6,7 +6,7 @@ import Admin, { AdminDocument } from "../model/admin.model";
 export async function createAdmin(input: DocumentDefinition<AdminDocument>) {
   try {
     return await Admin.create(input);
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(error);
   }
 }

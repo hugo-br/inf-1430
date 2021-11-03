@@ -5,9 +5,12 @@ import {
   QueryOptions,
 } from "mongoose";
 import Product, { ProductDocument } from "../model/product.model";
+import Category from "@model/category.model";
 
-export function createProduct(input: DocumentDefinition<ProductDocument>) {
-  return Product.create(input);
+export async function createProduct(input: DocumentDefinition<ProductDocument>) {
+   const newProduct = await Product.create(input);
+   await Category.updateMany({ '_id': newProduct.categories }, { $push: { products: newProduct._id } });
+   return newProduct;
 }
 
 export function findProduct(

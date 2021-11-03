@@ -1,14 +1,15 @@
 <template>
   <div>
-    GET<br />
-    <button @click="fetchProduct()">Get Product</button>
+    <h2>Products</h2>
+    GET
+    <button class='btn btn-blue' @click="fetchProduct()">Get Product</button>
     <!--  <div v-if="isLoaded === true">
       <span>{{ product.name }}</span>
     </div>
     -->
     <br /><br />
-    POST<br />
-    <button @click="addProd()">Add Product</button>
+    POST
+    <button class='btn btn-blue' @click="addProd()">Add Product</button>
   </div>
 </template>
 
@@ -23,10 +24,11 @@ export default class Products extends Vue {
 
   public async addProd() {
     const product = {
-      name: "produit test 321",
+      name: "produit test 43",
       description: "Une description assez longue",
-      quantity: 21,
+      quantity: 0,
       price: 31,
+      categories: ["6182c28508d9310640ee7591","6182c630d20d59537c40216"]
     };
 
     addProduct(product)

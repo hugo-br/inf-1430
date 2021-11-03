@@ -6,7 +6,6 @@
     <br /><br /><br />
     <AdminLogin /><br />
     <AdminRegister /><br />
-    <FormProducts /><br />
     <Products /><br />
     <Categories />
   </div>
@@ -18,7 +17,6 @@ import Register from "../components/UserRegister.vue";
 import Login from "../components/UserLogin.vue";
 import AdminLogin from "../components/AdminLogin.vue";
 import AdminRegister from "../components/AdminRegister.vue";
-import FormProducts from "../components/FormProducts.vue";
 import Products from "../components/Product.vue";
 import Categories from "../components/Categories.vue";
 
@@ -28,7 +26,6 @@ import Categories from "../components/Categories.vue";
     Login,
     AdminLogin,
     AdminRegister,
-    FormProducts,
     Products,
     Categories,
   },

@@ -2,14 +2,13 @@ import Api from "./Api";
 import ApiAdmin from "./ApiAdmin";
 
 export interface Category {
-  categoryId: String;
+  categoryId?: String;
   name: String;
   description: String;
-  quantity: Number;
-  createdAt: Date;
-  updatedAt: Date;
-  startDate: Date;
-  endDate: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+  startDate?: Date;
+  endDate?: Date;
   lastUser?: String;
 }
 

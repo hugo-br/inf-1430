@@ -1,9 +1,6 @@
 <template>
-  <div id="app" class="dark w-full h-screen dark:bg-blue-800">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">{{ $t("titles.main") }}</router-link>
-    </div>
+  <div id="app" class="w-full h-screen">
+    <router-view name="header" />
     <router-view />
   </div>
 </template>

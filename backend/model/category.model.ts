@@ -3,6 +3,7 @@ import { customAlphabet } from "nanoid";
 const nanoid = customAlphabet("wxyz1234567890", 6);
 
 export interface CategoryDocument extends mongoose.Document {
+  categoryId: String;
   name: String;
   description: String;
   createdAt: Date;
@@ -22,6 +23,7 @@ const CategorySchema = new mongoose.Schema(
     },
     name: { type: String, required: true },
     description: { type: String },
+    products:   [{ type: mongoose.Types.ObjectId, ref: 'Product' }],
     createdAt: { type: Date },
     updatedAt: { type: Date },
     startDate: { type: Date },
