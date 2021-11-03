@@ -5,6 +5,7 @@ import {
   QueryOptions,
 } from "mongoose";
 import Category, { CategoryDocument } from "@model/category.model";
+import { ProductDocument } from "../model/product.model";
 
 export function createCategory(input: DocumentDefinition<CategoryDocument>) {
   return Category.create(input);
@@ -15,6 +16,13 @@ export function findCategory(
   options: QueryOptions = { lean: true }
 ) {
   return Category.findOne(query, {}, options);
+}
+
+export function findCategoryAndProducts(
+  query: FilterQuery<CategoryDocument>,
+  options: QueryOptions = { lean: true }
+) {
+  return Category.findOne(query, {}, options).populate("products", "name").exec();
 }
 
 export function findAllCategories() {
@@ -33,4 +41,9 @@ export function findAndUpdateCategory(
 
 export function deleteCategory(query: FilterQuery<CategoryDocument>) {
   return Category.deleteOne(query);
+}
+
+// Update
+export async function updateCategoryAfterProductDeleted(product: ProductDocument) {
+  await Category.updateMany({ '_id': product.categories }, { $pull: { products: product._id } });
 }

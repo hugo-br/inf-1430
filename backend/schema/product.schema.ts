@@ -17,6 +17,7 @@ const params = {
   }),
 };
 
+// ROUTES
 export const createProductSchema = object({
   ...payload,
 });

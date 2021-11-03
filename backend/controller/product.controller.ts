@@ -6,6 +6,9 @@ import {
   findAndUpdate,
   deleteProduct,
 } from "../service/product.service";
+import {
+  updateCategoryAfterProductDeleted
+} from "../service/category.service";
 
 // creer
 export async function createProductHandler(req: Request, res: Response) {
@@ -57,10 +60,7 @@ export async function deleteProductHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
-  //  if (String(post.user) !== String(userId)) {
-  //    return res.sendStatus(401);
-  //  }
-
   await deleteProduct({ productId });
+  await updateCategoryAfterProductDeleted(product);
   return res.sendStatus(200);
 }

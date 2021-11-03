@@ -60,14 +60,25 @@ const routesAdmin = (app: Express) => {
     createProductHandler
   );
 
-  // [PUT]: modifier un produit
+  
+  /**
+   * @func    request [PUT]
+   * @desc    Modifier un produit
+   * @param   String   ID du produit
+   * @return  
+  **/
   app.put(
     "/api/admin/products/:productId",
     [requireAdmin, validate(updateProductSchema)],
     updateProductHandler
   );
 
-  // Supprimer
+  /**
+   * @func    request [DELETE]
+   * @desc    Supprimer un produit
+   * @param   String   ID du produit
+   * @return  
+  **/
   app.delete(
     "/api/admin/products/:productId",
     [requireAdmin, validate(deleteProductSchema)],

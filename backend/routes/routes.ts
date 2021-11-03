@@ -45,7 +45,13 @@ export default (app: Express) => {
   /*** Category    
 /**********************/
 
-  // [GET]: Category
+
+/**
+   * @func    request [GET]
+   * @desc    Chercher une category et tous les produits de cette categorie
+   * @param   String  :categoryId - ID de la category
+   * @return  Array   Information categorie et produits
+  **/
   app.get("/api/category/:categoryId", getCategoryHandler);
 
   // [GET]: All Categories

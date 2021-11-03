@@ -1,26 +1,29 @@
 <template>
   <div>
     <h2>Products</h2>
-    GET
-    <button class='btn btn-blue' @click="fetchProduct()">Get Product</button>
-    <!--  <div v-if="isLoaded === true">
-      <span>{{ product.name }}</span>
-    </div>
-    -->
+    GET ONE PRODUCT
+    <button class='btn btn-blue' @click="fetchProd()">Get Product</button>
+    <br /><br />
+    GET ALL PRODUCTS
+    <button class='btn btn-blue' @click="fetchAllProd()">Get Product</button>
     <br /><br />
     POST
     <button class='btn btn-blue' @click="addProd()">Add Product</button>
+    <br /><br />
+    DELETE
+    <button class='btn btn-blue' @click="deleteProd()">Delete Product</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { addProduct, getProduct, Product } from "../services/ProductsService";
+import { addProduct, getProduct, deleteProduct, getAllProducts, Product } from "../services/ProductsService";
+import  ProductUI from "../models/productsUI";
 
 @Component
 export default class Products extends Vue {
   public isLoaded = false;
-  public product: Product = null;
+  public product: any = null;
 
   public async addProd() {
     const product = {
@@ -28,7 +31,7 @@ export default class Products extends Vue {
       description: "Une description assez longue",
       quantity: 0,
       price: 31,
-      categories: ["6182c28508d9310640ee7591","6182c630d20d59537c40216"]
+      categories: ["6182c28508d9310640ee7591","6182c630d20d59537c402169"]
     };
 
     addProduct(product)
@@ -38,7 +41,44 @@ export default class Products extends Vue {
       .catch((error: any) => console.error("(1) Outside error:", error));
   }
 
-  /*
+
+  public async deleteProd(){
+      deleteProduct("762b47")
+      .then((result: Product) => {
+        this.$nextTick(function () {
+          console.log(result);
+        });
+      })
+      .catch((error: any) => console.error("(1) Outside error:", error));
+  }
+
+  public async fetchProd() {
+    getProduct("d1cda7")
+      .then((result: Product) => {
+        console.log(result);
+        this.$nextTick(function () {
+          const prod = new ProductUI(result);
+          console.log(prod.capitalize());
+          this.product = prod;
+        //  this.isLoaded = true;
+        });
+      })
+      .catch((error: any) => console.error("(1) Outside error:", error));
+  }
+
+    public async fetchAllProd() {
+    getAllProducts()
+      .then((result: Product) => {
+        console.log(result);
+        this.$nextTick(function () {
+          this.product = result;
+          this.isLoaded = true;
+        });
+      })
+      .catch((error: any) => console.error("(1) Outside error:", error));
+  }
+
+    /*
   // get product on load 
   public mounted() {
     this.$nextTick(() => {
@@ -55,17 +95,6 @@ export default class Products extends Vue {
   }
   */
 
-  public async fetchProduct() {
-    getProduct("y0DXal")
-      .then((result: Product) => {
-        console.log(result);
-        this.$nextTick(function () {
-          this.product = result;
-          this.isLoaded = true;
-        });
-      })
-      .catch((error: any) => console.error("(1) Outside error:", error));
-  }
 }
 </script>
 

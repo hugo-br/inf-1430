@@ -6,7 +6,9 @@ import {
   findAllCategories,
   findAndUpdateCategory,
   deleteCategory,
+  findCategoryAndProducts
 } from "@service/category.service";
+import { updateProductAfterCategoryDeleted } from "../service/product.service";
 
 // creer
 export async function createCategoryHandler(req: Request, res: Response) {
@@ -29,13 +31,13 @@ export async function updateCategoryHandler(req: Request, res: Response) {
   return res.send(updatedCategory);
 }
 
-// retourner
+// retourner une category specifique
 export async function getCategoryHandler(req: Request, res: Response) {
   const categoryId = get(req, "params.categoryId");
-  const category = await findCategory({ categoryId });
-  if (!category) {
+  const category = await findCategoryAndProducts( { categoryId: categoryId } );
+  /*if (!category) {
     return res.sendStatus(404).send("aucune categorie");
-  }
+  }*/
   return res.send(category);
 }
 
@@ -48,7 +50,7 @@ export async function getAllCategoriesHandler(req: Request, res: Response) {
   return res.send(categories);
 }
 
-// supprimer
+
 export async function deleteCategoryHandler(req: Request, res: Response) {
   const userId = get(req, "user._id");
   const categoryId = get(req, "params.categoryId");
@@ -59,6 +61,12 @@ export async function deleteCategoryHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
+  // delete the category
   await deleteCategory({ categoryId });
+
+  // update the products with that category
+  await updateProductAfterCategoryDeleted(category);
+
+  // send OK code
   return res.sendStatus(200);
 }

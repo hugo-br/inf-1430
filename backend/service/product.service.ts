@@ -5,7 +5,7 @@ import {
   QueryOptions,
 } from "mongoose";
 import Product, { ProductDocument } from "../model/product.model";
-import Category from "@model/category.model";
+import Category, { CategoryDocument } from "@model/category.model";
 
 export async function createProduct(input: DocumentDefinition<ProductDocument>) {
    const newProduct = await Product.create(input);
@@ -30,4 +30,9 @@ export function findAndUpdate(
 
 export function deleteProduct(query: FilterQuery<ProductDocument>) {
   return Product.deleteOne(query);
+}
+
+// update Products when category is removed
+export async function updateProductAfterCategoryDeleted(category: CategoryDocument) {
+  await Product.updateMany({ '_id': category.products }, { $pull: { categories: category._id } });
 }

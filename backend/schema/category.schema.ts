@@ -15,6 +15,7 @@ const params = {
   }),
 };
 
+// ROUTES
 export const createCategorySchema = object({
   ...payload,
 });
