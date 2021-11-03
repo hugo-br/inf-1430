@@ -7,7 +7,8 @@
     <AdminLogin /><br />
     <AdminRegister /><br />
     <FormProducts /><br />
-    <Products />
+    <Products /><br />
+    <Categories />
   </div>
 </template>
 
@@ -19,6 +20,7 @@ import AdminLogin from "../components/AdminLogin.vue";
 import AdminRegister from "../components/AdminRegister.vue";
 import FormProducts from "../components/FormProducts.vue";
 import Products from "../components/Product.vue";
+import Categories from "../components/Categories.vue";
 
 @Component({
   components: {
@@ -28,6 +30,7 @@ import Products from "../components/Product.vue";
     AdminRegister,
     FormProducts,
     Products,
+    Categories,
   },
 })
 export default class Home extends Vue {}

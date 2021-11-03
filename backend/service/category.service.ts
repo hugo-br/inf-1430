@@ -17,6 +17,12 @@ export function findCategory(
   return Category.findOne(query, {}, options);
 }
 
+export function findAllCategories() {
+  const filter = {};
+  const options = { lean: true };
+  return Category.find(filter, {}, options);
+}
+
 export function findAndUpdateCategory(
   query: FilterQuery<CategoryDocument>,
   update: UpdateQuery<CategoryDocument>,

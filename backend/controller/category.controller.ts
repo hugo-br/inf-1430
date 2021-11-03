@@ -3,6 +3,7 @@ import { get } from "lodash";
 import {
   createCategory,
   findCategory,
+  findAllCategories,
   findAndUpdateCategory,
   deleteCategory,
 } from "@service/category.service";
@@ -36,6 +37,15 @@ export async function getCategoryHandler(req: Request, res: Response) {
     return res.sendStatus(404).send("aucune categorie");
   }
   return res.send(category);
+}
+
+// retourner toutes les categories
+export async function getAllCategoriesHandler(req: Request, res: Response) {
+  const categories = await findAllCategories();
+  if (!categories) {
+    return res.sendStatus(404).send("aucune categories");
+  }
+  return res.send(categories);
 }
 
 // supprimer

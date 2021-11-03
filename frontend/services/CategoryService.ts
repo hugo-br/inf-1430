@@ -1,21 +1,22 @@
 import Api from "./Api";
 import ApiAdmin from "./ApiAdmin";
 
-export interface Product {
+export interface Category {
+  categoryId: String;
   name: String;
   description: String;
   quantity: Number;
-  price: Number;
-  createdAt?: Date;
-  updatedAt?: Date;
-  startDate?: Date;
-  endDate?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  startDate: Date;
+  endDate: Date;
+  lastUser?: String;
 }
 
-export async function getProduct(produtId: string): Promise<any> {
-  console.log(produtId);
+// GET
+export async function getCategories(): Promise<any> {
   return Api()
-    .get(`/products/${produtId}`)
+    .get(`/categories/`)
     .then((response) => {
       return response.data;
     })
@@ -28,9 +29,10 @@ export async function getProduct(produtId: string): Promise<any> {
     });
 }
 
-export async function addProduct(product: Product): Promise<any> {
+// POST
+export async function addCategory(category: Category): Promise<any> {
   return ApiAdmin()
-    .post("/products", product)
+    .post("/categories", category)
     .then((response) => {
       console.log(response);
       return response.data;

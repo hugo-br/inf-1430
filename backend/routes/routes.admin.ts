@@ -53,14 +53,14 @@ const routesAdmin = (app: Express) => {
 
   //*** Produits  */
 
-  // POST: creer
+  // [POST]: creer un produit
   app.post(
     "/api/admin/products",
     [requireAdmin, validate(createProductSchema)],
     createProductHandler
   );
 
-  // PUT :modifier
+  // [PUT]: modifier un produit
   app.put(
     "/api/admin/products/:productId",
     [requireAdmin, validate(updateProductSchema)],
@@ -74,23 +74,25 @@ const routesAdmin = (app: Express) => {
     deleteProductHandler
   );
 
-  //*** Categories  */
+  //***************************************************************************************** */
+  /*** Category    
+/**********************/
 
-  // creer
+  // [POST]: creer une category
   app.post(
     "/api/admin/categories",
     [requireAdmin, validate(createCategorySchema)],
     createCategoryHandler
   );
 
-  // modifier
+  // [PUT]: modifier une category
   app.put(
     "/api/admin/categories/:categoryId",
     [requireAdmin, validate(updateCategorySchema)],
     updateCategoryHandler
   );
 
-  // Supprimer
+  // [DELETE]: modifier une category
   app.delete(
     "/api/admin/categories/:categoryId",
     [requireAdmin, validate(deleteCategorySchema)],
