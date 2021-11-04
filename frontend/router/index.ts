@@ -1,20 +1,58 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../pages/Home.vue";
+import About from "../pages/About.vue";
+import PageTest from "../pages/Test.vue";
+
+// Boutique
+import Navigation from "../boutique/navigation/navigation.vue";
+import Homepage from "../boutique/Homepage.vue";
+
+// CMS
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
+    path: "/home",
+    name: "Homepage",
+    components: {
+      default: Homepage,
+      header: Navigation
+    }
+  },
+  {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "TestPage",
+    components: {
+      default: PageTest,
+      header: Navigation
+    }
   },
   {
     path: "/register",
     name: "register",
-    component: Home,
+    component: About,
   },
+  {
+    path: "/about",
+    name: "about",
+    component: About,
+  },
+  {
+    path: '/settings',
+    // You could also have named views at the top
+    component: About,
+    children: [{
+      path: 'emails',
+      component: About
+    }, {
+      path: 'profile',
+      components: {
+        default: About,
+        helper: About
+      }
+    }]
+  }
 ];
 
 const router = new VueRouter({

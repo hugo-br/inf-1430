@@ -8,7 +8,7 @@ export interface AdminDocument extends mongoose.Document {
   password: string;
   createdAt: Date;
   updatedAt: Date;
-  role: String;
+  role: string;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 

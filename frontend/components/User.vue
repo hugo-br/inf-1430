@@ -1,6 +1,9 @@
 <template>
   <div>
-    <button @click="login()">LOGIN</button>
+    <h2>USER</h2>
+    <button class='btn btn-grey' @click="login()">LOGIN</button>
+    <br><br>
+    <button class='btn btn-grey' @click="register()">Register</button>
   </div>
 </template>
 
@@ -10,7 +13,7 @@ import Api from "../services/Api";
 import LocalStorageService from "../services/LocalStoreService";
 
 @Component
-export default class Login extends Vue {
+export default class User extends Vue {
   @Prop() private msg!: string;
 
   public async login() {
@@ -30,6 +33,28 @@ export default class Login extends Vue {
       })
       .catch((error) => {
         console.log(error);
+      });
+  }
+
+    public async register() {
+    const credentials = {
+      email: "test@lol.com",
+      password: "eloajksjdhd",
+      passwordConfirmation: "eloajksjdhd",
+      name: "test1",
+    };
+    Api()
+      .post("users", credentials)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        if (error.code === "409") {
+          console.log("Deja un compte");
+        }
+        console.log(error.response.data);
+        console.log(error.response.status);
+        // console.log(error.response.headers);
       });
   }
 }

@@ -8,9 +8,16 @@ import {
 } from "@backend/controller/session.controller";
 import { createUserSchema, createSessionSchema } from "@schema/user.schema";
 import { getProductsHandler } from "@backend/controller/product.controller";
+import {
+  getCategoryHandler,
+  getAllCategoriesHandler,
+} from "@backend/controller/category.controller";
 
 export default (app: Express) => {
-  //*****************************     Utilisateur    ******************************** */
+  //***************************************************************************************** */
+  /*** Utilisateur    
+  /**********************/
+
   // Inscription
   app.post("/api/users", validate(createUserSchema), createUserHandler);
 
@@ -26,11 +33,33 @@ export default (app: Express) => {
 
   // User Session
   app.get("/api/sessions", requireUser, getSessionInfo);
-  //***************************************************************************************** */
 
-  // *** Products ***
-  // chercher
+  //***************************************************************************************** */
+  /*** Products    
+/**********************/
+
+  // [GET]: product
   app.get("/api/products/:productId", getProductsHandler);
+
+  //***************************************************************************************** */
+  /*** Category    
+/**********************/
+
+
+/**
+   * @func    request [GET]
+   * @desc    Chercher une category et tous les produits de cette categorie
+   * @param   String  :categoryId - ID de la category
+   * @return  Array   Information categorie et produits
+  **/
+  app.get("/api/category/:categoryId", getCategoryHandler);
+
+  // [GET]: All Categories
+  app.get("/api/categories", getAllCategoriesHandler);
+
+  //***************************************************************************************** */
+  /*** Autres    
+/**********************/
 
   // Verifier l'etat du server
   app.get("/check", (req: Request, res: Response) => res.sendStatus(200));

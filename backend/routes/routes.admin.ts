@@ -31,13 +31,8 @@ import {
   deleteCategoryHandler,
 } from "@backend/controller/category.controller";
 
-
-
-
 const routesAdmin = (app: Express) => {
-
-
-//*** Utilisateurs */ 
+  //*** Utilisateurs */
 
   // POST : Inscription
   app.post("/api/admin", validate(createAdminSchema), createAdminHandler);
@@ -56,55 +51,64 @@ const routesAdmin = (app: Express) => {
   app.get("/api/admin/sessions", requireAdmin, getAdminSessionInfo);
   //***************************************************************************************** */
 
-//*** Produits  */  
+  //*** Produits  */
 
-  // POST: creer
+  // [POST]: creer un produit
   app.post(
     "/api/admin/products",
     [requireAdmin, validate(createProductSchema)],
     createProductHandler
   );
 
-  // PUT :modifier
+  
+  /**
+   * @func    request [PUT]
+   * @desc    Modifier un produit
+   * @param   String   ID du produit
+   * @return  
+  **/
   app.put(
     "/api/admin/products/:productId",
     [requireAdmin, validate(updateProductSchema)],
     updateProductHandler
   );
 
-  // Supprimer
+  /**
+   * @func    request [DELETE]
+   * @desc    Supprimer un produit
+   * @param   String   ID du produit
+   * @return  
+  **/
   app.delete(
     "/api/admin/products/:productId",
     [requireAdmin, validate(deleteProductSchema)],
     deleteProductHandler
   );
 
+  //***************************************************************************************** */
+  /*** Category    
+/**********************/
 
-
-//*** Categories  */  
-
-  // creer
+  // [POST]: creer une category
   app.post(
     "/api/admin/categories",
     [requireAdmin, validate(createCategorySchema)],
     createCategoryHandler
   );
 
-  // modifier
+  // [PUT]: modifier une category
   app.put(
     "/api/admin/categories/:categoryId",
     [requireAdmin, validate(updateCategorySchema)],
     updateCategoryHandler
   );
 
-  // Supprimer
+  // [DELETE]: supprimer une category
   app.delete(
     "/api/admin/categories/:categoryId",
     [requireAdmin, validate(deleteCategorySchema)],
     deleteCategoryHandler
   );
-
-
 
   // Verifier l'etat du server
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));

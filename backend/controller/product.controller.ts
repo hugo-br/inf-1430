@@ -6,13 +6,20 @@ import {
   findAndUpdate,
   deleteProduct,
 } from "../service/product.service";
+import {
+  updateCategoryAfterProductDeleted
+} from "../service/category.service";
 
 // creer
 export async function createProductHandler(req: Request, res: Response) {
   const adminId = get(req, "user._id");
   const body = req.body;
-  const product = await createProduct({ ...body, lastUser: adminId });
-  return res.send("Produit ajouter");
+  try {
+    const product = await createProduct({ ...body, lastUser: adminId });
+    return res.send("Product added");
+  } catch(err: any) {
+    return res.send("Error : " + err);
+  }
 }
 
 // modifier
@@ -35,7 +42,7 @@ export async function updateProductHandler(req: Request, res: Response) {
 export async function getProductsHandler(req: Request, res: Response) {
   const prodId = get(req, "params.productId");
   console.log(prodId);
-  const product = await findProduct({'productId': prodId });
+  const product = await findProduct({ productId: prodId });
   if (!product) {
     return res.sendStatus(404).send("aucun produit");
   }
@@ -53,10 +60,7 @@ export async function deleteProductHandler(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 
-  //  if (String(post.user) !== String(userId)) {
-  //    return res.sendStatus(401);
-  //  }
-
   await deleteProduct({ productId });
+  await updateCategoryAfterProductDeleted(product);
   return res.sendStatus(200);
 }

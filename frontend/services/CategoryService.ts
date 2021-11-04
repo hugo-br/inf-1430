@@ -1,22 +1,22 @@
 import Api from "./Api";
 import ApiAdmin from "./ApiAdmin";
 
-export interface Product {
+export interface Category {
+  categoryId?: String;
   name: String;
   description: String;
-  quantity: Number;
-  price: Number;
   createdAt?: Date;
   updatedAt?: Date;
   startDate?: Date;
   endDate?: Date;
+  lastUser?: String;
   images?: String;
 }
 
-export async function getProduct(produtId: string): Promise<any> {
-  console.log(produtId);
+// GET
+export async function getCategories(): Promise<any> {
   return Api()
-    .get(`/products/${produtId}`)
+    .get(`/categories/`)
     .then((response) => {
       return response.data;
     })
@@ -29,9 +29,9 @@ export async function getProduct(produtId: string): Promise<any> {
     });
 }
 
-export async function getAllProducts(): Promise<any> {
+export async function getCategory(categoryId: String): Promise<any> {
   return Api()
-    .get(`/products/`)
+    .get(`/category/${categoryId}`)
     .then((response) => {
       return response.data;
     })
@@ -44,9 +44,12 @@ export async function getAllProducts(): Promise<any> {
     });
 }
 
-export async function addProduct(product: Product): Promise<any> {
+
+
+// POST
+export async function addCategory(category: Category): Promise<any> {
   return ApiAdmin()
-    .post("/products", product)
+    .post("/categories", category)
     .then((response) => {
       console.log(response);
       return response.data;
@@ -60,10 +63,10 @@ export async function addProduct(product: Product): Promise<any> {
     });
 }
 
-
-export async function deleteProduct(produtId: string): Promise<any> {
+// DELETE
+export async function deleteCategory(catId: string): Promise<any> {
   return ApiAdmin()
-    .delete(`/products/${produtId}`)
+    .delete(`/categories/${catId}`)
     .then((response) => {
       console.log(response);
       return response.data;
