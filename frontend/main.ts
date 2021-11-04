@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import Vue from "vue";
-import Acl from 'vue-browser-acl';
+import Acl from "vue-browser-acl";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store/index";
@@ -9,7 +9,6 @@ import { messages, defaultLocale } from "./locale/index";
 import "./assets/styles/tailwind.css";
 
 const user = "";
-
 
 Vue.config.productionTip = false;
 
@@ -22,6 +21,25 @@ const i18n = new VueI18n({
 });
 
 Vue.use(Acl);
+/*
+const user = (): User => {
+  const userStore: any = getModuleFromStore('UserStore');
+  return userStore.user;
+};
+
+Vue.use(
+  Acl,
+  user,
+  (acl: any) => {
+    acl.rule('anonymous', (user: User) => user === null);
+    acl.rule('user', (user: User) => user !== null);
+    acl.rule('admin', (user: User) => {
+      return user?.groups.includes('Ultron');
+    });
+  },
+  { router },
+);
+*/
 
 new Vue({
   i18n,

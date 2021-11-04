@@ -1,9 +1,9 @@
 <template>
   <div>
     <h2>ADMIN</h2>
-    <button class='btn btn-grey' @click="login()">LOGIN - ADMIN</button>
-    <br><br>
-    <button class='btn btn-grey' @click="register()">Register</button>
+    <button class="btn btn-grey" @click="login()">LOGIN - ADMIN</button>
+    <br /><br />
+    <button class="btn btn-grey" @click="register()">Register</button>
   </div>
 </template>
 
@@ -39,7 +39,7 @@ export default class Admin extends Vue {
       });
   }
 
-    public async register() {
+  public async register() {
     const credentials = {
       email: "test222@admin.com",
       password: "hsjhjkah",

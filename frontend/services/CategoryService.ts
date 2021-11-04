@@ -44,8 +44,6 @@ export async function getCategory(categoryId: String): Promise<any> {
     });
 }
 
-
-
 // POST
 export async function addCategory(category: Category): Promise<any> {
   return ApiAdmin()

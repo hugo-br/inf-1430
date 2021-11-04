@@ -2,20 +2,27 @@
   <div>
     <h2>Category</h2>
     GET ALL
-    <button class="btn btn-blue" @click="fetchCategories()">Get All Categories</button>
-    <br><br>
+    <button class="btn btn-blue" @click="fetchCategories()">
+      Get All Categories
+    </button>
+    <br /><br />
     GET ONE
     <button class="btn btn-blue" @click="fetchCat()">Get One Category</button>
-    <br><br>
+    <br /><br />
     POST
     <button class="btn btn-blue" @click="addCat()">Add Category</button>
-  
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { getCategories, getCategory, addCategory, deleteCategory, Category } from "../services/CategoryService";
+import {
+  getCategories,
+  getCategory,
+  addCategory,
+  deleteCategory,
+  Category,
+} from "../services/CategoryService";
 
 @Component
 export default class Categories extends Vue {
@@ -37,7 +44,6 @@ export default class Categories extends Vue {
     });
   }
 */
-
 
   public async fetchCat() {
     getCategory("7832yz")
@@ -61,7 +67,7 @@ export default class Categories extends Vue {
       .catch((error) => console.error("(1) Outside error:", error));
   }
 
-    public async addCat() {
+  public async addCat() {
     const category = {
       name: "category test 321",
       description: "Une description assez longue eeeeeeeeeeeeeeee",
@@ -74,14 +80,13 @@ export default class Categories extends Vue {
       .catch((error: any) => console.error("(1) Outside error:", error));
   }
 
-    public async deleteCat(){
-      deleteCategory("762b47")
+  public async deleteCat() {
+    deleteCategory("762b47")
       .then((result: any) => {
         console.log(result);
       })
       .catch((error: any) => console.error("(1) Outside error:", error));
   }
-
 }
 </script>
 

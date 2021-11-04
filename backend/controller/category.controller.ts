@@ -6,7 +6,7 @@ import {
   findAllCategories,
   findAndUpdateCategory,
   deleteCategory,
-  findCategoryAndProducts
+  findCategoryAndProducts,
 } from "@service/category.service";
 import { updateProductAfterCategoryDeleted } from "../service/product.service";
 
@@ -34,7 +34,7 @@ export async function updateCategoryHandler(req: Request, res: Response) {
 // retourner une category specifique
 export async function getCategoryHandler(req: Request, res: Response) {
   const categoryId = get(req, "params.categoryId");
-  const category = await findCategoryAndProducts( { categoryId: categoryId } );
+  const category = await findCategoryAndProducts({ categoryId: categoryId });
   /*if (!category) {
     return res.sendStatus(404).send("aucune categorie");
   }*/
@@ -49,7 +49,6 @@ export async function getAllCategoriesHandler(req: Request, res: Response) {
   }
   return res.send(categories);
 }
-
 
 export async function deleteCategoryHandler(req: Request, res: Response) {
   const userId = get(req, "user._id");

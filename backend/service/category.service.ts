@@ -22,7 +22,9 @@ export function findCategoryAndProducts(
   query: FilterQuery<CategoryDocument>,
   options: QueryOptions = { lean: true }
 ) {
-  return Category.findOne(query, {}, options).populate("products", "name").exec();
+  return Category.findOne(query, {}, options)
+    .populate("products", "name")
+    .exec();
 }
 
 export function findAllCategories() {
@@ -44,6 +46,11 @@ export function deleteCategory(query: FilterQuery<CategoryDocument>) {
 }
 
 // Update
-export async function updateCategoryAfterProductDeleted(product: ProductDocument) {
-  await Category.updateMany({ '_id': product.categories }, { $pull: { products: product._id } });
+export async function updateCategoryAfterProductDeleted(
+  product: ProductDocument
+) {
+  await Category.updateMany(
+    { _id: product.categories },
+    { $pull: { products: product._id } }
+  );
 }

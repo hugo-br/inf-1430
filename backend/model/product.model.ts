@@ -1,11 +1,11 @@
-import mongoose, {Types} from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { customAlphabet } from "nanoid";
 const nanoid = customAlphabet("abcd1234567890", 6);
 
 export interface ProductDocument extends mongoose.Document {
-  productId: String;
-  name: String;
-  description: String;
+  productId: string;
+  name: string;
+  description: string;
   quantity: Number;
   categories: Array<Types.ObjectId>;
   createdAt: Date;
@@ -14,7 +14,7 @@ export interface ProductDocument extends mongoose.Document {
   endDate: Date;
   price: Number;
   lastUser: Types.ObjectId;
-  images: Array<String>;
+  images: Array<string>;
 }
 
 // creation de la table dans la base de donnnee
@@ -29,14 +29,14 @@ const ProductSchema = new mongoose.Schema(
     name: { type: String, required: true },
     description: { type: String },
     quantity: { type: Number, required: true, min: 0, default: 0 },
-    categories: [{type: mongoose.Schema.Types.ObjectId, ref: "Category"}],
+    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
     createdAt: { type: Date },
     updatedAt: { type: Date },
     startDate: { type: Date },
     endDate: { type: Date },
     price: { type: Number, min: 0, default: 0 },
     lastUser: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
-    images: [{type: String}]
+    images: [{ type: String }],
   },
   { timestamps: true }
 );

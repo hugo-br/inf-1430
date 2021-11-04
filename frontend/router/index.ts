@@ -17,16 +17,16 @@ const routes: Array<RouteConfig> = [
     name: "Homepage",
     components: {
       default: Homepage,
-      header: Navigation
-    }
+      header: Navigation,
+    },
   },
   {
     path: "/",
     name: "TestPage",
     components: {
       default: PageTest,
-      header: Navigation
-    }
+      header: Navigation,
+    },
   },
   {
     path: "/register",
@@ -39,20 +39,27 @@ const routes: Array<RouteConfig> = [
     component: About,
   },
   {
-    path: '/settings',
+    path: "/settings",
     // You could also have named views at the top
     component: About,
-    children: [{
-      path: 'emails',
-      component: About
-    }, {
-      path: 'profile',
-      components: {
-        default: About,
-        helper: About
-      }
-    }]
-  }
+    children: [
+      {
+        path: "emails",
+        component: About,
+      },
+      {
+        path: "profile",
+        components: {
+          default: About,
+          helper: About,
+        },
+        meta: {
+          can: "approuver",
+          fail: "/",
+        },
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({

@@ -44,6 +44,21 @@ export async function getAllProducts(): Promise<any> {
     });
 }
 
+export async function findProducts(query: String): Promise<any> {
+  return Api()
+    .get(`/products/find/${query}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      return Promise.reject(error);
+    });
+}
+
 export async function addProduct(product: Product): Promise<any> {
   return ApiAdmin()
     .post("/products", product)
@@ -59,7 +74,6 @@ export async function addProduct(product: Product): Promise<any> {
       return Promise.reject(error);
     });
 }
-
 
 export async function deleteProduct(produtId: string): Promise<any> {
   return ApiAdmin()

@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
+import { MongooseQueryParser } from "mongoose-query-parser";
 import { get } from "lodash";
 import {
   createProduct,
   findProduct,
+  findProducts,
   findAndUpdate,
   deleteProduct,
 } from "../service/product.service";
-import {
-  updateCategoryAfterProductDeleted
-} from "../service/category.service";
+import { updateCategoryAfterProductDeleted } from "../service/category.service";
 
 // creer
 export async function createProductHandler(req: Request, res: Response) {
@@ -17,7 +17,7 @@ export async function createProductHandler(req: Request, res: Response) {
   try {
     const product = await createProduct({ ...body, lastUser: adminId });
     return res.send("Product added");
-  } catch(err: any) {
+  } catch (err: any) {
     return res.send("Error : " + err);
   }
 }
@@ -39,7 +39,7 @@ export async function updateProductHandler(req: Request, res: Response) {
 }
 
 // retourner
-export async function getProductsHandler(req: Request, res: Response) {
+export async function getProductsHandlerByID(req: Request, res: Response) {
   const prodId = get(req, "params.productId");
   console.log(prodId);
   const product = await findProduct({ productId: prodId });
@@ -47,6 +47,22 @@ export async function getProductsHandler(req: Request, res: Response) {
     return res.sendStatus(404).send("aucun produit");
   }
   return res.send(product);
+}
+
+export async function getProductsHandler(req: Request, res: Response) {
+  const parser = new MongooseQueryParser();
+  const request = get(req, "params.query");
+  const parsed = parser.parse(request);
+  console.log("parsed");
+  console.log(parsed);
+  const product = await findProducts(parsed);
+  console.log(product);
+  /* 
+  if (!product) {
+    return res.sendStatus(404).send("aucun produit");
+  }
+  return res.send(product); */
+  return res.send(200);
 }
 
 // supprimer

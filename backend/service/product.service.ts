@@ -7,10 +7,15 @@ import {
 import Product, { ProductDocument } from "../model/product.model";
 import Category, { CategoryDocument } from "@model/category.model";
 
-export async function createProduct(input: DocumentDefinition<ProductDocument>) {
-   const newProduct = await Product.create(input);
-   await Category.updateMany({ '_id': newProduct.categories }, { $push: { products: newProduct._id } });
-   return newProduct;
+export async function createProduct(
+  input: DocumentDefinition<ProductDocument>
+) {
+  const newProduct = await Product.create(input);
+  await Category.updateMany(
+    { _id: newProduct.categories },
+    { $push: { products: newProduct._id } }
+  );
+  return newProduct;
 }
 
 export function findProduct(
@@ -18,6 +23,14 @@ export function findProduct(
   options: QueryOptions = { lean: true }
 ) {
   return Product.findOne(query, {}, options);
+}
+
+export function findProducts(query: FilterQuery<ProductDocument>) {
+  return Product.find(query.filter)
+    .select(query.select)
+    .sort(query.sort)
+    .limit(query.limit)
+    .exec();
 }
 
 export function findAndUpdate(
@@ -33,6 +46,11 @@ export function deleteProduct(query: FilterQuery<ProductDocument>) {
 }
 
 // update Products when category is removed
-export async function updateProductAfterCategoryDeleted(category: CategoryDocument) {
-  await Product.updateMany({ '_id': category.products }, { $pull: { categories: category._id } });
+export async function updateProductAfterCategoryDeleted(
+  category: CategoryDocument
+) {
+  await Product.updateMany(
+    { _id: category.products },
+    { $pull: { categories: category._id } }
+  );
 }
