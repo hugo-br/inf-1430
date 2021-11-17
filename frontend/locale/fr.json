@@ -1,5 +1,9 @@
 {
   "titles": {
-    "main": "Bienvenue"
+    "main": "Rubydor"
+  },
+
+  "menu": {
+    "dashboard": "Tableau de Bord"
   }
 }

@@ -8,23 +8,80 @@ import Navigation from "../boutique/navigation/navigation.vue";
 import Homepage from "../boutique/Homepage.vue";
 
 // CMS
+import Dashboard from "../cms/Dashboard.vue";
+
+// Products
+import ProductsPage from "../cms/products/Page.vue";
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  {
-    path: "/home",
-    name: "Homepage",
-    components: {
-      default: Homepage,
-      header: Navigation,
-    },
-  },
+  /* Boutique */
   {
     path: "/",
     name: "TestPage",
     components: {
       default: PageTest,
+      header: Navigation,
+    },
+  },
+  {
+    path: "/store",
+    components: {
+      default: Homepage,
+      header: Navigation,
+    },
+    children: [
+      {
+        path: "/boutique",
+        alias: "boutique",
+        name: "boutique",
+      },
+      /*    {
+        path: 'extractions',
+        name: 'Extractions',
+        meta: {
+          role: User.FdmOperator,
+          fail: '403',
+        },
+      },
+  */
+    ],
+  },
+  /* CMS */
+  {
+    path: "/cms",
+    components: {
+      default: Dashboard,
+    },
+    children: [
+      {
+        path: "/",
+        alias: "boutique",
+        component: PageTest,
+      },
+      {
+        path: "/products",
+        alias: "products",
+        component: ProductsPage,
+      },
+      /*    {
+          path: 'extractions',
+          name: 'Extractions',
+          meta: {
+            role: User.FdmOperator,
+            fail: '403',
+          },
+        },
+    */
+    ],
+  },
+
+  {
+    path: "/home",
+    name: "Homepage",
+    components: {
+      default: Homepage,
       header: Navigation,
     },
   },

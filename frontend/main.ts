@@ -21,29 +21,25 @@ const i18n = new VueI18n({
 });
 
 Vue.use(Acl);
-/*
-const user = (): User => {
-  const userStore: any = getModuleFromStore('UserStore');
-  return userStore.user;
-};
 
-Vue.use(
-  Acl,
-  user,
-  (acl: any) => {
-    acl.rule('anonymous', (user: User) => user === null);
-    acl.rule('user', (user: User) => user !== null);
-    acl.rule('admin', (user: User) => {
-      return user?.groups.includes('Ultron');
-    });
-  },
-  { router },
-);
-*/
-
-new Vue({
-  i18n,
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
+/**
+ * @desc    Set the app. Check if the user has a role or token, then grant specifics action based on it.
+ **/
+Promise.resolve()
+  .then(async () => {
+    //   setUser();
+  })
+  .then(async () => {
+    //   setAcl();
+  })
+  .then(async () =>
+    new Vue({
+      i18n,
+      router,
+      store,
+      render: (h) => h(App),
+    }).$mount("#app")
+  )
+  .catch((error: any) => {
+    console.error(error.toString());
+  });

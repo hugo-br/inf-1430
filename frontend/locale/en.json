@@ -1,5 +1,8 @@
 {
   "titles": {
-    "main": "Welcome"
+    "main": "Rubydor"
+  },
+  "menu": {
+    "dashboard": "Dashboard"
   }
 }
