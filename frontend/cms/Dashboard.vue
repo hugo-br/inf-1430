@@ -24,6 +24,7 @@ export default class Dashboard extends Vue {}
 
 <style lang="less">
 @nav: 40px;
+@background: #111a21;
 
 #cms {
   position: relative;
@@ -52,7 +53,7 @@ export default class Dashboard extends Vue {}
     top: 0;
     width: 100%;
     height: @nav;
-    background-color: rgb(3, 8, 34);
+    background-color: @background;
     clear: both;
     display: block;
   }
@@ -65,6 +66,7 @@ export default class Dashboard extends Vue {}
     height: calc(100% - @nav);
     background: white;
     flex: 1 1 auto;
+    border-top-right-radius: 5px;
   }
 }
 </style>

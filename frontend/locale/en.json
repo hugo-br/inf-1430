@@ -3,6 +3,18 @@
     "main": "Rubydor"
   },
   "menu": {
-    "dashboard": "Dashboard"
+    "cms": {
+      "admin": "Admins",
+      "analytics": "Analytics",
+      "categories": "Categories",
+      "dashboard": "Dashboard",
+      "expeditors": "Expeditors",
+      "orders": "Orders",
+      "products": "Products",
+      "sales": "Sales",
+      "schedules": "Schedules",
+      "settings": "Settings",
+      "users": "Usagers"
+    }
   }
 }

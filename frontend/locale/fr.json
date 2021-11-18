@@ -4,6 +4,18 @@
   },
 
   "menu": {
-    "dashboard": "Tableau de Bord"
+    "cms": {
+      "admin": "Administrateurs",
+      "analytics": "Analytique",
+      "categories": "Catégories",
+      "dashboard": "Tableau de Bord",
+      "expeditors": "Expéditeurs",
+      "orders": "Commandes",
+      "products": "Produits",
+      "sales": "Ventes",
+      "schedules": "Cédules",
+      "settings": "Paramètres",
+      "users": "Usagers"
+    }
   }
 }

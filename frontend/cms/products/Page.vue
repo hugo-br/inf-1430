@@ -1,6 +1,6 @@
 <template>
   <div>
-      <ProductsLists/>
+    <ProductsLists />
   </div>
 </template>
 
@@ -10,8 +10,8 @@ import ProductsLists from "./Lists.vue";
 
 @Component({
   components: {
-    ProductsLists
-}
+    ProductsLists,
+  },
 })
 export default class ProductsPage extends Vue {}
 </script>

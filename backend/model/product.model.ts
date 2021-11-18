@@ -14,6 +14,7 @@ export interface ProductDocument extends mongoose.Document {
   endDate: Date;
   price: Number;
   lastUser: Types.ObjectId;
+  isPublished: Boolean;
   images: Array<string>;
 }
 
@@ -36,6 +37,7 @@ const ProductSchema = new mongoose.Schema(
     endDate: { type: Date },
     price: { type: Number, min: 0, default: 0 },
     lastUser: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
+    isPublished: { type: Boolean, default: false },
     images: [{ type: String }],
   },
   { timestamps: true }
