@@ -9,26 +9,35 @@ export interface Product {
   createdAt?: Date;
   updatedAt?: Date;
   startDate?: Date;
+  isPublished?: Boolean;
   endDate?: Date;
   images?: String;
 }
 
+/**
+ * @func    request [GET]
+ * @desc    Request a product with his ID
+ * @param   String   Product ID
+ * @return  Information for the specific product ID
+ * @error   Error message
+ **/
 export async function getProduct(produtId: string): Promise<any> {
-  console.log(produtId);
   return Api()
     .get(`/products/${produtId}`)
     .then((response) => {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
       return Promise.reject(error);
     });
 }
 
+/**
+ * @func    request [GET]
+ * @desc    Get all products
+ * @return  Information for all products
+ * @error   Error message
+ **/
 export async function getAllProducts(): Promise<any> {
   return Api()
     .get(`/products/`)
@@ -36,10 +45,6 @@ export async function getAllProducts(): Promise<any> {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
       return Promise.reject(error);
     });
 }

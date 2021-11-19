@@ -23,7 +23,7 @@ export default class Dashboard extends Vue {}
 </script>
 
 <style lang="less">
-@nav: 40px;
+@nav: 49px;
 @background: #111a21;
 
 #cms {
@@ -53,9 +53,10 @@ export default class Dashboard extends Vue {}
     top: 0;
     width: 100%;
     height: @nav;
-    background-color: @background;
+    background: linear-gradient(#1c2b36, #384550);
     clear: both;
     display: block;
+    color: white;
   }
 
   .cms-content {
@@ -67,6 +68,8 @@ export default class Dashboard extends Vue {}
     background: white;
     flex: 1 1 auto;
     border-top-right-radius: 5px;
+    flex-direction: column;
+    flex-wrap: wrap;
   }
 }
 </style>

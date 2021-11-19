@@ -1,0 +1,22 @@
+@layer components {
+  .btn-actions {
+    @apply font-sans font-medium py-1 px-4 rounded-lg border-2 ml-4;
+    font-size: 12px;
+  }
+
+  .btn-table-links {
+    @apply font-bold py-1 px-4 rounded-lg border-2 bg-green-700  hover:bg-green-600;
+    font-size: 11px;
+    border: solid thin #8dd785;
+    /*background-color: #74a06f;*/
+  }
+  .btn-table-links.info {
+    @apply bg-blue-500 hover:bg-blue-400 border-blue-500;
+  }
+  .btn-table-links.danger {
+    @apply bg-red-700 hover:bg-red-500 border-red-500;
+  }
+  .btn-table-links.warning {
+    @apply bg-yellow-500 hover:bg-yellow-400 border-yellow-400;
+  }
+}

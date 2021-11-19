@@ -7,6 +7,7 @@ import {
   findProducts,
   findAndUpdate,
   deleteProduct,
+  findAllProducts,
 } from "../service/product.service";
 import { updateCategoryAfterProductDeleted } from "../service/category.service";
 
@@ -36,6 +37,19 @@ export async function updateProductHandler(req: Request, res: Response) {
     new: true,
   });
   return res.send(updatedProduct);
+}
+
+/**
+ * @func    async
+ * @desc    Call function to get all products from database
+ * @return  Array  Return all products on database
+ **/
+export async function getAllProductsHandler(req: Request, res: Response) {
+  const products = await findAllProducts();
+  if (!products) {
+    return res.sendStatus(404).send("aucun produits");
+  }
+  return res.send(products);
 }
 
 // retourner

@@ -4,30 +4,63 @@
       :columns="columns"
       :rows="rows"
       :fixed-header="true"
-      max-height="800px"
-      styleClass="vgt-table bordered my-class"
-      :row-style-class="rowStyleClassFn"
+      max-height="80vh"
+      styleClass="vgt-table bordered info-table"
       :isLoading.sync="isLoading"
       :pagination-options="{
         enabled: true,
+        perPage: 20,
+        perPageDropdownEnabled: true,
+        perPageDropdown: [20, 50, 100],
+        setCurrentPage: 1,
+        nextLabel: `${$t('labels.next')}`,
+        prevLabel: `${$t('labels.prev')}`,
+        rowsPerPageLabel: `${$t('labels.rows_per_page')}`,
+        ofLabel: `${$t('labels.of')}`,
+        pageLabel: `${$t('labels.pages')}`,
+        allLabel: `${$t('labels.all')}`,
+        jumpFirstOrLast: false,
       }"
+      @on-page-change="onPageChange"
+      @on-sort-change="onSortChange"
+      @on-column-filter="onColumnFilter"
+      @on-per-page-change="onPerPageChange"
     >
-      <div slot="table-actions">
+      <!-- <div slot="table-actions">
         This will show up on the top right of the table.
       </div>
+      -->
+      <!--
       <div slot="table-actions-bottom">
         This will show up on the bottom of the table.
-      </div>
+      </div> 
+      -->
+
+      <template slot="table-row" slot-scope="props">
+        <span v-if="props.column.field == 'categories'">
+          {{ props.row.categories.length }}
+        </span>
+        <span v-else-if="props.column.field == 'action'">
+          <router-link
+            class="btn-table-links"
+            :to="{ path: '/cms/products/manage/' + props.row.productId }"
+            :data-id="props.row.productId"
+          >
+            {{ $t("buttons.manage") }}
+          </router-link>
+        </span>
+        <span v-else>
+          {{ props.formattedRow[props.column.field] }}
+        </span>
+      </template>
     </vue-good-table>
   </div>
 </template>
 
-<script lang="ts">
+<script scoped lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { getAllProducts } from "../../services/ProductsService";
-import ProductUI from "../../models/productsUI";
+import { getAllProducts, Product } from "../../services/ProductsService";
 import { VueGoodTable } from "vue-good-table";
-import "vue-good-table/dist/vue-good-table.css";
 
 @Component({
   components: {
@@ -35,78 +68,133 @@ import "vue-good-table/dist/vue-good-table.css";
   },
 })
 export default class ProductsLists extends Vue {
-  public isLoading = false;
+  public isLoading = true;
   public columns = [
     {
-      label: "Name",
+      label: this.$t("labels.name"),
       field: "name",
+      sortable: true,
+      thClass: "table-header-name",
+      globalSearchDisabled: true,
+      width: "40%",
     },
     {
-      label: "Age",
-      field: "age",
+      label: this.$t("labels.price"),
+      field: "price",
       type: "number",
+      sortable: true,
+      firstSortType: "desc",
+      formatFn: this.formatPrice,
+      width: "10%",
     },
     {
-      label: "Created On",
-      field: "createdAt",
-      type: "date",
-      dateInputFormat: "yyyy-MM-dd",
-      dateOutputFormat: "MMM do yy",
+      label: this.$t("labels.quantity"),
+      field: "quantity",
+      type: "number",
+      sortable: true,
+      firstSortType: "desc",
+      width: "10%",
+    },
+    {
+      label: "Categories",
+      field: "categories",
+      html: true,
+      sortable: true,
+      thClass: "text-center",
+      tdClass: "text-center",
+    },
+    {
+      label: this.$t("labels.isPublished"),
+      field: "isPublished",
+      type: "boolean",
+      sortable: true,
+      firstSortType: "desc",
+      // tdClass: this.isPublished,
+      width: "10%",
+      thClass: "text-center",
+      tdClass: "text-center",
+    },
+    {
+      label: "Action",
+      field: "action",
+      html: true,
+      sortable: false,
+      width: "15%",
+      thClass: "text-center",
+      tdClass: "text-center",
     },
   ];
 
-  public rows = [
-    { id: 1, name: "John", age: 20, createdAt: "2011-10-31", score: "lol" },
-    { id: 2, name: "Jane", age: 24, createdAt: "2011-10-31" },
-    { id: 3, name: "Susan", age: 16, createdAt: "2011-10-30" },
-    { id: 4, name: "Chris", age: 55, createdAt: "2011-10-11" },
-    { id: 5, name: "Dan", age: 40, createdAt: "2011-10-21" },
-    { id: 6, name: "John", age: 20, createdAt: "2011-10-31" },
-  ];
+  public rows: Array<Product> = [];
 
-  public rowStyleClassFn(row: any): string {
-    return row.age > 18 ? "green" : "red";
+  public totalRecords: number = 0;
+
+  public serverParams = {
+    columnFilters: {},
+    sort: [
+      {
+        field: "",
+        type: "",
+      },
+    ],
+    page: 1,
+    perPage: 10,
+  };
+
+  public mounted(): void {
+    this.loadItems();
   }
 
-  /*
+  public onPageChange(params: any): void {
+    this.updateParams({ page: params.currentPage });
+    // this.loadItems();
+  }
 
   public updateParams(newProps: any): void {
-      this.serverParams = Object.assign({}, this.serverParams, newProps);
-    },
-    
-   public onPageChange(params) {
-      this.updateParams({page: params.currentPage});
-      this.loadItems();
-    },
+    this.serverParams = Object.assign({}, this.serverParams, newProps);
+  }
 
-    onPerPageChange(params) {
-      this.updateParams({perPage: params.currentPerPage});
-      this.loadItems();
-    },
+  public onPerPageChange(params: any): void {
+    //  this.updateParams({perPage: params.currentPerPage});
+    //  this.loadItems();
+  }
 
-    onSortChange(params) {
-      this.updateParams({
+  public onSortChange(params: any): void {
+    /*   this.updateParams({
         sort: [{
           type: params.sortType,
           field: this.columns[params.columnIndex].field,
         }],
       });
       this.loadItems();
-    },
-    
-    onColumnFilter(params) {
-      this.updateParams(params);
-      this.loadItems();
-    }
+      */
+  }
 
-    // load items is what brings back the rows from server
-    loadItems() {
-      getFromServer(this.serverParams).then(response => {
-         this.totalRecords = response.totalRecords;
-         this.rows = response.rows;
-      });
-    }
-*/
+  public formatPrice(value: string): string {
+    return value + " $";
+  }
+
+  public isPublished(value: unknown): string {
+    return value === true ? "green" : "red";
+  }
+
+  public onColumnFilter(params: any): void {
+    this.updateParams(params);
+    this.loadItems();
+  }
+
+  public loadItems(): void {
+    getAllProducts()
+      .then((result: Array<Product>) => {
+        this.$nextTick(function () {
+          console.log(result);
+          this.rows = result;
+          this.totalRecords = result.length;
+          this.isLoading = false;
+        });
+      })
+      .catch((error: any) => console.error("Errors : ", error));
+  }
 }
 </script>
 

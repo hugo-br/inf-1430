@@ -18,6 +18,12 @@ export async function createProduct(
   return newProduct;
 }
 
+export function findAllProducts() {
+  const filter = {};
+  const options = { lean: true };
+  return Product.find(filter, {}, options);
+}
+
 export function findProduct(
   query: FilterQuery<ProductDocument>,
   options: QueryOptions = { lean: true }

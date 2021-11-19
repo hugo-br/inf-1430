@@ -1,0 +1,12 @@
+@layer components {
+  /* Page titles */
+  .page-title {
+    @apply text-left font-extrabold text-2xl font-sans tracking-wide uppercase inline-block;
+    color: #01212e;
+  }
+  /* Actions titles */
+  .actions-title {
+    @apply text-left font-extrabold text-xs font-sans tracking-wide uppercase inline-block;
+    color: #01212e;
+  }
+}

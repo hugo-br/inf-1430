@@ -37,10 +37,11 @@ export default class Products extends Vue {
 
   public async addProd() {
     const product = {
-      name: "produit test 43",
+      name: "produit test 23",
       description: "Une description assez longue",
-      quantity: 20,
-      price: 33,
+      quantity: 12,
+      price: 32,
+      isPublished: true,
       categories: ["6182c28508d9310640ee7591", "6182c630d20d59537c402169"],
     };
 

@@ -1,6 +1,29 @@
 {
-  "titles": {
-    "main": "Rubydor"
+  "buttons": {
+    "edit": "Éditer",
+    "manage": "Gérer"
+  },
+
+  "company": {
+    "name": "Rubydor"
+  },
+
+  "general": {
+    "database": "Base de données",
+    "products": "Mes Produits"
+  },
+
+  "labels": {
+    "all": "Tous",
+    "name": "Nom",
+    "next": "Prochain",
+    "isPublished": "Publié",
+    "of": "de",
+    "pages": "pages",
+    "prev": "Précédent",
+    "price": "Prix",
+    "quantity": "Quantité",
+    "rows_per_page": "Rangée par page"
   },
 
   "menu": {
@@ -17,5 +40,9 @@
       "settings": "Paramètres",
       "users": "Usagers"
     }
+  },
+
+  "titles": {
+    "main": "Rubydor"
   }
 }

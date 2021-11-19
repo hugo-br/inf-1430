@@ -1,7 +1,31 @@
 {
-  "titles": {
-    "main": "Rubydor"
+  "buttons": {
+    "edit": "Edit",
+    "manage": "Manage"
   },
+
+  "company": {
+    "name": "Rubydor"
+  },
+
+  "general": {
+    "database": "Database",
+    "products": "My Products"
+  },
+
+  "labels": {
+    "all": "All",
+    "name": "Name",
+    "next": "Next",
+    "isPublished": "Published",
+    "of": "of",
+    "pages": "pages",
+    "prev": "Previous",
+    "price": "Price",
+    "quantity": "Quantity",
+    "rows_per_page": "Rows per page"
+  },
+
   "menu": {
     "cms": {
       "admin": "Admins",
@@ -16,5 +40,9 @@
       "settings": "Settings",
       "users": "Usagers"
     }
+  },
+
+  "titles": {
+    "main": "Rubydor"
   }
 }
