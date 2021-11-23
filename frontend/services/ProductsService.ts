@@ -68,7 +68,6 @@ export async function addProduct(product: Product): Promise<any> {
   return ApiAdmin()
     .post("/products", product)
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((error) => {

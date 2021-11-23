@@ -1,72 +1,53 @@
 <template>
-  <div id="login-page" class="login container-fluid">
-    <div id="login-container" class="col-lg-5 col-md-7 col-sm-10">
-      <div class="wrap">
-        <!-- Header -->
-        <div class="login-top">
-          <h1>CORTEX</h1>
-          <img alt="Cortex" src="../assets/logo.png" />
-          <small class="sub-title"></small>
-          <p></p>
-        </div>
-
-        <!-- Bottom -->
-        <div class="login-bottom">
-          <button variant="primary" size="lg" @click="login()">
-            Se connecter
-          </button>
-        </div>
-      </div>
-    </div>
-
+  <div class="background-login">
     <div
-      class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+      id="login-form"
+      class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white"
     >
       <div class="max-w-md w-full space-y-8">
         <div>
-          <img
-            class="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-            alt="Workflow"
-          />
-          <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+          <h1 class="page-title text-4xl">RUBYDOR</h1>
+          <h2 class="mt-6 text-center text-2xl font-extrabold text-gray-900">
+            {{ $t("login.sign_account") }}
           </h2>
           <p class="mt-2 text-center text-sm text-gray-600">
-            Or
-            <a
-              href="#"
-              class="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              start your 14-day free trial
+            {{ $t("login.or") }}
+            <a href="#" class="font-medium text-green-600 hover:text-green-500">
+              {{ $t("login.register") }}
             </a>
           </p>
         </div>
-        <form class="mt-8 space-y-6" action="#" method="POST">
+        <div class="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
           <div class="rounded-md shadow-sm -space-y-px">
             <div>
-              <label for="email-address" class="sr-only">Email address</label>
+              <label for="email-address" class="sr-only">{{
+                $t("login.email")
+              }}</label>
               <input
                 id="email-address"
                 name="email"
                 type="email"
+                v-model="email"
                 autocomplete="email"
                 required
-                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
+                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
+                :placeholder="$t('login.email')"
               />
             </div>
             <div>
-              <label for="password" class="sr-only">Password</label>
+              <label for="password" class="sr-only">{{
+                $t("login.password")
+              }}</label>
               <input
                 id="password"
                 name="password"
                 type="password"
+                v-model="password"
                 autocomplete="current-password"
                 required
-                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
+                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
+                :placeholder="$t('login.password')"
               />
             </div>
           </div>
@@ -80,29 +61,29 @@
                 class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
               <label for="remember-me" class="ml-2 block text-sm text-gray-900">
-                Remember me
+                {{ $t("login.remember_me") }}
               </label>
             </div>
 
             <div class="text-sm">
               <a
                 href="#"
-                class="font-medium text-indigo-600 hover:text-indigo-500"
+                class="font-medium text-green-600 hover:text-green-500"
               >
-                Forgot your password?
+                {{ $t("login.forget_password") }}
               </a>
             </div>
           </div>
 
           <div>
             <button
+              @click="adminLogin()"
               type="submit"
-              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
               <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                <!-- Heroicon name: solid/lock-closed -->
                 <svg
-                  class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                  class="h-5 w-5 text-green-800 group-hover:text-green-400"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -115,10 +96,16 @@
                   />
                 </svg>
               </span>
-              Sign in
+              {{ $t("login.signin") }}
             </button>
+            <div
+              v-if="error != '' && error != 'undefined'"
+              class="mt-2 space-y-3 text-sm text-center text-red-800"
+            >
+              {{ error }}
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -126,118 +113,65 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { loginAdmin } from "../services/ConnexionService";
 
 @Component
-export default class Login extends Vue {}
+export default class LoginCMS extends Vue {
+  public email = "test@admin.com";
+  public password = "hsjhjkah";
+  public isLoading = false;
+  public error = "";
+
+  public async adminLogin() {
+    this.isLoading = true;
+    this.resetForm();
+
+    const credentials = {
+      email: this.email,
+      password: this.password,
+    };
+
+    loginAdmin(credentials)
+      .then((result: any) => {
+        console.log(result);
+        this.isLoading = false;
+        if (result.confirm) {
+          const path = process.env.REDIRECT_DASHBOARD; // /cms/
+          if (this.$route.path !== path) this.$router.push(path);
+          window.location.href = path;
+          return;
+        }
+        const err = `errors.${result.errorMsg}`;
+        this.error = String(this.$t(err));
+      })
+      .catch((error: any) => {
+        this.isLoading = false;
+        this.error = "";
+      });
+  }
+
+  public resetForm(): void {
+    this.error = "";
+  }
+}
 </script>
 
 <style scoped lang="less">
-#login-page {
-  height: 100vh;
+@background: #111a21;
+
+.background-login {
   width: 100vw;
-  background-color: white;
-  background-image: url("../assets/bg_pharma.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  #login-container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    height: 45vh;
-    min-height: 450px;
-    transform: translate(-50%, -55%);
-    padding: 60px;
-    background: rgb(2 16 42 / 87%);
-    border: #293435 1px solid;
-    border-radius: 7px;
-    animation: fade-in 2.4s ease forwards;
-    box-shadow: 5px 3px 14px 3px rgb(191 195 230 / 95%);
-
-    * {
-      color: white;
-    }
-
-    .wrap {
-      position: relative;
-      height: 100%;
-      width: 100%;
-    }
-
-    .login-top {
-      width: 100%;
-      text-align: center;
-      margin-top: 60px;
-
-      * {
-        font-family: "Arial Black";
-      }
-
-      h1 {
-        font-size: 48px;
-        font-weight: bold;
-        display: inline-block;
-        animation: fade-in 2.4s ease forwards;
-        vertical-align: super;
-      }
-
-      img {
-        display: inline-block;
-        vertical-align: baseline;
-        transform: scale(1);
-        margin-left: 15px;
-        animation: logoAnimationOpenLogin 0.4s ease-out 1s forwards;
-        opacity: 0;
-      }
-
-      .sub-title {
-        display: block;
-        width: 100%;
-        clear: both;
-        font-size: 12px;
-        font-family: "Arial";
-        color: #babebf;
-        position: relative;
-        top: -12px;
-      }
-
-      p {
-        display: block;
-        clear: both;
-        font-size: 18px;
-        letter-spacing: 1px;
-        font-weight: bold;
-        margin-top: -5px;
-      }
-    }
-
-    .login-bottom {
-      width: 100%;
-      text-align: center;
-      font-size: 14px;
-      margin-top: 40px;
-
-      button {
-        background-color: #ee610f;
-        border-color: white;
-        font-size: 14px;
-
-        &:hover {
-          background-color: darken(#ee610f, 10%);
-        }
-      }
-    }
-  }
+  height: 100vh;
+  background-color: lighten(@background, 10%);
 }
 
-@keyframes fade-in {
-  0% {
-    opacity: 0.2;
-  }
-
-  100% {
-    opacity: 1;
-  }
+#login-form {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  padding: 4%;
+  border-radius: 5px;
+  border: 2px solid #28a07a;
 }
 </style>

@@ -8,6 +8,10 @@
     "name": "Rubydor"
   },
 
+  "errors": {
+    "invalid_username": "Invalid username or password"
+  },
+
   "general": {
     "database": "Database",
     "products": "My Products"
@@ -24,6 +28,17 @@
     "price": "Price",
     "quantity": "Quantity",
     "rows_per_page": "Rows per page"
+  },
+
+  "login": {
+    "forget_password": "Forgot your password?",
+    "email": "Email address",
+    "password": "Password",
+    "or": "or",
+    "register": "register",
+    "remember_me": "Remember me",
+    "signin": "Sign in",
+    "sign_account": "Sign in to your account"
   },
 
   "menu": {

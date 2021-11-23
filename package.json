@@ -13,6 +13,7 @@
     "fix:format": "prettier --write ./**/*.{js,ts,json,vue,css,less,html}"
   },
   "dependencies": {
+    "@popperjs/core": "^2.10.2",
     "@types/compression": "^1.7.1",
     "@types/express-serve-static-core": "^4.17.24",
     "@types/morgan": "^1.9.3",

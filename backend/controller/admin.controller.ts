@@ -8,7 +8,6 @@ export async function createAdminHandler(req: Request, res: Response) {
     const admin = await createAdmin(req.body);
     return res.send(omit(admin.toJSON(), "password"));
   } catch (e: any) {
-    log.error(e);
     return res.status(409).send(e.message);
   }
 }

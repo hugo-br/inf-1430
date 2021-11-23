@@ -6,9 +6,13 @@
     <div
       class="text-left flow-root mt-2 p-2 bg-gray-100 rounded-md flex-row flex-wrap border-2"
     >
-      <button class="btn-actions">Consulter le tableau</button>
-      <button class="btn-actions">Ajouter un produit</button>
-      <button v-for="(btn, index) in buttons" :key="index" class="btn-actions">
+      <button
+        v-for="(btn, index) in buttons"
+        :key="index"
+        class="btn-actions"
+        :class="btn.klass"
+        @click="emitAction(btn.action)"
+      >
         {{ btn.title }}
       </button>
     </div>
@@ -24,6 +28,11 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class Actions extends Vue {
   @Prop()
   public buttons: Array<any>;
+
+  public emitAction(action: string): void {
+    console.log("clikc");
+    this.$emit("action", action);
+  }
 }
 </script>
 

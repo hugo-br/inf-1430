@@ -37,7 +37,7 @@ export default class Products extends Vue {
 
   public async addProd() {
     const product = {
-      name: "produit test 23",
+      name: "",
       description: "Une description assez longue",
       quantity: 12,
       price: 32,
@@ -47,7 +47,7 @@ export default class Products extends Vue {
 
     addProduct(product)
       .then((result: any) => {
-        console.log(result);
+        console.log("here then", result);
       })
       .catch((error: any) => console.error("(1) Outside error:", error));
   }

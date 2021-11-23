@@ -9,6 +9,7 @@ import Homepage from "../boutique/Homepage.vue";
 
 // CMS
 import Dashboard from "../cms/Dashboard.vue";
+import LoginCMS from "../cms/Login.vue";
 
 // Products
 import ProductsPage from "../cms/products/Page.vue";
@@ -57,7 +58,8 @@ const routes: Array<RouteConfig> = [
     children: [
       {
         path: "/",
-        alias: "boutique",
+        alias: "/dashboard",
+        name: "dashboard",
         component: PageTest,
       },
       {
@@ -75,6 +77,12 @@ const routes: Array<RouteConfig> = [
         },
     */
     ],
+  },
+  {
+    path: "/cms/login",
+    name: "login",
+    alias: "/cms-login",
+    component: LoginCMS,
   },
 
   {

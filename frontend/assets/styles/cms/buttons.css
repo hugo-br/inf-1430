@@ -1,7 +1,20 @@
 @layer components {
   .btn-actions {
-    @apply font-sans font-medium py-1 px-4 rounded-lg border-2 ml-4;
-    font-size: 12px;
+    @apply font-sans font-medium py-1 px-4 rounded-full border-2 ml-4 bg-white border-gray-700 text-gray-600 transition-all;
+    font-size: 11px;
+  }
+
+  .btn-actions.disabled {
+    @apply bg-gray-800 text-white cursor-help;
+  }
+  .btn-actions.success {
+    @apply border-green-700 bg-green-600 hover:bg-green-500 text-white;
+  }
+  .btn-actions-links.alert {
+    @apply bg-red-700 hover:bg-red-500 border-red-500;
+  }
+  .btn-actions-links.info {
+    @apply bg-blue-500 hover:bg-blue-400 border-blue-500;
   }
 
   .btn-table-links {
