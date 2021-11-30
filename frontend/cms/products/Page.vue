@@ -1,7 +1,7 @@
 <template>
   <div class="p-2 pr-4">
     <PageTitles :title="$t('general.products')" />
-    <Actions :buttons="actions" @action="handleClick($event)" />
+    <Actions :buttons="links" @action="handleClick($event)" />
     <ProductsLists class="mt-10" />
   </div>
 </template>
@@ -20,7 +20,7 @@ import PageTitles from "../components/PageTitles.vue";
   },
 })
 export default class ProductsPage extends Vue {
-  public actions = [
+  public links = [
     {
       title: "Consulter le tableau",
       klass: "disabled",
@@ -36,6 +36,8 @@ export default class ProductsPage extends Vue {
   public handleClick(params: string): void {
     switch (params) {
       case "addProduct":
+        this.$router.push({ path: "add-products" });
+        // router.push({ name: 'user', params: { userId } })
         break;
       case "test":
         // code block

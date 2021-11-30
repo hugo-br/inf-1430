@@ -1,0 +1,5 @@
+@layer components {
+  .btn-submit {
+    @apply bg-green-600 hover:bg-green-400 border-2 font-semibold text-white hover:text-green-800 border-white hover:border-green-600  rounded-xl py-1 px-6 transition-colors drop-shadow;
+  }
+}

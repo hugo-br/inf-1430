@@ -83,7 +83,6 @@ export default class ProductsLists extends Vue {
       field: "price",
       type: "number",
       sortable: true,
-      firstSortType: "desc",
       formatFn: this.formatPrice,
       width: "10%",
     },
@@ -92,7 +91,7 @@ export default class ProductsLists extends Vue {
       field: "quantity",
       type: "number",
       sortable: true,
-      firstSortType: "desc",
+      firstSortType: "asc",
       width: "10%",
     },
     {
@@ -125,7 +124,7 @@ export default class ProductsLists extends Vue {
     },
   ];
 
-  public rows: Array<Product> = [];
+  public rows: Array<Partial<Product>> = [];
 
   public totalRecords: number = 0;
 
@@ -187,7 +186,6 @@ export default class ProductsLists extends Vue {
     getAllProducts()
       .then((result: Array<Product>) => {
         this.$nextTick(function () {
-          console.log(result);
           this.rows = result;
           this.totalRecords = result.length;
           this.isLoading = false;

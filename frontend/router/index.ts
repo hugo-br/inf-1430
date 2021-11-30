@@ -13,6 +13,7 @@ import LoginCMS from "../cms/Login.vue";
 
 // Products
 import ProductsPage from "../cms/products/Page.vue";
+import ProductsAdd from "../cms/products/Add.vue";
 
 Vue.use(VueRouter);
 
@@ -63,10 +64,16 @@ const routes: Array<RouteConfig> = [
         component: PageTest,
       },
       {
-        path: "/products",
-        alias: "products",
+        path: "products",
+        name: "list-products",
         component: ProductsPage,
       },
+      {
+        path: "add-products",
+        name: "add-product",
+        component: ProductsAdd,
+      },
+
       /*    {
           path: 'extractions',
           name: 'Extractions',

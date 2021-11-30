@@ -30,7 +30,6 @@ export default class Actions extends Vue {
   public buttons: Array<any>;
 
   public emitAction(action: string): void {
-    console.log("clikc");
     this.$emit("action", action);
   }
 }

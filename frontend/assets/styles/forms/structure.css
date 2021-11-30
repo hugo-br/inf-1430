@@ -1,0 +1,68 @@
+@layer components {
+  .row-with-info {
+    @apply flex;
+    border-bottom: thin thin rgb(17 26 33 / 12%) solid;
+  }
+
+  .row-with-info:last-child {
+    @apply border-b-0;
+  }
+
+  /* CMS Forms */
+  .cms-form-container {
+    @apply flex mt-5 border-2 p-6 bg-gray-100 rounded-md;
+    flex-direction: column;
+  }
+
+  .left-info {
+    @apply w-full md:w-3/12 p-4;
+  }
+
+  .right-info {
+    @apply w-full md:w-9/12 p-6;
+  }
+
+  .right-info > div {
+    @apply rounded bg-white shadow-sm p-8;
+    border: thin rgb(17 26 33 / 12%) solid;
+  }
+
+  .info-form-row {
+    @apply pb-6 flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .info-form-items {
+    @apply w-full block mb-4;
+    flex-shrink: 0;
+  }
+
+  .info-form-items:last-child {
+    @apply mb-0;
+  }
+
+  .info-form-items.half {
+    @apply w-5/12 block mb-4 mr-3;
+  }
+
+  .info-form-items label {
+    @apply block w-full text-left text-sm font-bold text-gray-900 pb-1;
+  }
+
+  .info-form-items input {
+    @apply appearance-none block w-full px-4 py-2 mt-1 border-gray-300 border-2 text-sm font-medium rounded-md text-gray-600 bg-white focus:outline-none focus:border-gray-100 focus:ring-2  focus:ring-blue-900;
+  }
+
+  .info-form-items textarea {
+    @apply appearance-none block h-64 w-full text-gray-500 text-sm font-medium border rounded py-3 px-4 mt-2 focus:ring-blue-900;
+  }
+
+  .info-title {
+    @apply text-left text-xl font-semibold block text-green-800;
+  }
+
+  .info-explication {
+    @apply text-left text-sm mt-2 block;
+  }
+}
