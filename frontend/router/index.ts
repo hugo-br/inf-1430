@@ -3,17 +3,21 @@ import VueRouter, { RouteConfig } from "vue-router";
 import About from "../pages/About.vue";
 import PageTest from "../pages/Test.vue";
 
-// Boutique
+// #region Boutique
 import Navigation from "../boutique/navigation/navigation.vue";
 import Homepage from "../boutique/Homepage.vue";
+// #endregion
 
-// CMS
+// #region CMS
 import Dashboard from "../cms/Dashboard.vue";
 import LoginCMS from "../cms/Login.vue";
 
 // Products
 import ProductsPage from "../cms/products/Page.vue";
 import ProductsAdd from "../cms/products/Add.vue";
+import ProductsEdit from "../cms/products/Edit.vue";
+
+// #endregion
 
 Vue.use(VueRouter);
 
@@ -72,6 +76,11 @@ const routes: Array<RouteConfig> = [
         path: "add-products",
         name: "add-product",
         component: ProductsAdd,
+      },
+      {
+        path: "products/edit/:productId",
+        name: "edit-product",
+        component: ProductsEdit,
       },
 
       /*    {

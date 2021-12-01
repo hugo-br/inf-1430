@@ -1,12 +1,25 @@
 <template>
-  <div class="cms-form-container">
+<main>
+
+  <!-- Loading -->
+  <div v-if="!isLoaded && !notFound">
+      Loading ...
+  </div>
+  <!-- Not found -->
+    <div v-if="isLoaded && notFound">
+     Not found
+  </div>
+
+  <!-- Form -->
+  <div class="cms-form-container" v-if="isLoaded && !notFound">
     <!-- Row: START -->
     <div class="row-with-info">
       <!-- Left Section -->
       <div class="left-info">
         <span class="info-title">Générales</span>
         <span class="info-explication">
-          Remplissez les information générales sur le produit
+          Mettre à jour les information générales sur le produit : 
+          <strong class="text-gray-900">{{product.name}}</strong>
         </span>
       </div>
 
@@ -90,7 +103,9 @@
       <!-- Right Section -->
       <div class="right-info">
         <div>
-          <div class="info-form-row"></div>
+          <div class="info-form-row">
+              <p v-for="(cat, index) in product.categories" :key="`cat-${index}`"> {{cat}}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -108,36 +123,57 @@
 
       <!-- Right Section -->
       <div class="right-info">
-        <button class="btn-submit mt-4" @click="addProd()">
-          Ajouter le produit
+        <button class="btn-submit mt-4" @click="editProd()">
+          Mettre à jour le produit
         </button>
       </div>
     </div>
     <!-- Row: END -->
   </div>
+
+</main>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { addProduct } from "../../services/ProductsService";
+import { getProduct, editProduct, Product } from "../../services/ProductsService";
 
 @Component({
   components: {},
 })
-export default class AddProductsForm extends Vue {
+export default class EditProductsForm extends Vue {
 
-  
-  public product = {
-    name: "",
-    description: "",
-    quantity: 0,
-    price: 0,
-    isPublished: false,
-    categories: ["6182c28508d9310640ee7591", "6182c630d20d59537c402169"],
-  };
+    @Prop()
+    public productId: string;
 
-  public async addProd() {
-    addProduct(this.product)
+    public product: Product;
+
+    public isLoaded = false;
+    public notFound = false;
+    
+
+    public async fetchProd() {
+    getProduct(this.productId)
+      .then((result: Product) => {
+        console.log(result);
+        this.$nextTick(function () {
+          this.product = result;
+          this.isLoaded = true;
+        });
+      })
+      .catch((error: any) => {
+        console.error("Error:", error);
+        this.isLoaded = true;
+        this.notFound = true;
+      });
+  }
+
+    public mounted(): void {
+        this.fetchProd();
+    }
+
+  public async editProd() {
+    editProduct(this.product)
       .then((result: any) => {
         console.log("here then", result);
         alert("done");

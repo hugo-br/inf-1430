@@ -10,7 +10,18 @@
   .btn-actions.success {
     @apply border-green-700 bg-green-600 hover:bg-green-500 text-white;
   }
-  .btn-actions-links.alert {
+  .btn-actions.danger {
+    @apply bg-red-700 hover:bg-red-500 border-red-500;
+  }
+  .btn-actions.info {
+    @apply bg-blue-500 hover:bg-blue-400 border-blue-500 text-white;
+  }
+  .btn-actions.alert {
+    @apply bg-yellow-500 hover:bg-yellow-400 text-white border-white;
+  }
+
+
+  .btn-actions-links.danger {
     @apply bg-red-700 hover:bg-red-500 border-red-500;
   }
   .btn-actions-links.info {

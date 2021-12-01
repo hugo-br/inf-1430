@@ -23,20 +23,33 @@ export async function createProductHandler(req: Request, res: Response) {
   }
 }
 
-// modifier
+  /**
+   * @desc    Update a specific product in the database
+   * @param   String  :productId - product ID
+   * @return  Object  Informations on the product
+   **/
 export async function updateProductHandler(req: Request, res: Response) {
+  console.log("here")
   const userId = get(req, "user._id");
   const productId = get(req, "params.productId");
   const update = req.body;
   const product = await findProduct({ productId });
-  if (!product) return res.sendStatus(404);
+  console.log(product);
+  if (!product) {
+    return res.send("Product not modified");
+  }
   // if (String(product.user) !== userId) {
   //   return res.sendStatus(401);
   // }
-  const updatedProduct = await findAndUpdate({ productId }, update, {
-    new: true,
-  });
-  return res.send(updatedProduct);
+  try {
+    const updatedProduct = await findAndUpdate({ productId }, update, {
+      new: true,
+    });
+    return res.send("Product modified");
+  } catch(err: any) {
+    return res.send("Error : " + err);
+  }
+
 }
 
 /**
@@ -55,7 +68,6 @@ export async function getAllProductsHandler(req: Request, res: Response) {
 // retourner
 export async function getProductsHandlerByID(req: Request, res: Response) {
   const prodId = get(req, "params.productId");
-  console.log(prodId);
   const product = await findProduct({ productId: prodId });
   if (!product) {
     return res.sendStatus(404).send("aucun produit");
@@ -67,10 +79,7 @@ export async function getProductsHandler(req: Request, res: Response) {
   const parser = new MongooseQueryParser();
   const request = get(req, "params.query");
   const parsed = parser.parse(request);
-  console.log("parsed");
-  console.log(parsed);
   const product = await findProducts(parsed);
-  console.log(product);
   /* 
   if (!product) {
     return res.sendStatus(404).send("aucun produit");

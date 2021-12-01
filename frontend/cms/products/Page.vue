@@ -20,6 +20,8 @@ import PageTitles from "../components/PageTitles.vue";
   },
 })
 export default class ProductsPage extends Vue {
+
+  //  #region Links 
   public links = [
     {
       title: "Consulter le tableau",
@@ -31,21 +33,28 @@ export default class ProductsPage extends Vue {
       klass: "success",
       action: "addProduct",
     },
+    {
+      title: "Rafraichir la page",
+      klass: "info ml-auto",
+      action: "refresh",
+    },
   ];
 
+  // Add action 
   public handleClick(params: string): void {
     switch (params) {
       case "addProduct":
         this.$router.push({ path: "add-products" });
-        // router.push({ name: 'user', params: { userId } })
         break;
-      case "test":
-        // code block
+      case "refresh":
+        this.$emit('refresh');
         break;
       default:
       // code block
     }
   }
+
+  //  #endregion
 }
 </script>
 

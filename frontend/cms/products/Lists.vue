@@ -11,7 +11,7 @@
         enabled: true,
         perPage: 20,
         perPageDropdownEnabled: true,
-        perPageDropdown: [20, 50, 100],
+        perPageDropdown: [10, 20, 50, 100],
         setCurrentPage: 1,
         nextLabel: `${$t('labels.next')}`,
         prevLabel: `${$t('labels.prev')}`,
@@ -43,7 +43,7 @@
         <span v-else-if="props.column.field == 'action'">
           <router-link
             class="btn-table-links"
-            :to="{ path: '/cms/products/manage/' + props.row.productId }"
+            :to="{ path: '/cms/products/edit/' + props.row.productId }"
             :data-id="props.row.productId"
           >
             {{ $t("buttons.manage") }}
@@ -69,6 +69,8 @@ import { VueGoodTable } from "vue-good-table";
 })
 export default class ProductsLists extends Vue {
   public isLoading = true;
+
+  //  #region Columns
   public columns = [
     {
       label: this.$t("labels.name"),
@@ -76,7 +78,7 @@ export default class ProductsLists extends Vue {
       sortable: true,
       thClass: "table-header-name",
       globalSearchDisabled: true,
-      width: "40%",
+      width: "20%"
     },
     {
       label: this.$t("labels.price"),
@@ -84,7 +86,6 @@ export default class ProductsLists extends Vue {
       type: "number",
       sortable: true,
       formatFn: this.formatPrice,
-      width: "10%",
     },
     {
       label: this.$t("labels.quantity"),
@@ -92,7 +93,6 @@ export default class ProductsLists extends Vue {
       type: "number",
       sortable: true,
       firstSortType: "asc",
-      width: "10%",
     },
     {
       label: "Categories",
@@ -109,7 +109,7 @@ export default class ProductsLists extends Vue {
       sortable: true,
       firstSortType: "desc",
       // tdClass: this.isPublished,
-      width: "10%",
+      width: "20%",
       thClass: "text-center",
       tdClass: "text-center",
     },
@@ -118,11 +118,13 @@ export default class ProductsLists extends Vue {
       field: "action",
       html: true,
       sortable: false,
-      width: "15%",
+      width: "20%",
       thClass: "text-center",
       tdClass: "text-center",
     },
   ];
+
+  //  #endregion
 
   public rows: Array<Partial<Product>> = [];
 
@@ -142,6 +144,11 @@ export default class ProductsLists extends Vue {
 
   public mounted(): void {
     this.loadItems();
+    this.$parent.$on('refresh', this.refresh);
+  }
+
+  public refresh(): void {
+    this.loadItems();
   }
 
   public onPageChange(params: any): void {
@@ -153,20 +160,21 @@ export default class ProductsLists extends Vue {
     this.serverParams = Object.assign({}, this.serverParams, newProps);
   }
 
+
   public onPerPageChange(params: any): void {
     //  this.updateParams({perPage: params.currentPerPage});
     //  this.loadItems();
   }
 
   public onSortChange(params: any): void {
-    /*   this.updateParams({
+  /*    this.updateParams({
         sort: [{
           type: params.sortType,
           field: this.columns[params.columnIndex].field,
         }],
       });
-      this.loadItems();
-      */
+      this.loadItems(); */
+      
   }
 
   public formatPrice(value: string): string {
