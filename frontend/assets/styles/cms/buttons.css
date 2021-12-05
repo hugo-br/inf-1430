@@ -20,7 +20,6 @@
     @apply bg-yellow-500 hover:bg-yellow-400 text-white border-white;
   }
 
-
   .btn-actions-links.danger {
     @apply bg-red-700 hover:bg-red-500 border-red-500;
   }

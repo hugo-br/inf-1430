@@ -2,7 +2,7 @@ import Api from "./Api";
 import ApiAdmin from "./ApiAdmin";
 
 export interface Product {
-  productId ?: String;
+  productId?: String;
   name: String;
   description: String;
   quantity: Number;
@@ -69,8 +69,8 @@ export async function findProducts(query: String): Promise<any> {
 /**
  * @desc    Add a new product into the database
  * @param   Product Product Informations
- * @return  
- * @error   
+ * @return
+ * @error
  **/
 export async function addProduct(product: Product): Promise<any> {
   return ApiAdmin()
@@ -83,14 +83,13 @@ export async function addProduct(product: Product): Promise<any> {
     });
 }
 
-
 /**
  * @desc    Edit an existing product into the database
  * @param   Product Product Informations
- * @return  
- * @error   
+ * @return
+ * @error
  **/
- export async function editProduct(product: Product): Promise<any> {
+export async function editProduct(product: Product): Promise<any> {
   return ApiAdmin()
     .put(`/products/${product.productId}`, product)
     .then((response) => {
@@ -100,7 +99,6 @@ export async function addProduct(product: Product): Promise<any> {
       return Promise.reject(error);
     });
 }
-
 
 export async function deleteProduct(produtId: string): Promise<any> {
   return ApiAdmin()

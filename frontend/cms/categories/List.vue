@@ -21,10 +21,6 @@
         allLabel: `${$t('labels.all')}`,
         jumpFirstOrLast: false,
       }"
-      @on-page-change="onPageChange"
-      @on-sort-change="onSortChange"
-      @on-column-filter="onColumnFilter"
-      @on-per-page-change="onPerPageChange"
     >
       <!-- <div slot="table-actions">
         This will show up on the top right of the table.
@@ -36,19 +32,22 @@
       </div> 
       -->
 
+      <!-- Number of products in the category -->
       <template slot="table-row" slot-scope="props">
         <span v-if="props.column.field == 'categories'">
-          {{ props.row.categories.length }}
+          {{ props.row.products.length }}
         </span>
+        <!-- Actions Buttons -->
         <span v-else-if="props.column.field == 'action'">
           <router-link
             class="btn-table-links"
-            :to="{ path: '/cms/products/edit/' + props.row.productId }"
+            :to="{ path: '/cms/categories/edit/' + props.row.categoryId }"
             :data-id="props.row.productId"
           >
             {{ $t("buttons.manage") }}
           </router-link>
         </span>
+        <!-- Attribute Columns -->
         <span v-else>
           {{ props.formattedRow[props.column.field] }}
         </span>
@@ -58,8 +57,8 @@
 </template>
 
 <script scoped lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { getAllProducts, Product } from "../../services/ProductsService";
+import { Component, Vue } from "vue-property-decorator";
+import { getAllCategories, Category } from "../../services/CategoryService";
 import { VueGoodTable } from "vue-good-table";
 
 @Component({
@@ -67,7 +66,7 @@ import { VueGoodTable } from "vue-good-table";
     VueGoodTable,
   },
 })
-export default class ProductsLists extends Vue {
+export default class CategoriesList extends Vue {
   public isLoading = true;
 
   //  #region Columns
@@ -78,38 +77,13 @@ export default class ProductsLists extends Vue {
       sortable: true,
       thClass: "table-header-name",
       globalSearchDisabled: true,
-      width: "20%",
     },
+
     {
-      label: this.$t("labels.price"),
-      field: "price",
-      type: "number",
-      sortable: true,
-      formatFn: this.formatPrice,
-    },
-    {
-      label: this.$t("labels.quantity"),
-      field: "quantity",
-      type: "number",
-      sortable: true,
-      firstSortType: "asc",
-    },
-    {
-      label: "Categories",
+      label: this.$t("labels.number_of_products"),
       field: "categories",
       html: true,
       sortable: true,
-      thClass: "text-center",
-      tdClass: "text-center",
-    },
-    {
-      label: this.$t("labels.isPublished"),
-      field: "isPublished",
-      type: "boolean",
-      sortable: true,
-      firstSortType: "desc",
-      // tdClass: this.isPublished,
-      width: "20%",
       thClass: "text-center",
       tdClass: "text-center",
     },
@@ -118,7 +92,6 @@ export default class ProductsLists extends Vue {
       field: "action",
       html: true,
       sortable: false,
-      width: "20%",
       thClass: "text-center",
       tdClass: "text-center",
     },
@@ -126,7 +99,7 @@ export default class ProductsLists extends Vue {
 
   //  #endregion
 
-  public rows: Array<Partial<Product>> = [];
+  public rows: Array<Partial<Category>> = [];
 
   public totalRecords: number = 0;
 
@@ -160,21 +133,6 @@ export default class ProductsLists extends Vue {
     this.serverParams = Object.assign({}, this.serverParams, newProps);
   }
 
-  public onPerPageChange(params: any): void {
-    //  this.updateParams({perPage: params.currentPerPage});
-    //  this.loadItems();
-  }
-
-  public onSortChange(params: any): void {
-    /*    this.updateParams({
-        sort: [{
-          type: params.sortType,
-          field: this.columns[params.columnIndex].field,
-        }],
-      });
-      this.loadItems(); */
-  }
-
   public formatPrice(value: string): string {
     return value + " $";
   }
@@ -189,8 +147,8 @@ export default class ProductsLists extends Vue {
   }
 
   public loadItems(): void {
-    getAllProducts()
-      .then((result: Array<Product>) => {
+    getAllCategories()
+      .then((result: Array<Category>) => {
         this.$nextTick(function () {
           this.rows = result;
           this.totalRecords = result.length;

@@ -1,6 +1,4 @@
 @layer components {
-
-  
   .row-with-info {
     @apply flex;
     border-bottom: thin thin rgb(17 26 33 / 12%) solid;

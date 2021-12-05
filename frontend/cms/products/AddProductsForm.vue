@@ -125,8 +125,6 @@ import { addProduct } from "../../services/ProductsService";
   components: {},
 })
 export default class AddProductsForm extends Vue {
-
-  
   public product = {
     name: "",
     description: "",

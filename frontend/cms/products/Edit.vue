@@ -2,7 +2,10 @@
   <div class="p-2 pr-4">
     <PageTitles :title="title" />
     <Actions :buttons="links" @action="handleClick($event)" />
-    <EditProductsForm :productId="productId" @changeName="updatePageName($event)" />
+    <EditProductsForm
+      :productId="productId"
+      @changeName="updatePageName($event)"
+    />
   </div>
 </template>
 
@@ -20,11 +23,10 @@ import EditProductsForm from "./EditProductsForm.vue";
   },
 })
 export default class ProductsEdit extends Vue {
-
   public productId = this.$route.params.productId;
   public title = "";
 
-  //  #region Links 
+  //  #region Links
   public links = [
     {
       title: "Modifier ce produit",
@@ -51,19 +53,16 @@ export default class ProductsEdit extends Vue {
       // code block
     }
   }
-//  #endregion
+  //  #endregion
 
+  public mounted(): void {
+    // alert(this.productId);
+    console.log(this.$route.params.productId);
+  }
 
-    public mounted(): void {
-       // alert(this.productId);
-        console.log(this.$route.params.productId);
-       
-    }
-
-    public updatePageName(name: string): void {
-            this.title = `Produit : ${name}`;
-    }
-
+  public updatePageName(name: string): void {
+    this.title = `Produit : ${name}`;
+  }
 }
 </script>
 

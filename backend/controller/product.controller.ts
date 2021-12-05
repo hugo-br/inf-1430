@@ -23,13 +23,13 @@ export async function createProductHandler(req: Request, res: Response) {
   }
 }
 
-  /**
-   * @desc    Update a specific product in the database
-   * @param   String  :productId - product ID
-   * @return  Object  Informations on the product
-   **/
+/**
+ * @desc    Update a specific product in the database
+ * @param   String  :productId - product ID
+ * @return  Object  Informations on the product
+ **/
 export async function updateProductHandler(req: Request, res: Response) {
-  console.log("here")
+  console.log("here");
   const userId = get(req, "user._id");
   const productId = get(req, "params.productId");
   const update = req.body;
@@ -46,10 +46,9 @@ export async function updateProductHandler(req: Request, res: Response) {
       new: true,
     });
     return res.send("Product modified");
-  } catch(err: any) {
+  } catch (err: any) {
     return res.send("Error : " + err);
   }
-
 }
 
 /**

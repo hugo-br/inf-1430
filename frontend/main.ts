@@ -16,8 +16,8 @@ Vue.use(VueI18n);
 // Translation
 const i18n = new VueI18n({
   messages,
-  locale: defaultLocale,
-  fallbackLocale: defaultLocale,
+  locale: defaultLocale(),
+  fallbackLocale: "fr",
 });
 
 Vue.use(Acl);

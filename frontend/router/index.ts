@@ -17,6 +17,11 @@ import ProductsPage from "../cms/products/Page.vue";
 import ProductsAdd from "../cms/products/Add.vue";
 import ProductsEdit from "../cms/products/Edit.vue";
 
+// Categories
+import CategoriesPage from "../cms/categories/Page.vue";
+//import ProductsAdd from "../cms/products/Add.vue";
+//import ProductsEdit from "../cms/products/Edit.vue";
+
 // #endregion
 
 Vue.use(VueRouter);
@@ -80,6 +85,21 @@ const routes: Array<RouteConfig> = [
       {
         path: "products/edit/:productId",
         name: "edit-product",
+        component: ProductsEdit,
+      },
+      {
+        path: "categories",
+        name: "list-categories",
+        component: CategoriesPage,
+      },
+      {
+        path: "add-categories",
+        name: "add-categories",
+        component: ProductsAdd,
+      },
+      {
+        path: "categories/edit/:categoryId",
+        name: "edit-categories",
         component: ProductsEdit,
       },
 

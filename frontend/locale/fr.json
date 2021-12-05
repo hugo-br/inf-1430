@@ -4,6 +4,13 @@
     "manage": "Gérer"
   },
 
+  "cms": {
+    "cta": {
+      "add_category": "Ajouter une catégorie",
+      "refresh_page": "Rafraichir la page"
+    }
+  },
+
   "company": {
     "name": "Rubydor"
   },
@@ -14,13 +21,15 @@
 
   "general": {
     "database": "Base de données",
-    "products": "Mes Produits"
+    "categories": "Mes catégories",
+    "products": "Mes produits"
   },
 
   "labels": {
     "all": "Tous",
     "name": "Nom",
     "next": "Prochain",
+    "number_of_products": "Nombre de produits",
     "isPublished": "Publié",
     "of": "de",
     "pages": "pages",

@@ -13,18 +13,19 @@ export interface Category {
   images?: String;
 }
 
-// GET
-export async function getCategories(): Promise<any> {
+/**
+ * @desc    GET all categories listed in db
+ * @return  Array of categories according to the Category models
+ * @error   Error message
+ **/
+export async function getAllCategories(): Promise<any> {
   return Api()
     .get(`/categories/`)
     .then((response) => {
+      console.log(response.data);
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
       return Promise.reject(error);
     });
 }

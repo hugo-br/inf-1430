@@ -33,12 +33,22 @@ const LocalStorageService = (function () {
     localStorage.removeItem("refresh_token");
   }
 
+  function _setLanguage(lang: string): void {
+    localStorage.setItem("language", lang);
+  }
+
+  function _getLanguage(): string {
+    return localStorage.getItem("language");
+  }
+
   return {
     getService: _getService,
     setToken: _setToken,
     getAccessToken: _getAccessToken,
     getRefreshToken: _getRefreshToken,
     clearToken: _clearToken,
+    getLanguage: _getLanguage,
+    setLanguage: _setLanguage,
   };
 })();
 

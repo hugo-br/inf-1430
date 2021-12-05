@@ -17,7 +17,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import {
-  getCategories,
+  getAllCategories,
   getCategory,
   addCategory,
   deleteCategory,
@@ -56,7 +56,7 @@ export default class Categories extends Vue {
   }
 
   public async fetchCategories() {
-    getCategories()
+    getAllCategories()
       .then((result) => {
         console.log(result);
         this.$nextTick(function () {
