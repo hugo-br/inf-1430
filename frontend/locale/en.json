@@ -6,8 +6,17 @@
 
   "cms": {
     "cta": {
-      "add_category": "Add a categories",
-      "refresh_page": "Refresh the page"
+      "add_category": "Add a category",
+      "all_category": "See all the categories",
+      "consult_table": "Consult the table",
+      "edit_category": "Edit this category",
+      "refresh_page": "Refresh"
+    },
+    "labels": {
+      "category_info": "Fill in the general information about this category",
+      "products_info": "Fill in the general information about this product",
+      "review_category": "Review the informations and add this category",
+      "review_products": "Review the informations and add this product"
     }
   },
 
@@ -20,16 +29,23 @@
   },
 
   "general": {
+    "add": "Add",
     "database": "Database",
+    "description": "Description",
+    "category": "Category",
     "categories": "My Categories",
-    "products": "My Products"
+    "generals": "Generals",
+    "products": "My Products",
+    "revision": "Revision"
   },
 
   "labels": {
     "all": "All",
+    "description": "Description",
     "name": "Name",
     "next": "Next",
     "number_of_products": "Number of products",
+    "my_possible_actions": "My possibles actions:",
     "isPublished": "Published",
     "of": "of",
     "pages": "pages",

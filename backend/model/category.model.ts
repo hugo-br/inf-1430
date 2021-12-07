@@ -12,6 +12,7 @@ export interface CategoryDocument extends mongoose.Document {
   startDate: Date;
   endDate: Date;
   lastUser: Types.ObjectId;
+  isPublished: Boolean;
   images: Array<String>;
 }
 
@@ -32,6 +33,7 @@ const CategorySchema = new mongoose.Schema(
     startDate: { type: Date },
     endDate: { type: Date },
     lastUser: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
+    isPublished: { type: Boolean, default: false },
     images: [{ type: String }],
   },
   { timestamps: true }

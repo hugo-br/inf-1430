@@ -10,8 +10,10 @@
 
   /* CMS Forms */
   .cms-form-container {
-    @apply flex mt-5 border-2 p-6 bg-gray-100 rounded-md;
+    @apply flex mt-5 border-2 p-6 bg-gray-100 rounded-md shadow-sm;
     flex-direction: column;
+    border: 1px solid #9fa3a6;
+    background-color: #f3f4f6;
   }
 
   .left-info {

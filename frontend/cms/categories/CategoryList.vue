@@ -22,16 +22,6 @@
         jumpFirstOrLast: false,
       }"
     >
-      <!-- <div slot="table-actions">
-        This will show up on the top right of the table.
-      </div>
-      -->
-      <!--
-      <div slot="table-actions-bottom">
-        This will show up on the bottom of the table.
-      </div> 
-      -->
-
       <!-- Number of products in the category -->
       <template slot="table-row" slot-scope="props">
         <span v-if="props.column.field == 'categories'">

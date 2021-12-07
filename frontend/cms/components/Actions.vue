@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-left flow-root">
-      <h4 class="actions-title">Mes actions possibles :</h4>
+      <h4 class="actions-title">{{ $t("labels.my_possible_actions") }}</h4>
     </div>
     <div
       class="text-left flex mt-2 p-2 bg-gray-100 rounded-md flex-row flex-wrap border-2 flex-space-between"

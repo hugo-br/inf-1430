@@ -7,7 +7,16 @@
   "cms": {
     "cta": {
       "add_category": "Ajouter une catégorie",
-      "refresh_page": "Rafraichir la page"
+      "all_category": "Voir toutes les catégories",
+      "consult_table": "Consultez la tableau",
+      "edit_category": "Modifier cette catégorie",
+      "refresh_page": "Rafraîchir"
+    },
+    "labels": {
+      "category_info": "Remplissez les information générales sur la nouvelle catégorie",
+      "products_info": "Remplissez les information générales sur le nouveau produit",
+      "review_category": "Revissez les informations et ajoutez cette nouvelle catégorie",
+      "review_products": "Revissez les informations et ajoutez ce nouveau produit"
     }
   },
 
@@ -20,16 +29,23 @@
   },
 
   "general": {
+    "add": "Add",
     "database": "Base de données",
+    "description": "Description",
+    "category": "Catégories",
     "categories": "Mes catégories",
-    "products": "Mes produits"
+    "generals": "Générales",
+    "products": "Mes produits",
+    "revision": "Révision"
   },
 
   "labels": {
     "all": "Tous",
+    "description": "Description",
     "name": "Nom",
     "next": "Prochain",
     "number_of_products": "Nombre de produits",
+    "my_possible_actions": "Mes actions possibles :",
     "isPublished": "Publié",
     "of": "de",
     "pages": "pages",

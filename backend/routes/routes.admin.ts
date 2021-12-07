@@ -96,6 +96,12 @@ const routesAdmin = (app: Express) => {
   );
 
   // [PUT]: modifier une category
+  /**
+   * @func    request [PUT]
+   * @desc    Modify an existing category
+   * @param   String   ID of the category
+   * @return
+   **/
   app.put(
     "/api/admin/categories/:categoryId",
     [requireAdmin, validate(updateCategorySchema)],

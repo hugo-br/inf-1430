@@ -2,56 +2,49 @@
   <div class="p-2 pr-4">
     <PageTitles :title="$t('general.categories')" />
     <Actions :buttons="links" @action="handleClick($event)" />
-    <CategoriesList class="mt-10" />
+    <AddCategoryForm />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import CategoriesList from "./List.vue";
 import Actions from "../components/Actions.vue";
 import PageTitles from "../components/PageTitles.vue";
+import AddCategoryForm from "./AddCategoryForm.vue";
 
 @Component({
   components: {
-    CategoriesList,
     Actions,
     PageTitles,
+    AddCategoryForm,
   },
 })
-export default class CategoriesPage extends Vue {
+export default class CategoryAdd extends Vue {
   //  #region Links
+
   public links = [
     {
-      title: "Consulter le tableau",
-      klass: "disabled",
-      action: "test",
-    },
-    {
       title: this.$t("cms.cta.add_category"),
-      klass: "success",
-      action: "addProduct",
+      klass: "disabled",
+      action: "",
     },
     {
-      title: this.$t("cms.cta.refresh_page"),
-      klass: "info ml-auto",
-      action: "refresh",
+      title: this.$t("cms.cta.all_category"),
+      klass: "success",
+      action: "link",
     },
   ];
 
-  // Add action
   public handleClick(params: string): void {
     switch (params) {
-      case "addProduct":
-        this.$router.push({ path: "add-products" });
-        break;
-      case "refresh":
-        this.$emit("refresh");
+      case "link":
+        this.$router.push({ name: "list-categories" });
         break;
       default:
-      // code block
+        return;
     }
   }
+
   //  #endregion
 }
 </script>

@@ -10,6 +10,7 @@ export interface Category {
   startDate?: Date;
   endDate?: Date;
   lastUser?: String;
+  isPublished?: Boolean;
   images?: String;
 }
 
@@ -37,10 +38,6 @@ export async function getCategory(categoryId: String): Promise<any> {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
       return Promise.reject(error);
     });
 }
@@ -50,14 +47,9 @@ export async function addCategory(category: Category): Promise<any> {
   return ApiAdmin()
     .post("/categories", category)
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
       return Promise.reject(error);
     });
 }
@@ -67,14 +59,26 @@ export async function deleteCategory(catId: string): Promise<any> {
   return ApiAdmin()
     .delete(`/categories/${catId}`)
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
+      return Promise.reject(error);
+    });
+}
+
+/**
+ * @desc    Edit an existing category into the database
+ * @param   Category Category Informations
+ * @return
+ * @error
+ **/
+export async function editCategory(category: Category): Promise<any> {
+  return ApiAdmin()
+    .put(`/categories/${category.categoryId}`, category)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
       return Promise.reject(error);
     });
 }

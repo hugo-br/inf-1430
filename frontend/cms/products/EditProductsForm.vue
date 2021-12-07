@@ -184,9 +184,4 @@ export default class EditProductsForm extends Vue {
 }
 </script>
 
-<style scoped lang="less">
-@background: #f3f4f6;
-.cms-form-container {
-  background-color: @background;
-}
-</style>
+<style scoped lang="less"></style>

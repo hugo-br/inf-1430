@@ -18,9 +18,9 @@ import ProductsAdd from "../cms/products/Add.vue";
 import ProductsEdit from "../cms/products/Edit.vue";
 
 // Categories
-import CategoriesPage from "../cms/categories/Page.vue";
-//import ProductsAdd from "../cms/products/Add.vue";
-//import ProductsEdit from "../cms/products/Edit.vue";
+import CategoryPage from "../cms/categories/CategoryPage.vue";
+import CategoryAdd from "../cms/categories/CategoryAdd.vue";
+import CategoryEdit from "../cms/categories/CategoryEdit.vue";
 
 // #endregion
 
@@ -90,17 +90,17 @@ const routes: Array<RouteConfig> = [
       {
         path: "categories",
         name: "list-categories",
-        component: CategoriesPage,
+        component: CategoryPage,
       },
       {
         path: "add-categories",
         name: "add-categories",
-        component: ProductsAdd,
+        component: CategoryAdd,
       },
       {
         path: "categories/edit/:categoryId",
         name: "edit-categories",
-        component: ProductsEdit,
+        component: CategoryEdit,
       },
 
       /*    {
