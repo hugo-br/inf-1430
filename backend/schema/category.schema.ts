@@ -15,7 +15,7 @@ const params = {
   }),
 };
 
-// ROUTES
+// Construct Objects
 export const createCategorySchema = object({
   ...payload,
 });
@@ -23,6 +23,10 @@ export const createCategorySchema = object({
 export const updateCategorySchema = object({
   ...params,
   ...payload,
+});
+
+export const oneUpdateCategorySchema = object({
+  ...params,
 });
 
 export const deleteCategorySchema = object({

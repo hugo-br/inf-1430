@@ -1,0 +1,48 @@
+@layer components {
+  .btn-actions {
+    @apply font-sans font-medium py-1 px-4 rounded-full border-2 ml-4 bg-white border-gray-700 text-gray-600 transition-all;
+    font-size: 11px;
+  }
+
+  .btn-actions.disabled {
+    @apply bg-gray-800 text-white cursor-help;
+  }
+  .btn-actions.success {
+    @apply border-green-700 bg-green-600 hover:bg-green-500 text-white;
+  }
+  .btn-actions.danger {
+    @apply bg-red-700 hover:bg-red-500 border-red-500 text-white;
+  }
+  .btn-actions.info {
+    @apply bg-blue-500 hover:bg-blue-400 border-blue-500 text-white;
+  }
+  .btn-actions.alert {
+    @apply bg-yellow-500 hover:bg-yellow-400 text-white border-white;
+  }
+  .btn-actions.gray {
+    @apply bg-gray-500 hover:bg-gray-400 text-white border-white;
+  }
+
+  .btn-actions-links.danger {
+    @apply bg-red-700 hover:bg-red-500 border-red-500;
+  }
+  .btn-actions-links.info {
+    @apply bg-blue-500 hover:bg-blue-400 border-blue-500;
+  }
+
+  .btn-table-links {
+    @apply font-bold py-1 px-4 rounded-lg border-2 bg-green-700  hover:bg-green-600;
+    font-size: 11px;
+    border: solid thin #8dd785;
+    /*background-color: #74a06f;*/
+  }
+  .btn-table-links.info {
+    @apply bg-blue-500 hover:bg-blue-400 border-blue-500;
+  }
+  .btn-table-links.danger {
+    @apply bg-red-700 hover:bg-red-500 border-red-500;
+  }
+  .btn-table-links.warning {
+    @apply bg-yellow-500 hover:bg-yellow-400 border-yellow-400;
+  }
+}

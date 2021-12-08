@@ -7,8 +7,4 @@
   </div>
 </template>
 
-<style lang="less">
-h1 {
-  color: blue;
-}
-</style>
+<style lang="less"></style>

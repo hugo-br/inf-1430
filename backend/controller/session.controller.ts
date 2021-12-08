@@ -21,7 +21,7 @@ import {
 export async function createSessionHandler(req: Request, res: Response) {
   // valider l'email et le mot de passe
   const user = await validatePassword(req.body);
-  if (!user) return res.status(401).send("Invalid username or password");
+  if (!user) return res.status(401).send("invalid_username");
 
   // Creer une session
   const session = await createSession(user._id, req.get("user-agent") || "");
@@ -56,9 +56,12 @@ export async function getSessionInfo(req: Request, res: Response) {
 /******************************************************************** */
 // sessions pour les ADMINS
 export async function createAdminSessionHandler(req: Request, res: Response) {
-  // valider l'email et le mot de passe
+  // validate credentials
   const admin = await validateAdminPassword(req.body);
-  if (!admin) return res.status(401).send("Invalid username or password");
+
+  if (!admin) {
+    return res.send({ errorMsg: "invalid_username", confirm: false });
+  }
 
   // Creer une session
   const session = await createAdminSession(
@@ -75,7 +78,7 @@ export async function createAdminSessionHandler(req: Request, res: Response) {
   });
 
   // envoyer le token
-  return res.send({ accessToken, refreshToken });
+  return res.send({ accessToken, refreshToken, error: "", confirm: true });
 }
 
 export async function invalidateAdminSession(req: Request, res: Response) {

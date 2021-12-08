@@ -4,13 +4,8 @@
 @tailwind utilities;
 
 @layer base {
-  h1 {
-    @apply text-2xl;
-  }
-  h2 {
-    @apply text-xl;
-  }
 }
 
-@import 'buttons/buttons.css';
-
+@import "buttons/buttons.css";
+@import "forms/index.css";
+@import "cms/index.css";

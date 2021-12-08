@@ -3,7 +3,7 @@ export async function getAllUsers() {
   return await response.json();
 }
 
-export async function createUser(data) {
+export async function createUser(data: any) {
   const response = await fetch(`/api/user`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

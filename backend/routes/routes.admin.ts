@@ -14,6 +14,7 @@ import {
   createProductSchema,
   updateProductSchema,
   deleteProductSchema,
+  oneUpdateProductSchema,
 } from "@backend/schema/product.schema";
 import {
   createProductHandler,
@@ -24,6 +25,7 @@ import {
   createCategorySchema,
   updateCategorySchema,
   deleteCategorySchema,
+  oneUpdateCategorySchema,
 } from "@backend/schema/category.schema";
 import {
   createCategoryHandler,
@@ -60,16 +62,26 @@ const routesAdmin = (app: Express) => {
     createProductHandler
   );
 
-  
   /**
    * @func    request [PUT]
    * @desc    Modifier un produit
    * @param   String   ID du produit
-   * @return  
-  **/
+   * @return
+   **/
   app.put(
     "/api/admin/products/:productId",
     [requireAdmin, validate(updateProductSchema)],
+    updateProductHandler
+  );
+  /**
+   * @func    request [PUT]
+   * @desc    Publish or unplished a particular product
+   * @param   String   ProductID
+   * @return
+   **/
+  app.put(
+    "/api/admin/products/update/:productId",
+    [requireAdmin, validate(oneUpdateProductSchema)],
     updateProductHandler
   );
 
@@ -77,17 +89,18 @@ const routesAdmin = (app: Express) => {
    * @func    request [DELETE]
    * @desc    Supprimer un produit
    * @param   String   ID du produit
-   * @return  
-  **/
+   * @return
+   **/
   app.delete(
     "/api/admin/products/:productId",
     [requireAdmin, validate(deleteProductSchema)],
     deleteProductHandler
   );
 
-  //***************************************************************************************** */
-  /*** Category    
-/**********************/
+  //  #region Category
+  /*   Category
+   *
+   */
 
   // [POST]: creer une category
   app.post(
@@ -97,6 +110,24 @@ const routesAdmin = (app: Express) => {
   );
 
   // [PUT]: modifier une category
+  /**
+   * @func    request [PUT]
+   * @desc    Modify an existing category
+   * @param   String   ID of the category
+   * @return
+   **/
+  app.put(
+    "/api/admin/categories/:categoryId",
+    [requireAdmin, validate(updateCategorySchema)],
+    updateCategoryHandler
+  );
+
+  /**
+   * @func    request [PUT]
+   * @desc    Modify an existing category
+   * @param   String   ID of the category
+   * @return
+   **/
   app.put(
     "/api/admin/categories/:categoryId",
     [requireAdmin, validate(updateCategorySchema)],
@@ -109,6 +140,8 @@ const routesAdmin = (app: Express) => {
     [requireAdmin, validate(deleteCategorySchema)],
     deleteCategoryHandler
   );
+
+  // #endregion
 
   // Verifier l'etat du server
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));

@@ -1,4 +1,4 @@
-import mongoose, {Types} from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { customAlphabet } from "nanoid";
 const nanoid = customAlphabet("wxyz1234567890", 6);
 
@@ -12,6 +12,7 @@ export interface CategoryDocument extends mongoose.Document {
   startDate: Date;
   endDate: Date;
   lastUser: Types.ObjectId;
+  isPublished: Boolean;
   images: Array<String>;
 }
 
@@ -26,13 +27,14 @@ const CategorySchema = new mongoose.Schema(
     },
     name: { type: String, required: true },
     description: { type: String },
-    products:   [{ type: mongoose.Types.ObjectId, ref: 'Product' }],
+    products: [{ type: mongoose.Types.ObjectId, ref: "Product" }],
     createdAt: { type: Date },
     updatedAt: { type: Date },
     startDate: { type: Date },
     endDate: { type: Date },
     lastUser: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
-    images: [{ type: String }]
+    isPublished: { type: Boolean, default: false },
+    images: [{ type: String }],
   },
   { timestamps: true }
 );

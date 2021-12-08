@@ -1,5 +1,88 @@
 {
+  "buttons": {
+    "edit": "Edit",
+    "manage": "Manage"
+  },
+
+  "cms": {
+    "cta": {
+      "add_category": "Add a category",
+      "all_category": "See all the categories",
+      "delete_category": "Delete this category",
+      "consult_table": "Consult the table",
+      "edit_category": "Edit this category",
+      "refresh_page": "Refresh"
+    },
+    "labels": {
+      "category_info": "Fill in the general information about this category",
+      "products_info": "Fill in the general information about this product",
+      "review_category": "Review the informations and add this category",
+      "review_products": "Review the informations and add this product"
+    },
+    "menu": {
+      "admin": "Admins",
+      "analytics": "Analytics",
+      "categories": "Categories",
+      "dashboard": "Dashboard",
+      "expeditors": "Expeditors",
+      "orders": "Orders",
+      "products": "Products",
+      "sales": "Sales",
+      "schedules": "Schedules",
+      "settings": "Settings",
+      "users": "Usagers"
+    }
+  },
+
+  "company": {
+    "name": "Rubydor"
+  },
+
+  "errors": {
+    "invalid_username": "Invalid username or password"
+  },
+
+  "general": {
+    "add": "Administrator",
+    "admin": "Administrator",
+    "admins": "Administrators",
+    "database": "Database",
+    "description": "Description",
+    "category": "Category",
+    "categories": "My Categories",
+    "generals": "Generals",
+    "products": "My Products",
+    "revision": "Revision"
+  },
+
+  "labels": {
+    "all": "All",
+    "description": "Description",
+    "name": "Name",
+    "next": "Next",
+    "number_of_products": "Number of products",
+    "my_possible_actions": "My possibles actions:",
+    "isPublished": "Published",
+    "of": "of",
+    "pages": "pages",
+    "prev": "Previous",
+    "price": "Price",
+    "quantity": "Quantity",
+    "rows_per_page": "Rows per page"
+  },
+
+  "login": {
+    "forget_password": "Forgot your password?",
+    "email": "Email address",
+    "password": "Password",
+    "or": "or",
+    "register": "register",
+    "remember_me": "Remember me",
+    "signin": "Sign in",
+    "sign_account": "Sign in to your account"
+  },
+
   "titles": {
-    "main": "Welcome"
+    "main": "Rubydor"
   }
 }

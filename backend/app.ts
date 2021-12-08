@@ -18,7 +18,6 @@ const port = config.get("port") as number;
 // middleware
 app.use(deserializeUser);
 app.use(compression()); //Compress all routes
-//app.use(morgan('combined') as any);
 app.use(express.json() as RequestHandler);
 app.use(express.urlencoded({ extended: false }) as RequestHandler);
 app.use(cors());
