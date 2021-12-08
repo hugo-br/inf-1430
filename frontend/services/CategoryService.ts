@@ -82,3 +82,23 @@ export async function editCategory(category: Category): Promise<any> {
       return Promise.reject(error);
     });
 }
+
+/**
+ * @desc    Send a request to publish or unplished a product
+ * @param   CategoryId
+ * @return
+ * @error
+ **/
+export async function publishedProduct(
+  categoryId: string,
+  publish: boolean
+): Promise<any> {
+  return ApiAdmin()
+    .put(`/categories/update/${categoryId}`, { isPublished: publish })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
+}

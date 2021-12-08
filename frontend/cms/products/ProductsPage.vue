@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import ProductsLists from "./Lists.vue";
+import { Component, Vue } from "vue-property-decorator";
+import ProductsLists from "./ProductsLists.vue";
 import Actions from "../components/Actions.vue";
 import PageTitles from "../components/PageTitles.vue";
 

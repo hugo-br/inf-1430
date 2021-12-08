@@ -160,6 +160,7 @@ export default class EditProductsForm extends Vue {
         this.$nextTick(function () {
           this.product = result;
           this.isLoaded = true;
+          this.$emit("updatePage", result);
         });
       })
       .catch((error: any) => {

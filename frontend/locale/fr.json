@@ -8,6 +8,7 @@
     "cta": {
       "add_category": "Ajouter une catégorie",
       "all_category": "Voir toutes les catégories",
+      "delete_category": "Supprimez cette catégorie",
       "consult_table": "Consultez la tableau",
       "edit_category": "Modifier cette catégorie",
       "refresh_page": "Rafraîchir"
@@ -17,6 +18,19 @@
       "products_info": "Remplissez les information générales sur le nouveau produit",
       "review_category": "Revissez les informations et ajoutez cette nouvelle catégorie",
       "review_products": "Revissez les informations et ajoutez ce nouveau produit"
+    },
+    "menu": {
+      "admin": "Administrateurs",
+      "analytics": "Analytique",
+      "categories": "Catégories",
+      "dashboard": "Tableau de Bord",
+      "expeditors": "Expéditeurs",
+      "orders": "Commandes",
+      "products": "Produits",
+      "sales": "Ventes",
+      "schedules": "Cédules",
+      "settings": "Paramètres",
+      "users": "Usagers"
     }
   },
 
@@ -30,6 +44,8 @@
 
   "general": {
     "add": "Add",
+    "admin": "Administrateur",
+    "admins": "Administrateurs",
     "database": "Base de données",
     "description": "Description",
     "category": "Catégories",
@@ -64,22 +80,6 @@
     "remember_me": "Se rappeler de moi",
     "signin": "Se connecter",
     "sign_account": "Se connecter à votre compte"
-  },
-
-  "menu": {
-    "cms": {
-      "admin": "Administrateurs",
-      "analytics": "Analytique",
-      "categories": "Catégories",
-      "dashboard": "Tableau de Bord",
-      "expeditors": "Expéditeurs",
-      "orders": "Commandes",
-      "products": "Produits",
-      "sales": "Ventes",
-      "schedules": "Cédules",
-      "settings": "Paramètres",
-      "users": "Usagers"
-    }
   },
 
   "titles": {

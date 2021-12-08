@@ -1,11 +1,8 @@
 <template>
   <div class="p-2 pr-4">
-    <PageTitles :title="title" />
+    <PageTitles :title="$t('general.categories')" />
     <Actions :buttons="links" @action="handleClick($event)" />
-    <EditCategoryForm
-      :categoryId="categoryId"
-      @changeName="updatePageName($event)"
-    />
+    <AddAdminForm />
   </div>
 </template>
 
@@ -13,25 +10,21 @@
 import { Component, Vue } from "vue-property-decorator";
 import Actions from "../components/Actions.vue";
 import PageTitles from "../components/PageTitles.vue";
-import EditCategoryForm from "./EditCategoryForm.vue";
+import AddAdminForm from "./AddAdminForm.vue";
 
 @Component({
   components: {
     Actions,
     PageTitles,
-    EditCategoryForm,
+    AddAdminForm,
   },
 })
-export default class CategoryEdit extends Vue {
-  //  #region Props and Data
-  public categoryId = this.$route.params.categoryId;
-  public title = "";
-  //  #endregion
-
+export default class AdminAdd extends Vue {
   //  #region Links
+
   public links = [
     {
-      title: this.$t("cms.cta.edit_category"),
+      title: this.$t("cms.cta.add_category"),
       klass: "disabled",
       action: "",
     },
@@ -45,22 +38,13 @@ export default class CategoryEdit extends Vue {
   public handleClick(params: string): void {
     switch (params) {
       case "link":
-        this.$router.push({ name: "list-categories" });
+        this.$router.push({ name: "list-admin" });
         break;
       default:
-      // code block
+        return;
     }
   }
-  //  #endregion
 
-  //  #region Functions
-  public mounted(): void {
-    this.updatePageName(this.categoryId);
-  }
-
-  public updatePageName(name: string): void {
-    this.title = `${this.$t("general.category")} : ${name}`;
-  }
   //  #endregion
 }
 </script>

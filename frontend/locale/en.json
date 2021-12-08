@@ -8,6 +8,7 @@
     "cta": {
       "add_category": "Add a category",
       "all_category": "See all the categories",
+      "delete_category": "Delete this category",
       "consult_table": "Consult the table",
       "edit_category": "Edit this category",
       "refresh_page": "Refresh"
@@ -17,6 +18,19 @@
       "products_info": "Fill in the general information about this product",
       "review_category": "Review the informations and add this category",
       "review_products": "Review the informations and add this product"
+    },
+    "menu": {
+      "admin": "Admins",
+      "analytics": "Analytics",
+      "categories": "Categories",
+      "dashboard": "Dashboard",
+      "expeditors": "Expeditors",
+      "orders": "Orders",
+      "products": "Products",
+      "sales": "Sales",
+      "schedules": "Schedules",
+      "settings": "Settings",
+      "users": "Usagers"
     }
   },
 
@@ -29,7 +43,9 @@
   },
 
   "general": {
-    "add": "Add",
+    "add": "Administrator",
+    "admin": "Administrator",
+    "admins": "Administrators",
     "database": "Database",
     "description": "Description",
     "category": "Category",
@@ -64,22 +80,6 @@
     "remember_me": "Remember me",
     "signin": "Sign in",
     "sign_account": "Sign in to your account"
-  },
-
-  "menu": {
-    "cms": {
-      "admin": "Admins",
-      "analytics": "Analytics",
-      "categories": "Categories",
-      "dashboard": "Dashboard",
-      "expeditors": "Expeditors",
-      "orders": "Orders",
-      "products": "Products",
-      "sales": "Sales",
-      "schedules": "Schedules",
-      "settings": "Settings",
-      "users": "Usagers"
-    }
   },
 
   "titles": {

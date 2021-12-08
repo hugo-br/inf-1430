@@ -27,6 +27,10 @@ export const updateProductSchema = object({
   ...payload,
 });
 
+export const oneUpdateProductSchema = object({
+  ...params,
+});
+
 export const deleteProductSchema = object({
   ...params,
 });
