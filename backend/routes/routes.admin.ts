@@ -1,6 +1,9 @@
 import { Express, Request, Response } from "express";
 import { validate, requireAdmin } from "@backend/middleware";
-import { createAdminHandler } from "@backend/controller/admin.controller";
+import {
+  createAdminHandler,
+  getAdminUsers,
+} from "@backend/controller/admin.controller";
 import {
   createAdminSchema,
   createAdminSessionSchema,
@@ -34,10 +37,22 @@ import {
 } from "@backend/controller/category.controller";
 
 const routesAdmin = (app: Express) => {
-  //*** Utilisateurs */
+  //  #region Admin
 
-  // POST : Inscription
-  app.post("/api/admin", validate(createAdminSchema), createAdminHandler);
+  /**
+   * @desc  Handle the get request to get all the existing administrators
+   * Must be an admin to be able to make the request
+   **/
+  app.get("/api/admin/admins", requireAdmin, getAdminUsers);
+
+  /**
+   * @desc    Handle the post request to create a new admin
+   **/
+  app.post(
+    "/api/admin/register",
+    validate(createAdminSchema),
+    createAdminHandler
+  );
 
   // POST: Login
   app.post(
@@ -51,6 +66,9 @@ const routesAdmin = (app: Express) => {
 
   // GET: User Session
   app.get("/api/admin/sessions", requireAdmin, getAdminSessionInfo);
+
+  // #endregion
+
   //***************************************************************************************** */
 
   //*** Produits  */

@@ -6,9 +6,11 @@
 
   "cms": {
     "cta": {
+      "add_admin": "Add an administrator",
       "add_category": "Add a category",
       "all_category": "See all the categories",
       "delete_category": "Delete this category",
+      "consult_admins": "See all administrators",
       "consult_table": "Consult the table",
       "edit_category": "Edit this category",
       "refresh_page": "Refresh"
@@ -39,7 +41,18 @@
   },
 
   "errors": {
-    "invalid_username": "Invalid username or password"
+    "account_created": "This user has already an account",
+    "email_not_valid": "Must be a valid email",
+    "email_required": "Email is required",
+    "errors_found": "Some errors was found",
+    "firstName_required": "First name is required",
+    "name_required": "Name is required",
+    "invalid_username": "Invalid username or password",
+    "lastName_required": "Last name is required",
+    "password_must_match": "Passwords must match",
+    "password_latin": "Password can only contain Latin letters.",
+    "password_required": "Password is required",
+    "password_too_short": "Password is too short - should be 6 chars minimum"
   },
 
   "general": {
@@ -58,6 +71,9 @@
   "labels": {
     "all": "All",
     "description": "Description",
+    "email": "Email address",
+    "first_name": "First Name",
+    "last_name": "Last Name",
     "name": "Name",
     "next": "Next",
     "number_of_products": "Number of products",
@@ -65,6 +81,8 @@
     "isPublished": "Published",
     "of": "of",
     "pages": "pages",
+    "password": "Enter a password",
+    "password_confirmation": "Confirm the password",
     "prev": "Previous",
     "price": "Price",
     "quantity": "Quantity",

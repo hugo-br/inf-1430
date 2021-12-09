@@ -1,6 +1,6 @@
 <template>
   <div class="p-2 pr-4">
-    <PageTitles :title="$t('general.categories')" />
+    <PageTitles :title="$t('general.admins')" />
     <Actions :buttons="links" @action="handleClick($event)" />
     <AddAdminForm />
   </div>
@@ -24,12 +24,12 @@ export default class AdminAdd extends Vue {
 
   public links = [
     {
-      title: this.$t("cms.cta.add_category"),
+      title: this.$t("cms.cta.add_admin"),
       klass: "disabled",
       action: "",
     },
     {
-      title: this.$t("cms.cta.all_category"),
+      title: this.$t("cms.cta.consult_admins"),
       klass: "success",
       action: "link",
     },

@@ -98,7 +98,7 @@ export default class CategoryEdit extends Vue {
   }
 
   public updatePageName(name: string): void {
-    this.title = `${this.$t("general.category")} : ${name}`;
+    this.title = `${this.$t("general.admins")} : ${name}`;
   }
 
   public showModal(): void {

@@ -1,31 +1,36 @@
 import { object, string, ref } from "yup";
 
+/**
+ * @desc    Verify if the admin params sent are valid
+ * @error   Return error codes
+ **/
 export const createAdminSchema = object({
   body: object({
-    name: string().required("Name is required"),
+    firstName: string().required("firstName_required"),
+    lastName: string().required("lastName_required"),
     password: string()
-      .required("Password is required")
-      .min(6, "Password is too short - should be 6 chars minimum.")
-      .matches(/^[a-zA-Z0-9_.-]*$/, "Password can only contain Latin letters."),
+      .required("password_required")
+      .min(6, "password_too_short")
+      .matches(/^[a-zA-Z0-9_.-]*$/, "password_latin"),
     passwordConfirmation: string().oneOf(
       [ref("password"), null],
-      "Passwords must match"
+      "password_must_match"
     ),
-    email: string()
-      .email("Must be a valid email")
-      .required("Email is required"),
+    email: string().email("email_not_valid").required("email_required"),
   }),
 });
 
+/**
+ * @params  Admin object
+ * @desc    Send request to create a new administrator
+ **/
 export const createAdminSessionSchema = object({
   body: object({
     password: string()
-      .required("Password is required")
-      .min(6, "Password is too short - should be 6 chars minimum.")
-      .matches(/^[a-zA-Z0-9_.-]*$/, "Password can only contain Latin letters."),
+      .required("password_required")
+      .min(6, "password_too_short")
+      .matches(/^[a-zA-Z0-9_.-]*$/, "password_latin"),
 
-    email: string()
-      .email("Must be a valid email")
-      .required("Email is required"),
+    email: string().email("email_not_valid").required("email_required"),
   }),
 });

@@ -23,12 +23,12 @@ export default class AdminPage extends Vue {
   //  #region Links
   public links = [
     {
-      title: this.$t("cms.cta.consult_table"),
+      title: this.$t("cms.cta.consult_admins"),
       klass: "disabled",
       action: "",
     },
     {
-      title: this.$t("cms.cta.add_category"),
+      title: this.$t("cms.cta.add_admin"),
       klass: "success",
       action: "add",
     },

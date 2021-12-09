@@ -60,7 +60,7 @@ export async function createAdminSessionHandler(req: Request, res: Response) {
   const admin = await validateAdminPassword(req.body);
 
   if (!admin) {
-    return res.send({ errorMsg: "invalid_username", confirm: false });
+    return res.send({ errorMsg: ["invalid_username"], confirm: false });
   }
 
   // Creer une session

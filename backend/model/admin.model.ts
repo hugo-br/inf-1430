@@ -4,7 +4,8 @@ import config from "config";
 
 export interface AdminDocument extends mongoose.Document {
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   password: string;
   createdAt: Date;
   updatedAt: Date;
@@ -16,7 +17,8 @@ export interface AdminDocument extends mongoose.Document {
 const AdminSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     password: { type: String, required: true },
     role: { type: String, default: "Admin" },
   },
