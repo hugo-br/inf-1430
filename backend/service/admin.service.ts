@@ -3,7 +3,7 @@ import { omit } from "lodash";
 import Admin, { AdminDocument } from "../model/admin.model";
 
 /**
- * @desc    Add this new admin object into the database
+ * @desc    Add this new administrator object into the database
  * @params  Admin object
  **/
 export async function createAdmin(input: DocumentDefinition<AdminDocument>) {
@@ -15,7 +15,7 @@ export async function createAdmin(input: DocumentDefinition<AdminDocument>) {
 }
 
 /**
- * @desc    Query to find one specific admin user
+ * @desc    Query to find one specific administrator user
  * @params  Query object
  **/
 export async function findAdmin(query: FilterQuery<AdminDocument>) {
@@ -23,7 +23,7 @@ export async function findAdmin(query: FilterQuery<AdminDocument>) {
 }
 
 /**
- * @desc    Query to find all admin users in db
+ * @desc    Query to find all administrator users in database
  **/
 export async function findAllAdmins() {
   const filter = {};
@@ -32,7 +32,7 @@ export async function findAllAdmins() {
 }
 
 /**
- * @desc   Validate password
+ * @desc   Query to validate a password for administrators
  **/
 export async function validateAdminPassword({
   email,

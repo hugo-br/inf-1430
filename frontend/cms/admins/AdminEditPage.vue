@@ -3,7 +3,7 @@
     <PageTitles :title="title" />
     <Actions :buttons="links" @action="handleClick($event)" />
     <EditAdminForm
-      :categoryId="categoryId"
+      :adminId="adminId"
       @changeName="updatePageName($event)"
     />
 
@@ -13,18 +13,18 @@
       <template v-slot:body>
         <p>
           Êtes-vous certain de vouloir supprimer la catégorie :
-          {{ categoryId }} ?
+          {{ adminId }} ?
         </p>
       </template>
 
       <template v-slot:footer>
         <div class="flex flex-row flex-wrap justify-center">
-          <button
+         <!-- <button
             @click="confirmDelete()"
             class="btn-actions danger w-40 align-center"
           >
             Supprimer
-          </button>
+          </button> -->
           <button
             @click="closeModal()"
             class="btn-actions gray w-40 align-center"
@@ -43,7 +43,7 @@ import Actions from "../components/Actions.vue";
 import PageTitles from "../components/PageTitles.vue";
 import CMSModal from "../components/Modal.vue";
 import { deleteCategory } from "../../services/CategoryService";
-import EditAdminForm from "./EditAdminForm.vue";
+import EditAdminForm from "./AdminEditForm.vue";
 @Component({
   components: {
     Actions,
@@ -54,7 +54,7 @@ import EditAdminForm from "./EditAdminForm.vue";
 })
 export default class CategoryEdit extends Vue {
   //  #region Props and Data
-  public categoryId = this.$route.params.categoryId;
+  public adminId = this.$route.params.adminId;
   public title = "";
   public isModalVisible = false;
   //  #endregion
@@ -94,7 +94,7 @@ export default class CategoryEdit extends Vue {
 
   //  #region Functions
   public mounted(): void {
-    this.updatePageName(this.categoryId);
+    this.updatePageName(this.adminId);
   }
 
   public updatePageName(name: string): void {
@@ -109,6 +109,7 @@ export default class CategoryEdit extends Vue {
     this.isModalVisible = false;
   }
 
+/*
   public confirmDelete(): void {
     deleteCategory(this.categoryId)
       .then((result: any) => {
@@ -118,6 +119,7 @@ export default class CategoryEdit extends Vue {
       })
       .catch((error: any) => console.error("Error:", error));
   }
+ */ 
 
   //  #endregion
 }

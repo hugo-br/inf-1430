@@ -18,12 +18,8 @@ import {
 } from "@backend/controller/category.controller";
 
 export default (app: Express) => {
-  /**
-   *-----------------------
-   * Sessions public Routes
-   *-----------------------
-   **/
 
+ // #region  Sessions 
   // Inscription
   app.post("/api/users", validate(createUserSchema), createUserHandler);
 
@@ -39,6 +35,9 @@ export default (app: Express) => {
 
   // User Session
   app.get("/api/sessions", requireUser, getSessionInfo);
+
+// #endregion
+
 
   /**
    *-----------------------

@@ -11,7 +11,11 @@ import {
 } from "../service/product.service";
 import { updateCategoryAfterProductDeleted } from "../service/category.service";
 
-// creer
+/**
+ * @desc    Handler to create a new product
+ * @param   Product  object product
+ * @param   adminId  id of admin
+ */
 export async function createProductHandler(req: Request, res: Response) {
   const adminId = get(req, "user._id");
   const body = req.body;
@@ -29,12 +33,10 @@ export async function createProductHandler(req: Request, res: Response) {
  * @return  Object  Informations on the product
  **/
 export async function updateProductHandler(req: Request, res: Response) {
-  console.log("here");
   const userId = get(req, "user._id");
   const productId = get(req, "params.productId");
   const update = req.body;
   const product = await findProduct({ productId });
-  console.log(product);
   if (!product) {
     return res.send("Product not modified");
   }
@@ -52,7 +54,6 @@ export async function updateProductHandler(req: Request, res: Response) {
 }
 
 /**
- * @func    async
  * @desc    Call function to get all products from database
  * @return  Array  Return all products on database
  **/

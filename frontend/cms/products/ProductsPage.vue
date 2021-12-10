@@ -33,7 +33,7 @@ export default class ProductsPage extends Vue {
       action: "addProduct",
     },
     {
-      title: "Rafraichir la page",
+      title: this.$t("cms.cta.refresh_page"),
       klass: "info ml-auto",
       action: "refresh",
     },

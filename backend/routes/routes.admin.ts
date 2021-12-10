@@ -3,6 +3,7 @@ import { validate, requireAdmin } from "@backend/middleware";
 import {
   createAdminHandler,
   getAdminUsers,
+  getOneAdminUsers
 } from "@backend/controller/admin.controller";
 import {
   createAdminSchema,
@@ -36,7 +37,14 @@ import {
   deleteCategoryHandler,
 } from "@backend/controller/category.controller";
 
+/**
+   * @desc All the routes that need to be identify as an admin
+   * 
+*/ 
+
 const routesAdmin = (app: Express) => {
+ 
+ 
   //  #region Admin
 
   /**
@@ -44,6 +52,13 @@ const routesAdmin = (app: Express) => {
    * Must be an admin to be able to make the request
    **/
   app.get("/api/admin/admins", requireAdmin, getAdminUsers);
+
+
+  /**
+   * @desc  Handle the get request to get all the existing administrators
+   * Must be an admin to be able to make the request
+   **/
+   app.get("/api/admin/:adminId", requireAdmin, getOneAdminUsers);
 
   /**
    * @desc    Handle the post request to create a new admin

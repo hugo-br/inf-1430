@@ -1,22 +1,33 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import config from "config";
+import { customAlphabet } from "nanoid";
+const nanoid = customAlphabet("abcd1234567890", 6);
 
 export interface UserDocument extends mongoose.Document {
+  id: string;
   email: string;
   name: string;
   password: string;
   createdAt: Date;
   updatedAt: Date;
+  role: string;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 // creation de la database
 const UserSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+      default: () => nanoid()
+    },
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     password: { type: String, required: true },
+    role: { type: String, default: "user" }
   },
   { timestamps: true }
 );

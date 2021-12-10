@@ -16,24 +16,23 @@
       <div class="right-info">
         <div>
           <div class="info-form-row">
-            <div class="info-form-items">
-              <label for="name"> {{ $t("labels.name") }}<sup>*</sup></label>
+            <div class="info-form-items half">
+              <label for="name"> {{ $t("labels.fist_name") }}<sup>*</sup></label>
               <input
                 id="name"
                 type="text"
                 placeholder="Nom de la catégories"
-                v-model="category.name"
+                v-model="admin.firstName"
               />
             </div>
 
-            <div class="info-form-items">
-              <label for="description"
-                >{{ $t("labels.description") }}<sup>*</sup></label
-              >
-              <textarea
-                id="description"
-                placeholder="Description..."
-                v-model="category.description"
+            <div class="info-form-items half">
+              <label for="name"> {{ $t("labels.lastName") }}<sup>*</sup></label>
+              <input
+                id="name"
+                type="text"
+                placeholder="Nom de la catégories"
+                v-model="admin.firstName"
               />
             </div>
           </div>
@@ -67,33 +66,31 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import {
-  getCategory,
-  editCategory,
-  Category,
-} from "../../services/CategoryService";
+import {Admin, getOneAdmin} from "../../services/AdminService";
 
 @Component({
   components: {},
 })
 export default class EditAdminForm extends Vue {
   @Prop()
-  public categoryId: string;
+  public adminId: string;
 
-  public category: Category = {
-    name: "",
-    description: "",
+  public admin: Partial<Admin> = {
+    firstName: "",
+    lastName: "",
+    email: ""
   };
 
   public isLoaded = false;
   public notFound = false;
 
-  public async fetchProd() {
-    getCategory(this.categoryId)
-      .then((result: Category) => {
+  public async fetchAdmin() {
+    console.log("here");
+    getOneAdmin(this.adminId)
+      .then((result: Partial<Admin>) => {
         console.log(result);
         this.$nextTick(function () {
-          this.category = result;
+          this.admin = result;
           this.isLoaded = true;
         });
       })
@@ -105,9 +102,10 @@ export default class EditAdminForm extends Vue {
   }
 
   public mounted(): void {
-    this.fetchProd();
+    this.fetchAdmin();
   }
 
+/*
   public async edit() {
     editCategory(this.category)
       .then((result: any) => {
@@ -116,6 +114,7 @@ export default class EditAdminForm extends Vue {
       })
       .catch((error: any) => console.error("Error:", error));
   }
+  */
 }
 </script>
 

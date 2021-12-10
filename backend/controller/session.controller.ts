@@ -3,7 +3,7 @@ import { validatePassword } from "../service/user.service";
 import { validateAdminPassword } from "../service/admin.service";
 import { sign } from "../utils/tokens";
 import config from "config";
-import { get } from "lodash";
+import { omit, get } from "lodash";
 import {
   createAccessToken,
   createSession,
@@ -70,7 +70,7 @@ export async function createAdminSessionHandler(req: Request, res: Response) {
   );
 
   // creer un token d'access
-  const accessToken = createAdminAccessToken({ user: admin, session });
+  const accessToken = createAdminAccessToken({ user: omit(admin, "password"), session });
 
   // creer un token de refresh
   const refreshToken = sign(session, {

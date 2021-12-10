@@ -31,8 +31,7 @@
         <span v-else-if="props.column.field == 'action'">
           <router-link
             class="btn-table-links"
-            :to="{ path: '/cms/categories/edit/' + props.row.categoryId }"
-            :data-id="props.row.productId"
+            :to="{ path: '/cms/admin/edit/' + props.row.adminId }"
           >
             {{ $t("buttons.manage") }}
           </router-link>
