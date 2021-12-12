@@ -10,12 +10,14 @@
           <h2 class="mt-6 text-center text-2xl font-extrabold text-gray-900">
             {{ $t("login.sign_account") }}
           </h2>
+          <!--
           <p class="mt-2 text-center text-sm text-gray-600">
             {{ $t("login.or") }}
             <a href="#" class="font-medium text-green-600 hover:text-green-500">
               {{ $t("login.register") }}
             </a>
           </p>
+          -->
         </div>
         <div class="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
@@ -117,7 +119,7 @@ import { loginAdmin } from "../services/ConnexionService";
 
 @Component
 export default class LoginCMS extends Vue {
-  public email = "test@admin.com";
+  public email = "admin@rubydor.ca";
   public password = "hsjhjkah";
   public isLoading = false;
   public error = "";
@@ -136,7 +138,7 @@ export default class LoginCMS extends Vue {
         console.log(result);
         this.isLoading = false;
         if (result.confirm) {
-          const path = process.env.REDIRECT_DASHBOARD; // /cms/
+          const path = "/cms/products"; //  process.env.REDIRECT_DASHBOARD;
           if (this.$route.path !== path) this.$router.push(path);
           window.location.href = path;
           return;

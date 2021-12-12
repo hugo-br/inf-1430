@@ -100,6 +100,10 @@ export async function editProduct(product: Product): Promise<any> {
     });
 }
 
+/**
+ * @desc    Api call to delete a product
+ * @param   ProductId
+ **/
 export async function deleteProduct(produtId: string): Promise<any> {
   return ApiAdmin()
     .delete(`/products/${produtId}`)

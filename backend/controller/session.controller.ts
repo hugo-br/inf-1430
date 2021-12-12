@@ -70,7 +70,10 @@ export async function createAdminSessionHandler(req: Request, res: Response) {
   );
 
   // creer un token d'access
-  const accessToken = createAdminAccessToken({ user: omit(admin, "password"), session });
+  const accessToken = createAdminAccessToken({
+    user: omit(admin, "password"),
+    session,
+  });
 
   // creer un token de refresh
   const refreshToken = sign(session, {

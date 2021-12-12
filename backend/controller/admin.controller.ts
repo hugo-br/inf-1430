@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import { omit } from "lodash";
-import { createAdmin, findAllAdmins, findAdmin } from "../service/admin.service";
+import {
+  createAdmin,
+  findAllAdmins,
+  findAdmin,
+  deleteAdmin,
+} from "../service/admin.service";
 import { get } from "lodash";
 
 /**
@@ -25,7 +30,9 @@ export async function getAdminUsers(req: Request, res: Response) {
   try {
     const admins = await findAllAdmins();
     if (!admins) {
-      return res.sendStatus(404).send({ errorMsg: ["admin_not_found"], confirm: false });
+      return res
+        .sendStatus(404)
+        .send({ errorMsg: ["admin_not_found"], confirm: false });
     }
     return res.send(admins);
   } catch (e: any) {
@@ -37,14 +44,40 @@ export async function getAdminUsers(req: Request, res: Response) {
  * @desc    Find and return one specific administrators
  * @params  adminId
  **/
- export async function getOneAdminUsers(req: Request, res: Response) {
+export async function getOneAdminUsers(req: Request, res: Response) {
   try {
     const id = get(req, "params.adminId");
-    const admin = await findAdmin({adminId: id});
+    const admin = await findAdmin({ adminId: id });
     if (!admin) {
-      return res.sendStatus(404).send({ errorMsg: ["admin_not_found"], confirm: false });
+      return res
+        .sendStatus(404)
+        .send({ errorMsg: ["admin_not_found"], confirm: false });
     }
-    return res.send({ admin: omit(admin, "password", "confirmPassword"), confirm: true });
+    return res.send({
+      admin: omit(admin, "password", "confirmPassword"),
+      confirm: true,
+    });
+  } catch (e: any) {
+    return res.status(200).send({ errorMsg: ["system_error"], confirm: false });
+  }
+}
+
+/**
+ * @desc    Find and delete one administrator
+ * @params  adminId
+ **/
+export async function deleteAdminHandler(req: Request, res: Response) {
+  try {
+    const id = get(req, "params.adminId");
+    const admin = await findAdmin({ adminId: id });
+    if (!admin) {
+      return res
+        .sendStatus(404)
+        .send({ errorMsg: ["admin_not_found"], confirm: false });
+    } else {
+      await deleteAdmin({ adminId: id });
+      return res.send({ errorMsg: ["admin_deleted"], confirm: true });
+    }
   } catch (e: any) {
     return res.status(200).send({ errorMsg: ["system_error"], confirm: false });
   }

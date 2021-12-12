@@ -47,3 +47,10 @@ export async function validateAdminPassword({
   if (!isValid) return false;
   return omit(admin.toJSON(), "password");
 }
+
+/**
+ * @desc   Query to delete an admin from database
+ **/
+export async function deleteAdmin(query: FilterQuery<AdminDocument>) {
+  return Admin.deleteOne(query);
+}

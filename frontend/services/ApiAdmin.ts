@@ -1,6 +1,11 @@
 import axios from "axios";
 import LocalStorageService from "../services/LocalStoreService";
 
+export interface ApiResult {
+  confirm?: boolean;
+  admin?: {};
+}
+
 /**
  * @func    request [API]
  * @desc    Create a private connexion with the api server

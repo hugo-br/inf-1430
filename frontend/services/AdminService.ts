@@ -25,7 +25,7 @@ export async function registerAdmin(credentials: Admin): Promise<any> {
 }
 
 /**
- * @desc    Send request to create a new administrator  
+ * @desc    Send request to create a new administrator
  * @params  Admin object
  **/
 export async function getAllAdmin(): Promise<any> {
@@ -39,18 +39,37 @@ export async function getAllAdmin(): Promise<any> {
     });
 }
 
-
 /**
- * @desc    Send request to get informations about one specific administrator  
- * @params  Admin email
+ * @desc    Send request to get informations about one specific administrator
+ * @params  AdminId
  **/
- export async function getOneAdmin(adminId: string): Promise<any> {
+export async function getOneAdmin(adminId: string): Promise<any> {
   return ApiAdmin()
     .get(`/${adminId}`)
     .then((response) => {
       return response.data;
     })
     .catch((error) => {
+      return Promise.reject(error);
+    });
+}
+
+/**
+ * @desc    Api call to delete an administrator
+ * @param   adminId
+ **/
+export async function deleteAdmin(adminId: string): Promise<any> {
+  return ApiAdmin()
+    .delete(`/${adminId}`)
+    .then((response) => {
+      console.log(response);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
       return Promise.reject(error);
     });
 }

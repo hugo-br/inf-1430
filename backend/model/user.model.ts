@@ -22,12 +22,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      default: () => nanoid()
+      default: () => nanoid(),
     },
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     password: { type: String, required: true },
-    role: { type: String, default: "user" }
+    role: { type: String, default: "user" },
   },
   { timestamps: true }
 );

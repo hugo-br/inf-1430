@@ -12,6 +12,7 @@
       "delete_category": "Supprimez cette catégorie",
       "consult_admins": "Voir tous les administrateurs",
       "consult_table": "Consultez la tableau",
+      "edit_admin": "Mettre à jour cet administrateur",
       "edit_category": "Modifier cette catégorie",
       "refresh_page": "Rafraîchir"
     },
@@ -86,6 +87,7 @@
     "prev": "Précédent",
     "price": "Prix",
     "quantity": "Quantité",
+    "update_password": "Mettre à jour le mot de passe",
     "rows_per_page": "Rangée par page"
   },
 

@@ -17,9 +17,9 @@
         <div>
           <div class="info-form-row">
             <div class="info-form-items half">
-              <label for="name"> {{ $t("labels.fist_name") }}<sup>*</sup></label>
+              <label for="first_name"> {{ $t("labels.first_name") }}</label>
               <input
-                id="name"
+                id="first_name"
                 type="text"
                 placeholder="Nom de la catégories"
                 v-model="admin.firstName"
@@ -27,12 +27,32 @@
             </div>
 
             <div class="info-form-items half">
-              <label for="name"> {{ $t("labels.lastName") }}<sup>*</sup></label>
+              <label for="last_name"> {{ $t("labels.last_name") }}</label>
               <input
-                id="name"
+                id="last_name"
                 type="text"
                 placeholder="Nom de la catégories"
                 v-model="admin.firstName"
+              />
+            </div>
+
+            <div class="info-form-items">
+              <label for="email"> {{ $t("labels.email") }}</label>
+              <input
+                id="email"
+                type="text"
+                :placeholder="$t('labels.email')"
+                v-model="admin.email"
+              />
+            </div>
+
+            <div class="info-form-items">
+              <label for="updatePassword"> {{ $t("labels.update_password") }}</label>
+              <input
+                id="updatePassword"
+                type="password"
+                :placeholder="$t('labels.password')"
+                v-model="updatedPassword"
               />
             </div>
           </div>
@@ -56,7 +76,7 @@
       <!-- Right Section -->
       <div class="right-info">
         <button class="btn-submit mt-4" @click="edit()">
-          {{ $t("cms.cta.edit_category") }}
+          {{ $t("cms.cta.edit_admin") }}
         </button>
       </div>
     </div>
@@ -65,8 +85,9 @@
 </template>
 
 <script lang="ts">
+import { ApiResult } from "@root/frontend/services/ApiAdmin";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import {Admin, getOneAdmin} from "../../services/AdminService";
+import { Admin, getOneAdmin } from "../../services/AdminService";
 
 @Component({
   components: {},
@@ -78,19 +99,20 @@ export default class EditAdminForm extends Vue {
   public admin: Partial<Admin> = {
     firstName: "",
     lastName: "",
-    email: ""
+    email: "",
   };
 
+  public updatedPassword = "";
   public isLoaded = false;
   public notFound = false;
 
   public async fetchAdmin() {
     console.log("here");
     getOneAdmin(this.adminId)
-      .then((result: Partial<Admin>) => {
-        console.log(result);
+      .then((result: Partial<ApiResult>) => {
         this.$nextTick(function () {
-          this.admin = result;
+          this.admin = result.admin;
+          this.updatedPassword = "";
           this.isLoaded = true;
         });
       })
@@ -105,7 +127,7 @@ export default class EditAdminForm extends Vue {
     this.fetchAdmin();
   }
 
-/*
+  /*
   public async edit() {
     editCategory(this.category)
       .then((result: any) => {
