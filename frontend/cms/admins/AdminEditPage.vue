@@ -112,7 +112,7 @@ export default class CategoryEdit extends Vue {
       .then((result: any) => {
         console.log("here then", result);
         this.isModalVisible = false;
-       // this.handleClick("list");
+        // this.handleClick("list");
       })
       .catch((error: any) => console.error("Error:", error));
   }

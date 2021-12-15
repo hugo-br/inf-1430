@@ -3,7 +3,7 @@
     <NavigationMenu class="cms-navigation" />
     <section class="cms-container">
       <Header class="cms-header" />
-      <router-view class="cms-content" />
+      <router-view class="cms-content" @notifications="showNotifications()" />
     </section>
   </div>
 </template>
@@ -19,7 +19,11 @@ import Header from "./components/Header.vue";
     Header,
   },
 })
-export default class Dashboard extends Vue {}
+export default class Dashboard extends Vue {
+  public showNotifications() {
+    console.log("dahsboard");
+  }
+}
 </script>
 
 <style lang="less">

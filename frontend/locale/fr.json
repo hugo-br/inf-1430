@@ -5,6 +5,12 @@
   },
 
   "cms": {
+    "buttons": {
+      "edit": "Éditer",
+      "manage": "Gérer",
+      "published": "Publié",
+      "unpublished": "Non-publié"
+    },
     "cta": {
       "add_admin": "Ajouter un administrateur",
       "add_category": "Ajouter une catégorie",
@@ -18,6 +24,8 @@
     },
     "labels": {
       "category_info": "Remplissez les information générales sur la nouvelle catégorie",
+      "delete_product": "Supprimer ce produit",
+      "confirm_delete_product": "Êtes-vous certain de vouloir supprimer le produit ",
       "products_info": "Remplissez les information générales sur le nouveau produit",
       "review_category": "Revissez les informations et ajoutez cette nouvelle catégorie",
       "review_products": "Revissez les informations et ajoutez ce nouveau produit"

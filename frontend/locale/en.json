@@ -5,6 +5,12 @@
   },
 
   "cms": {
+    "buttons": {
+      "edit": "Edit",
+      "manage": "Manage",
+      "published": "Published",
+      "unpublished": "Unpublished"
+    },
     "cta": {
       "add_admin": "Add an administrator",
       "add_category": "Add a category",
@@ -18,6 +24,8 @@
     },
     "labels": {
       "category_info": "Fill in the general information about this category",
+      "delete_product": "Delete this product",
+      "confirm_delete_product": "Are you sure you want to remove the product",
       "products_info": "Fill in the general information about this product",
       "review_category": "Review the informations and add this category",
       "review_products": "Review the informations and add this product"

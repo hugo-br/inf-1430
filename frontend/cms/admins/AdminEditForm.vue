@@ -47,7 +47,9 @@
             </div>
 
             <div class="info-form-items">
-              <label for="updatePassword"> {{ $t("labels.update_password") }}</label>
+              <label for="updatePassword">
+                {{ $t("labels.update_password") }}</label
+              >
               <input
                 id="updatePassword"
                 type="password"

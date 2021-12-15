@@ -2,9 +2,9 @@ import Api from "./Api";
 import ApiAdmin from "./ApiAdmin";
 
 export interface Product {
-  productId?: String;
-  name: String;
-  description: String;
+  productId?: string;
+  name: string;
+  description: string;
   quantity: Number;
   price: Number;
   createdAt?: Date;
@@ -12,7 +12,8 @@ export interface Product {
   startDate?: Date;
   isPublished?: Boolean;
   endDate?: Date;
-  images?: String;
+  images?: string;
+  categories?: string[];
 }
 
 /**

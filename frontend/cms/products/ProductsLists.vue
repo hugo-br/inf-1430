@@ -38,22 +38,22 @@
 
       <template slot="table-row" slot-scope="props">
         <span v-if="props.column.field == 'categories'">
-          {{ props.row.categories.length }}
+          {{ Number(props.row.categories.length) }}
         </span>
         <span v-else-if="props.column.field == 'isPublished'">
           <button
             v-if="props.row.isPublished"
-            class="btn-table-links bg-yellow-800 hover:bg-yellow-900 border-white"
+            class="btn-table-links bg-blue-800 hover:bg-blue-900 border-white"
             @click="publish(props.row.productId, false)"
           >
-            Remove
+            {{ $t("cms.buttons.published") }}
           </button>
           <button
             v-if="!props.row.isPublished"
-            class="btn-table-links bg-blue-800 hover:bg-blue-900 border-white"
+            class="btn-table-links bg-yellow-800 hover:bg-yellow-900 border-white"
             @click="publish(props.row.productId, true)"
           >
-            {{ $t("labels.isPublished") }}
+            {{ $t("cms.buttons.unpublished") }}
           </button>
         </span>
         <span v-else-if="props.column.field == 'action'">
@@ -62,7 +62,7 @@
             :to="{ path: '/cms/products/edit/' + props.row.productId }"
             :data-id="props.row.productId"
           >
-            {{ $t("buttons.manage") }}
+            {{ $t("cms.buttons.manage") }}
           </router-link>
         </span>
         <span v-else>
@@ -119,6 +119,7 @@ export default class ProductsLists extends Vue {
       field: "categories",
       html: true,
       sortable: true,
+      type: "number",
       thClass: "text-center",
       tdClass: "text-center",
     },
