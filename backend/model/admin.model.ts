@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import config from "config";
+import { customAlphabet } from "nanoid";
+const nanoid = customAlphabet("abcd1234567890", 6);
 
 export interface AdminDocument extends mongoose.Document {
+  adminId: string;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   password: string;
   createdAt: Date;
   updatedAt: Date;
@@ -15,10 +19,17 @@ export interface AdminDocument extends mongoose.Document {
 // creation de la database
 const AdminSchema = new mongoose.Schema(
   {
+    adminId: {
+      type: String,
+      required: true,
+      unique: true,
+      default: () => nanoid(),
+    },
     email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     password: { type: String, required: true },
-    role: { type: String, default: "Admin" },
+    role: { type: String, default: "admin" },
   },
   { timestamps: true }
 );

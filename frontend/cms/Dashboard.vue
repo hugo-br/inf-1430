@@ -3,7 +3,7 @@
     <NavigationMenu class="cms-navigation" />
     <section class="cms-container">
       <Header class="cms-header" />
-      <router-view class="cms-content" />
+      <router-view class="cms-content" @notifications="showNotifications()" />
     </section>
   </div>
 </template>
@@ -19,7 +19,11 @@ import Header from "./components/Header.vue";
     Header,
   },
 })
-export default class Dashboard extends Vue {}
+export default class Dashboard extends Vue {
+  public showNotifications() {
+    console.log("dahsboard");
+  }
+}
 </script>
 
 <style lang="less">
@@ -70,6 +74,28 @@ export default class Dashboard extends Vue {}
     border-top-right-radius: 5px;
     flex-direction: column;
     flex-wrap: wrap;
+
+    /* Scrollbar */
+
+    /* width */
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey;
+      border-radius: 10px;
+      background: @background;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #197047;
+      border-radius: 9px;
+      border: solid 0 #197047;
+      background-clip: content-box;
+    }
   }
 }
 </style>

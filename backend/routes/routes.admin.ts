@@ -1,6 +1,11 @@
 import { Express, Request, Response } from "express";
 import { validate, requireAdmin } from "@backend/middleware";
-import { createAdminHandler } from "@backend/controller/admin.controller";
+import {
+  createAdminHandler,
+  getAdminUsers,
+  getOneAdminUsers,
+  deleteAdminHandler,
+} from "@backend/controller/admin.controller";
 import {
   createAdminSchema,
   createAdminSessionSchema,
@@ -33,11 +38,44 @@ import {
   deleteCategoryHandler,
 } from "@backend/controller/category.controller";
 
-const routesAdmin = (app: Express) => {
-  //*** Utilisateurs */
+/**
+ * @desc All the routes that need to be identify as an admin
+ *
+ */
 
-  // POST : Inscription
-  app.post("/api/admin", validate(createAdminSchema), createAdminHandler);
+const routesAdmin = (app: Express) => {
+  //***************************************************************************************** */
+  //  #region Admin
+
+  /**
+   * @desc  Handle the get request to get all the existing administrators
+   * Must be an admin to be able to make the request
+   **/
+  app.get("/api/admin/admins", requireAdmin, getAdminUsers);
+
+  /**
+   * @desc  Handle the get request to get all the existing administrators
+   **/
+  app.get("/api/admin/:adminId", requireAdmin, getOneAdminUsers);
+
+  /**
+   * @desc  Delete one specific administrator
+   **/
+  app.delete("/api/admin/:adminId", requireAdmin, deleteAdminHandler);
+
+  /**
+   * @desc    Handle the post request to create a new admin
+   **/
+  app.post(
+    "/api/admin/register",
+    validate(createAdminSchema),
+    createAdminHandler
+  );
+
+  // #endregion
+
+  //***************************************************************************************** */
+  //  #region Sessions
 
   // POST: Login
   app.post(
@@ -51,9 +89,11 @@ const routesAdmin = (app: Express) => {
 
   // GET: User Session
   app.get("/api/admin/sessions", requireAdmin, getAdminSessionInfo);
-  //***************************************************************************************** */
 
-  //*** Produits  */
+  // #endregion
+
+  //***************************************************************************************** */
+  // #region Products
 
   // [POST]: creer un produit
   app.post(
@@ -97,10 +137,10 @@ const routesAdmin = (app: Express) => {
     deleteProductHandler
   );
 
+  // #endregion
+
+  //***************************************************************************************** */
   //  #region Category
-  /*   Category
-   *
-   */
 
   // [POST]: creer une category
   app.post(
@@ -143,7 +183,8 @@ const routesAdmin = (app: Express) => {
 
   // #endregion
 
-  // Verifier l'etat du server
+  //***************************************************************************************** */
+  // Server health check
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
 };
 

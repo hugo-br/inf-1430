@@ -16,24 +16,61 @@
       <div class="right-info">
         <div>
           <div class="info-form-row">
-            <div class="info-form-items">
-              <label for="name"> {{ $t("labels.name") }}<sup>*</sup></label>
+            <div class="info-form-items half">
+              <label for="firstName">
+                {{ $t("labels.first_name") }}<sup>*</sup></label
+              >
               <input
-                id="name"
+                id="firstName"
                 type="text"
-                :placeholder="$t('labels.name') + '...'"
-                v-model="category.name"
+                :placeholder="$t('labels.first_name') + '...'"
+                v-model="admin.firstName"
+              />
+            </div>
+
+            <div class="info-form-items half">
+              <label for="lastName">
+                {{ $t("labels.last_name") }}<sup>*</sup></label
+              >
+              <input
+                id="lastName"
+                type="text"
+                :placeholder="$t('labels.last_name') + '...'"
+                v-model="admin.lastName"
               />
             </div>
 
             <div class="info-form-items">
-              <label for="description">
-                {{ $t("labels.description") }}<sup>*</sup>
+              <label for="email"> {{ $t("labels.email") }}<sup>*</sup> </label>
+              <input
+                id="email"
+                type="text"
+                :placeholder="$t('labels.email') + '...'"
+                v-model="admin.email"
+              />
+            </div>
+
+            <div class="info-form-items">
+              <label for="password">
+                {{ $t("labels.password") }}<sup>*</sup>
               </label>
-              <textarea
-                id="description"
-                :placeholder="$t('labels.description') + '...'"
-                v-model="category.description"
+              <input
+                id="password"
+                type="password"
+                :placeholder="$t('labels.password') + '...'"
+                v-model="admin.password"
+              />
+            </div>
+
+            <div class="info-form-items">
+              <label for="passwordConfirmation">
+                {{ $t("labels.password_confirmation") }}<sup>*</sup>
+              </label>
+              <input
+                id="passwordConfirmation"
+                type="password"
+                :placeholder="$t('labels.password_confirmation') + '...'"
+                v-model="admin.passwordConfirmation"
               />
             </div>
           </div>
@@ -56,8 +93,19 @@
 
       <!-- Right Section -->
       <div class="right-info">
+        <div
+          v-if="errors.length > 0"
+          class="text-red-800 text-sm border-red-800"
+        >
+          <h6>{{ $t("errors.errors_found") }} :</h6>
+          <ul>
+            <li v-for="(error, index) in errors" :key="index">
+              {{ error }}
+            </li>
+          </ul>
+        </div>
         <button class="btn-submit mt-4" @click="add()">
-          {{ $t("cms.cta.add_category") }}
+          {{ $t("cms.cta.add_admin") }}
         </button>
       </div>
     </div>
@@ -66,32 +114,52 @@
 </template>
 
 <script lang="ts">
-import { addCategory } from "../../services/CategoryService";
 import { Component, Vue } from "vue-property-decorator";
+import { registerAdmin } from "../../services/AdminService";
 
 @Component({
   components: {},
 })
 export default class AddAdminForm extends Vue {
   //  #region Props & Data
-  public category = {
-    name: "",
-    description: "",
+  public admin = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
   };
+
+  public errors: string[] = [];
   //  #endregion
 
   //  #region Functions
-  public async add() {
-    const category = {
-      name: this.category.name,
-      description: this.category.description,
+  public resetForm(): void {
+    this.admin = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
     };
+  }
 
-    addCategory(category)
+  public async add(): Promise<void> {
+    this.errors = [];
+    registerAdmin(this.admin)
       .then((result: any) => {
         console.log(result);
+        if (result.confirm) {
+          this.resetForm();
+        } else {
+          // Show the errors code
+          result.errorMsg.forEach((errorCode: string) => {
+            const err = `errors.${errorCode}`;
+            this.errors.push(String(this.$t(err)));
+          });
+        }
       })
-      .catch((error: any) => console.error("(1) Outside error:", error));
+      .catch((error: any) => console.error("Error:", error));
   }
   //  #endregion
 }

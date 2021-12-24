@@ -3,7 +3,7 @@ import { validatePassword } from "../service/user.service";
 import { validateAdminPassword } from "../service/admin.service";
 import { sign } from "../utils/tokens";
 import config from "config";
-import { get } from "lodash";
+import { omit, get } from "lodash";
 import {
   createAccessToken,
   createSession,
@@ -35,7 +35,7 @@ export async function createSessionHandler(req: Request, res: Response) {
   });
 
   // envoyer le token
-  return res.send({ accessToken, refreshToken });
+  return res.send({ accessToken, refreshToken, user });
 }
 
 export async function invalidateSession(req: Request, res: Response) {
@@ -60,7 +60,7 @@ export async function createAdminSessionHandler(req: Request, res: Response) {
   const admin = await validateAdminPassword(req.body);
 
   if (!admin) {
-    return res.send({ errorMsg: "invalid_username", confirm: false });
+    return res.send({ errorMsg: ["invalid_username"], confirm: false });
   }
 
   // Creer une session
@@ -70,7 +70,10 @@ export async function createAdminSessionHandler(req: Request, res: Response) {
   );
 
   // creer un token d'access
-  const accessToken = createAdminAccessToken({ user: admin, session });
+  const accessToken = createAdminAccessToken({
+    user: omit(admin, "password"),
+    session,
+  });
 
   // creer un token de refresh
   const refreshToken = sign(session, {
@@ -78,7 +81,13 @@ export async function createAdminSessionHandler(req: Request, res: Response) {
   });
 
   // envoyer le token
-  return res.send({ accessToken, refreshToken, error: "", confirm: true });
+  return res.send({
+    accessToken,
+    refreshToken,
+    error: "",
+    confirm: true,
+    user: omit(admin, "password"),
+  });
 }
 
 export async function invalidateAdminSession(req: Request, res: Response) {

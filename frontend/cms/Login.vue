@@ -10,12 +10,14 @@
           <h2 class="mt-6 text-center text-2xl font-extrabold text-gray-900">
             {{ $t("login.sign_account") }}
           </h2>
+          <!--
           <p class="mt-2 text-center text-sm text-gray-600">
             {{ $t("login.or") }}
             <a href="#" class="font-medium text-green-600 hover:text-green-500">
               {{ $t("login.register") }}
             </a>
           </p>
+          -->
         </div>
         <div class="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
@@ -114,15 +116,16 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { loginAdmin } from "../services/ConnexionService";
+import { userStore } from "../store/store-accessor";
 
 @Component
 export default class LoginCMS extends Vue {
-  public email = "test@admin.com";
+  public email = "admin@rubydor.ca";
   public password = "hsjhjkah";
   public isLoading = false;
   public error = "";
 
-  public async adminLogin() {
+  public async adminLogin(): Promise<void> {
     this.isLoading = true;
     this.resetForm();
 
@@ -136,17 +139,23 @@ export default class LoginCMS extends Vue {
         console.log(result);
         this.isLoading = false;
         if (result.confirm) {
-          const path = process.env.REDIRECT_DASHBOARD; // /cms/
+          // Set the user in store
+          userStore.setUser(result.user);
+
+          // Redirect
+          const path = "/cms/products"; //  process.env.REDIRECT_DASHBOARD;
           if (this.$route.path !== path) this.$router.push(path);
           window.location.href = path;
           return;
         }
         const err = `errors.${result.errorMsg}`;
         this.error = String(this.$t(err));
+        return;
       })
       .catch((error: any) => {
         this.isLoading = false;
         this.error = "";
+        return;
       });
   }
 

@@ -3,10 +3,17 @@ import Vue from "vue";
 import Acl from "vue-browser-acl";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store/index";
+import { store } from "./store/index";
 import VueI18n from "vue-i18n";
 import { messages, defaultLocale } from "./locale/index";
 import "./assets/styles/tailwind.css";
+/* import the fontawesome core */
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUserSecret, faUser } from "@fortawesome/free-solid-svg-icons";
+/* add icons to the library */
+library.add(faUserSecret, faUser);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 const user = "";
 

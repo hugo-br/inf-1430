@@ -3,7 +3,8 @@ import { Request, Response, NextFunction } from "express";
 import log from "../logger";
 
 /**
- *   @desc:   Valider une requete avant de l'envoyer a la base de donnee
+ *   @desc:   Valid the schema of a request before doing db operations
+ *   @error   Return error object {errorMsg: [""], confirm: false}
  **/
 
 const validate = (schema: AnySchema) => async (
@@ -20,7 +21,7 @@ const validate = (schema: AnySchema) => async (
     return next();
   } catch (e: any) {
     log.error(e);
-    return res.status(200).send(e.errors);
+    return res.status(200).send({ errorMsg: e.errors, confirm: false });
   }
 };
 

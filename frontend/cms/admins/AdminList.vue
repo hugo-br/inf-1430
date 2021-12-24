@@ -31,8 +31,7 @@
         <span v-else-if="props.column.field == 'action'">
           <router-link
             class="btn-table-links"
-            :to="{ path: '/cms/categories/edit/' + props.row.categoryId }"
-            :data-id="props.row.productId"
+            :to="{ path: '/cms/admin/edit/' + props.row.adminId }"
           >
             {{ $t("buttons.manage") }}
           </router-link>
@@ -48,7 +47,7 @@
 
 <script scoped lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { getAllCategories, Category } from "../../services/CategoryService";
+import { getAllAdmin, Admin } from "../../services/AdminService";
 import { VueGoodTable } from "vue-good-table";
 
 @Component({
@@ -62,20 +61,22 @@ export default class AdminList extends Vue {
   //  #region Columns
   public columns = [
     {
-      label: this.$t("labels.name"),
-      field: "name",
+      label: this.$t("labels.first_name"),
+      field: "firstName",
       sortable: true,
       thClass: "table-header-name",
-      globalSearchDisabled: true,
     },
-
     {
-      label: this.$t("labels.number_of_products"),
-      field: "categories",
-      html: true,
+      label: this.$t("labels.last_name"),
+      field: "lastName",
       sortable: true,
-      thClass: "text-center",
-      tdClass: "text-center",
+      thClass: "table-header-name",
+    },
+    {
+      label: this.$t("labels.email"),
+      field: "email",
+      sortable: true,
+      thClass: "table-header-name",
     },
     {
       label: "Action",
@@ -89,7 +90,7 @@ export default class AdminList extends Vue {
 
   //  #endregion
 
-  public rows: Array<Partial<Category>> = [];
+  public rows: Array<Partial<Admin>> = [];
 
   public totalRecords: number = 0;
 
@@ -137,8 +138,8 @@ export default class AdminList extends Vue {
   }
 
   public loadItems(): void {
-    getAllCategories()
-      .then((result: Array<Category>) => {
+    getAllAdmin()
+      .then((result: Array<Admin>) => {
         this.$nextTick(function () {
           this.rows = result;
           this.totalRecords = result.length;

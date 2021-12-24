@@ -1,16 +1,27 @@
 <template>
   <div class="p-2 pr-4">
-    <PageTitles :title="title" />
+    <PageTitles :title="titlePage" />
     <Actions :buttons="links" @action="handleClick($event)" />
-    <EditProductsForm :productId="productId" @updatePage="updatePage($event)" />
+    <ThumbnailPage
+      v-if="visibleSection === 'thumbnail'"
+      :productId="productId"
+    />
+    <PreviewPage v-else-if="visibleSection === 'page'" :productId="productId" />
+    <EditProductsForm
+      v-else
+      :productId="productId"
+      @updatePage="updatePage($event)"
+    />
 
     <CMSModal v-show="isModalVisible" @close="closeModal()">
-      <template v-slot:header> Supprimer cette catégorie </template>
+      <template v-slot:header>
+        {{ $t("cms.labels.delete_product") }} ?
+      </template>
 
       <template v-slot:body>
         <p>
-          Êtes-vous certain de vouloir supprimer la catégorie :
-          {{ categoryId }} ?
+          {{ $t("cms.labels.confirm_delete_product") }}:
+          <strong>{{ title }}</strong> ?
         </p>
       </template>
 
@@ -39,6 +50,9 @@ import { Component, Vue } from "vue-property-decorator";
 import Actions from "../components/Actions.vue";
 import PageTitles from "../components/PageTitles.vue";
 import EditProductsForm from "./EditProductsForm.vue";
+import ThumbnailPage from "./ProductsThumbnail.vue";
+import PreviewPage from "./ProductsPreviewPage.vue";
+import CMSModal from "../components/Modal.vue";
 import {
   deleteProduct,
   Product,
@@ -50,20 +64,25 @@ import {
     Actions,
     PageTitles,
     EditProductsForm,
+    CMSModal,
+    ThumbnailPage,
+    PreviewPage,
   },
 })
 export default class ProductsEdit extends Vue {
   public productId = this.$route.params.productId;
   public title = "";
+  public titlePage = "";
   public isModalVisible = false;
   public isPublish = false;
+  public visibleSection = "edit";
 
   //  #region Links
   public links = [
     {
       title: "Modifier ce produit",
-      klass: "disabled",
-      action: "",
+      klass: "info",
+      action: "edit",
     },
     {
       title: "Voir tous les produits",
@@ -76,6 +95,16 @@ export default class ProductsEdit extends Vue {
       action: "list",
     },
     {
+      title: "Voir vignette",
+      klass: "white",
+      action: "thumbnail",
+    },
+    {
+      title: "Voir fiche produit",
+      klass: "white",
+      action: "page",
+    },
+    {
       title: this.$t("cms.cta.delete_category"),
       klass: "danger ml-auto",
       action: "delete",
@@ -84,9 +113,17 @@ export default class ProductsEdit extends Vue {
 
   public handleClick(params: string): void {
     switch (params) {
+      case "edit":
+        this.visibleSection = "edit";
+        break;
       case "list":
         this.$router.push({ name: "list-products" });
-        // router.push({ name: 'user', params: { userId } })
+        break;
+      case "thumbnail":
+        this.visibleSection = "thumbnail";
+        break;
+      case "page":
+        this.visibleSection = "page";
         break;
       case "delete":
         this.isModalVisible = !this.isModalVisible;
@@ -100,11 +137,12 @@ export default class ProductsEdit extends Vue {
   //  #region Functions
   public mounted(): void {
     // alert(this.productId);
-    console.log(this.$route.params.productId);
+    //console.log(this.$route.params.productId);
   }
 
   public updatePage(product: Product): void {
-    this.title = `Produit : ${product.name}`;
+    this.titlePage = `Produit : ${product.name}`;
+    this.title = product.name;
   }
 
   public showModal(): void {

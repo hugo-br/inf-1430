@@ -5,16 +5,27 @@
   },
 
   "cms": {
+    "buttons": {
+      "edit": "Éditer",
+      "manage": "Gérer",
+      "published": "Publié",
+      "unpublished": "Non-publié"
+    },
     "cta": {
+      "add_admin": "Ajouter un administrateur",
       "add_category": "Ajouter une catégorie",
       "all_category": "Voir toutes les catégories",
       "delete_category": "Supprimez cette catégorie",
+      "consult_admins": "Voir tous les administrateurs",
       "consult_table": "Consultez la tableau",
+      "edit_admin": "Mettre à jour cet administrateur",
       "edit_category": "Modifier cette catégorie",
       "refresh_page": "Rafraîchir"
     },
     "labels": {
       "category_info": "Remplissez les information générales sur la nouvelle catégorie",
+      "delete_product": "Supprimer ce produit",
+      "confirm_delete_product": "Êtes-vous certain de vouloir supprimer le produit ",
       "products_info": "Remplissez les information générales sur le nouveau produit",
       "review_category": "Revissez les informations et ajoutez cette nouvelle catégorie",
       "review_products": "Revissez les informations et ajoutez ce nouveau produit"
@@ -39,7 +50,18 @@
   },
 
   "errors": {
-    "invalid_username": "Compte utilisateur ou mot de passe invalide"
+    "account_created": "L'utilisateur a déjà un compte",
+    "email_not_valid": "Doit être une adresse couriel valide",
+    "email_required": "L'adresse couriel est requise",
+    "errors_found": "Il y a quelques erreurs",
+    "firstName_required": "Le prénom est requis",
+    "name_required": "Le nom est requis",
+    "invalid_username": "Mot de passe ou compte utilisateur invalide",
+    "lastName_required": "Le nom de famille est requis",
+    "password_must_match": "Les mots de passes doivent être semblables",
+    "password_latin": "Les mots de passes doivent seulement contenir des caractères latins",
+    "password_required": "Le mot de passe est requis",
+    "password_too_short": "Le mot de passe est trop court, le minimum est de 6 caractères"
   },
 
   "general": {
@@ -58,6 +80,9 @@
   "labels": {
     "all": "Tous",
     "description": "Description",
+    "email": "Adresse couriel",
+    "first_name": "Prénom",
+    "last_name": "Nom de famille",
     "name": "Nom",
     "next": "Prochain",
     "number_of_products": "Nombre de produits",
@@ -65,9 +90,12 @@
     "isPublished": "Publié",
     "of": "de",
     "pages": "pages",
+    "password": "Entrez un mot de passe",
+    "password_confirmation": "Confirmez le mot de passe",
     "prev": "Précédent",
     "price": "Prix",
     "quantity": "Quantité",
+    "update_password": "Mettre à jour le mot de passe",
     "rows_per_page": "Rangée par page"
   },
 

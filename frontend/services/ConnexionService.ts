@@ -31,9 +31,9 @@ export async function registerUser(props: any) {
 
 /**
  * @func    [POST]
- * @params  object  credentials - email and passwords as strings
+ * @params  Credentials - email and password as string
  * @desc    Sent credentials for login
- * @return  Response the promise function
+ * @return  Tokens for session
  * @error   Promise reject
  **/
 export async function loginAdmin(credentials: {}): Promise<any> {
@@ -52,27 +52,5 @@ export async function loginAdmin(credentials: {}): Promise<any> {
     })
     .catch((error: any) => {
       return Promise.reject(error);
-    });
-}
-
-export async function registerAdmin() {
-  const credentials = {
-    email: "test222@admin.com",
-    password: "hsjhjkah",
-    passwordConfirmation: "hsjhjkah",
-    name: "test-admin",
-  };
-  ApiAdmin()
-    .post("/", credentials)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      if (error.code == 409) {
-        console.log("Deja un compte");
-      }
-      console.log(error.response.data);
-      console.log(error.response.status);
-      // console.log(error.response.headers);
     });
 }

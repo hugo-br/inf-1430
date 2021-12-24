@@ -2,10 +2,7 @@
   <div class="p-2 pr-4">
     <PageTitles :title="title" />
     <Actions :buttons="links" @action="handleClick($event)" />
-    <EditAdminForm
-      :categoryId="categoryId"
-      @changeName="updatePageName($event)"
-    />
+    <EditAdminForm :adminId="adminId" @changeName="updatePageName($event)" />
 
     <CMSModal v-show="isModalVisible" @close="closeModal()">
       <template v-slot:header> Supprimer cette catégorie </template>
@@ -13,7 +10,7 @@
       <template v-slot:body>
         <p>
           Êtes-vous certain de vouloir supprimer la catégorie :
-          {{ categoryId }} ?
+          {{ adminId }} ?
         </p>
       </template>
 
@@ -42,8 +39,9 @@ import { Component, Vue } from "vue-property-decorator";
 import Actions from "../components/Actions.vue";
 import PageTitles from "../components/PageTitles.vue";
 import CMSModal from "../components/Modal.vue";
-import { deleteCategory } from "../../services/CategoryService";
-import EditAdminForm from "./EditAdminForm.vue";
+import { deleteAdmin } from "../../services/AdminService";
+import EditAdminForm from "./AdminEditForm.vue";
+
 @Component({
   components: {
     Actions,
@@ -54,7 +52,7 @@ import EditAdminForm from "./EditAdminForm.vue";
 })
 export default class CategoryEdit extends Vue {
   //  #region Props and Data
-  public categoryId = this.$route.params.categoryId;
+  public adminId = this.$route.params.adminId;
   public title = "";
   public isModalVisible = false;
   //  #endregion
@@ -94,11 +92,11 @@ export default class CategoryEdit extends Vue {
 
   //  #region Functions
   public mounted(): void {
-    this.updatePageName(this.categoryId);
+    this.updatePageName(this.adminId);
   }
 
   public updatePageName(name: string): void {
-    this.title = `${this.$t("general.category")} : ${name}`;
+    this.title = `${this.$t("general.admins")} : ${name}`;
   }
 
   public showModal(): void {
@@ -110,15 +108,14 @@ export default class CategoryEdit extends Vue {
   }
 
   public confirmDelete(): void {
-    deleteCategory(this.categoryId)
+    deleteAdmin(this.adminId)
       .then((result: any) => {
         console.log("here then", result);
         this.isModalVisible = false;
-        this.handleClick("list");
+        // this.handleClick("list");
       })
       .catch((error: any) => console.error("Error:", error));
   }
-
   //  #endregion
 }
 </script>

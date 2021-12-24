@@ -16,24 +16,45 @@
       <div class="right-info">
         <div>
           <div class="info-form-row">
-            <div class="info-form-items">
-              <label for="name"> {{ $t("labels.name") }}<sup>*</sup></label>
+            <div class="info-form-items half">
+              <label for="first_name"> {{ $t("labels.first_name") }}</label>
               <input
-                id="name"
+                id="first_name"
                 type="text"
                 placeholder="Nom de la catégories"
-                v-model="category.name"
+                v-model="admin.firstName"
+              />
+            </div>
+
+            <div class="info-form-items half">
+              <label for="last_name"> {{ $t("labels.last_name") }}</label>
+              <input
+                id="last_name"
+                type="text"
+                placeholder="Nom de la catégories"
+                v-model="admin.firstName"
               />
             </div>
 
             <div class="info-form-items">
-              <label for="description"
-                >{{ $t("labels.description") }}<sup>*</sup></label
+              <label for="email"> {{ $t("labels.email") }}</label>
+              <input
+                id="email"
+                type="text"
+                :placeholder="$t('labels.email')"
+                v-model="admin.email"
+              />
+            </div>
+
+            <div class="info-form-items">
+              <label for="updatePassword">
+                {{ $t("labels.update_password") }}</label
               >
-              <textarea
-                id="description"
-                placeholder="Description..."
-                v-model="category.description"
+              <input
+                id="updatePassword"
+                type="password"
+                :placeholder="$t('labels.password')"
+                v-model="updatedPassword"
               />
             </div>
           </div>
@@ -57,7 +78,7 @@
       <!-- Right Section -->
       <div class="right-info">
         <button class="btn-submit mt-4" @click="edit()">
-          {{ $t("cms.cta.edit_category") }}
+          {{ $t("cms.cta.edit_admin") }}
         </button>
       </div>
     </div>
@@ -66,34 +87,34 @@
 </template>
 
 <script lang="ts">
+import { ApiResult } from "@root/frontend/services/ApiAdmin";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import {
-  getCategory,
-  editCategory,
-  Category,
-} from "../../services/CategoryService";
+import { Admin, getOneAdmin } from "../../services/AdminService";
 
 @Component({
   components: {},
 })
 export default class EditAdminForm extends Vue {
   @Prop()
-  public categoryId: string;
+  public adminId: string;
 
-  public category: Category = {
-    name: "",
-    description: "",
+  public admin: Partial<Admin> = {
+    firstName: "",
+    lastName: "",
+    email: "",
   };
 
+  public updatedPassword = "";
   public isLoaded = false;
   public notFound = false;
 
-  public async fetchProd() {
-    getCategory(this.categoryId)
-      .then((result: Category) => {
-        console.log(result);
+  public async fetchAdmin() {
+    console.log("here");
+    getOneAdmin(this.adminId)
+      .then((result: Partial<ApiResult>) => {
         this.$nextTick(function () {
-          this.category = result;
+          this.admin = result.admin;
+          this.updatedPassword = "";
           this.isLoaded = true;
         });
       })
@@ -105,9 +126,10 @@ export default class EditAdminForm extends Vue {
   }
 
   public mounted(): void {
-    this.fetchProd();
+    this.fetchAdmin();
   }
 
+  /*
   public async edit() {
     editCategory(this.category)
       .then((result: any) => {
@@ -116,6 +138,7 @@ export default class EditAdminForm extends Vue {
       })
       .catch((error: any) => console.error("Error:", error));
   }
+  */
 }
 </script>
 

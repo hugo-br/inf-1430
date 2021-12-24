@@ -90,7 +90,9 @@
       <!-- Right Section -->
       <div class="right-info">
         <div>
-          <div class="info-form-row"></div>
+          <div class="info-form-row">
+            <CategoryChoices @onCheckedCategories="updateSelected($event)" />
+          </div>
         </div>
       </div>
     </div>
@@ -120,9 +122,12 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { addProduct } from "../../services/ProductsService";
+import CategoryChoices from "../components/CategoryChoices.vue";
 
 @Component({
-  components: {},
+  components: {
+    CategoryChoices,
+  },
 })
 export default class AddProductsForm extends Vue {
   public product = {
@@ -131,7 +136,7 @@ export default class AddProductsForm extends Vue {
     quantity: 0,
     price: 0,
     isPublished: false,
-    categories: ["6182c28508d9310640ee7591", "6182c630d20d59537c402169"],
+    categories: [""],
   };
 
   public async addProd() {
@@ -141,6 +146,11 @@ export default class AddProductsForm extends Vue {
         alert("done");
       })
       .catch((error: any) => console.error("Error:", error));
+  }
+
+  // Update selected categories
+  public updateSelected(categories: string[]): void {
+    this.product.categories = categories;
   }
 }
 </script>

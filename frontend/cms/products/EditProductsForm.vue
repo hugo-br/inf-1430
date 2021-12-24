@@ -14,7 +14,7 @@
           <span class="info-title">Générales</span>
           <span class="info-explication">
             Mettre à jour les information générales sur le produit :
-            <strong class="text-gray-900">{{ product.name }}</strong>
+            <strong class="text-green-900">{{ product.name }}</strong>
           </span>
         </div>
 
@@ -99,12 +99,10 @@
         <div class="right-info">
           <div>
             <div class="info-form-row">
-              <p
-                v-for="(cat, index) in product.categories"
-                :key="`cat-${index}`"
-              >
-                {{ cat }}
-              </p>
+              <CategoryChoices
+                @onCheckedCategories="updateSelected($event)"
+                :selectedCategories="selected"
+              />
             </div>
           </div>
         </div>
@@ -135,6 +133,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import CategoryChoices from "../components/CategoryChoices.vue";
 import {
   getProduct,
   editProduct,
@@ -142,9 +141,12 @@ import {
 } from "../../services/ProductsService";
 
 @Component({
-  components: {},
+  components: {
+    CategoryChoices,
+  },
 })
 export default class EditProductsForm extends Vue {
+  // #region Props and Data
   @Prop()
   public productId: string;
 
@@ -152,19 +154,20 @@ export default class EditProductsForm extends Vue {
 
   public isLoaded = false;
   public notFound = false;
+  public selected: string[] = [];
+  //  #endregion
 
   public async fetchProd() {
     getProduct(this.productId)
       .then((result: Product) => {
-        console.log(result);
         this.$nextTick(function () {
           this.product = result;
           this.isLoaded = true;
+          this.selected = this.product.categories;
           this.$emit("updatePage", result);
         });
       })
       .catch((error: any) => {
-        console.error("Error:", error);
         this.isLoaded = true;
         this.notFound = true;
       });
@@ -172,16 +175,22 @@ export default class EditProductsForm extends Vue {
 
   public mounted(): void {
     this.fetchProd();
+    this.$parent.$emit("notifications");
   }
 
   public async editProd() {
+    this.product.categories = this.selected;
     editProduct(this.product)
       .then((result: any) => {
-        console.log("here then", result);
         alert("done");
       })
       .catch((error: any) => console.error("Error:", error));
   }
+
+  public updateSelected(categories: string[]): void {
+    this.selected = categories;
+  }
+  // #endregion
 }
 </script>
 

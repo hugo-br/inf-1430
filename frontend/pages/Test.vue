@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <router-link to="/cms-login">CMS</router-link>
     <User /><br />
     <Admin /><br />
     <Products /><br />

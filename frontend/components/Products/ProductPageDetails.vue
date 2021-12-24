@@ -1,5 +1,5 @@
 <template>
-  <div>TEST</div>
+  <div>vignette</div>
 </template>
 
 <script lang="ts">
@@ -8,7 +8,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component({
   components: {},
 })
-export default class RegistrerCMS extends Vue {}
+export default class ProductPageDetails extends Vue {}
 </script>
 
 <style scoped lang="less"></style>
