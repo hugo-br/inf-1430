@@ -39,12 +39,23 @@ export function findProducts(query: FilterQuery<ProductDocument>) {
     .exec();
 }
 
-export function findAndUpdate(
+export async function findAndUpdate(
   query: FilterQuery<ProductDocument>,
   update: UpdateQuery<ProductDocument>,
   options: QueryOptions
 ) {
-  return Product.findOneAndUpdate(query, update, options);
+  const oldProduct = await Product.findOne(query, {}, options);
+  await Category.updateMany(
+    { _id: oldProduct.categories },
+    { $pull: { products: oldProduct._id } }
+  );
+
+  const product = await Product.findOneAndUpdate(query, update, options);
+  await Category.updateMany(
+    { _id: product.categories },
+    { $push: { products: product._id } }
+  );
+  return product;
 }
 
 export function deleteProduct(query: FilterQuery<ProductDocument>) {

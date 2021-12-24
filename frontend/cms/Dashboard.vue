@@ -74,6 +74,28 @@ export default class Dashboard extends Vue {
     border-top-right-radius: 5px;
     flex-direction: column;
     flex-wrap: wrap;
+
+    /* Scrollbar */
+
+    /* width */
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey;
+      border-radius: 10px;
+      background: @background;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #197047;
+      border-radius: 9px;
+      border: solid 0 #197047;
+      background-clip: content-box;
+    }
   }
 }
 </style>

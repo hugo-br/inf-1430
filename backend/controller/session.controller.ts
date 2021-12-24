@@ -35,7 +35,7 @@ export async function createSessionHandler(req: Request, res: Response) {
   });
 
   // envoyer le token
-  return res.send({ accessToken, refreshToken });
+  return res.send({ accessToken, refreshToken, user });
 }
 
 export async function invalidateSession(req: Request, res: Response) {
@@ -81,7 +81,13 @@ export async function createAdminSessionHandler(req: Request, res: Response) {
   });
 
   // envoyer le token
-  return res.send({ accessToken, refreshToken, error: "", confirm: true });
+  return res.send({
+    accessToken,
+    refreshToken,
+    error: "",
+    confirm: true,
+    user: omit(admin, "password"),
+  });
 }
 
 export async function invalidateAdminSession(req: Request, res: Response) {

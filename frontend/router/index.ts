@@ -6,6 +6,7 @@ import PageTest from "../pages/Test.vue";
 // #region Boutique
 import Navigation from "../boutique/navigation/navigation.vue";
 import Homepage from "../boutique/Homepage.vue";
+import ShopCategoryPage from "../boutique/category/CategoryPage.vue";
 // #endregion
 
 // #region CMS
@@ -37,7 +38,7 @@ const routes: Array<RouteConfig> = [
     path: "/",
     name: "TestPage",
     components: {
-      default: PageTest,
+      default: ShopCategoryPage,
       header: Navigation,
     },
   },

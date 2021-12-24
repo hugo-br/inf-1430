@@ -160,7 +160,6 @@ export default class EditProductsForm extends Vue {
   public async fetchProd() {
     getProduct(this.productId)
       .then((result: Product) => {
-        console.log(result);
         this.$nextTick(function () {
           this.product = result;
           this.isLoaded = true;
@@ -169,7 +168,6 @@ export default class EditProductsForm extends Vue {
         });
       })
       .catch((error: any) => {
-        console.error("Error:", error);
         this.isLoaded = true;
         this.notFound = true;
       });
@@ -184,7 +182,6 @@ export default class EditProductsForm extends Vue {
     this.product.categories = this.selected;
     editProduct(this.product)
       .then((result: any) => {
-        console.log("here then", result);
         alert("done");
       })
       .catch((error: any) => console.error("Error:", error));

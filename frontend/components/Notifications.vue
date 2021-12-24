@@ -26,8 +26,10 @@ export default class Notifications extends Vue {}
 }
 
 .notifications-container {
+  align-items: center;
   position: fixed;
   display: flex;
+  flex-flow: column wrap;
   top: 0;
   right: 0;
   height: 100vh;

@@ -1,13 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
+import UserStore from "./user-store";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  state: {
-    cart: [],
+// Set up the store
+export const store = new Vuex.Store({
+  modules: {
+    UserStore,
   },
-  mutations: {},
-  actions: {},
-  modules: {},
+  plugins: [createPersistedState()],
 });

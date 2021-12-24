@@ -2,7 +2,16 @@
   <div class="p-2 pr-4">
     <PageTitles :title="titlePage" />
     <Actions :buttons="links" @action="handleClick($event)" />
-    <EditProductsForm :productId="productId" @updatePage="updatePage($event)" />
+    <ThumbnailPage
+      v-if="visibleSection === 'thumbnail'"
+      :productId="productId"
+    />
+    <PreviewPage v-else-if="visibleSection === 'page'" :productId="productId" />
+    <EditProductsForm
+      v-else
+      :productId="productId"
+      @updatePage="updatePage($event)"
+    />
 
     <CMSModal v-show="isModalVisible" @close="closeModal()">
       <template v-slot:header>
@@ -41,6 +50,8 @@ import { Component, Vue } from "vue-property-decorator";
 import Actions from "../components/Actions.vue";
 import PageTitles from "../components/PageTitles.vue";
 import EditProductsForm from "./EditProductsForm.vue";
+import ThumbnailPage from "./ProductsThumbnail.vue";
+import PreviewPage from "./ProductsPreviewPage.vue";
 import CMSModal from "../components/Modal.vue";
 import {
   deleteProduct,
@@ -54,6 +65,8 @@ import {
     PageTitles,
     EditProductsForm,
     CMSModal,
+    ThumbnailPage,
+    PreviewPage,
   },
 })
 export default class ProductsEdit extends Vue {
@@ -62,13 +75,14 @@ export default class ProductsEdit extends Vue {
   public titlePage = "";
   public isModalVisible = false;
   public isPublish = false;
+  public visibleSection = "edit";
 
   //  #region Links
   public links = [
     {
       title: "Modifier ce produit",
-      klass: "disabled",
-      action: "",
+      klass: "info",
+      action: "edit",
     },
     {
       title: "Voir tous les produits",
@@ -81,6 +95,16 @@ export default class ProductsEdit extends Vue {
       action: "list",
     },
     {
+      title: "Voir vignette",
+      klass: "white",
+      action: "thumbnail",
+    },
+    {
+      title: "Voir fiche produit",
+      klass: "white",
+      action: "page",
+    },
+    {
       title: this.$t("cms.cta.delete_category"),
       klass: "danger ml-auto",
       action: "delete",
@@ -89,8 +113,17 @@ export default class ProductsEdit extends Vue {
 
   public handleClick(params: string): void {
     switch (params) {
+      case "edit":
+        this.visibleSection = "edit";
+        break;
       case "list":
         this.$router.push({ name: "list-products" });
+        break;
+      case "thumbnail":
+        this.visibleSection = "thumbnail";
+        break;
+      case "page":
+        this.visibleSection = "page";
         break;
       case "delete":
         this.isModalVisible = !this.isModalVisible;

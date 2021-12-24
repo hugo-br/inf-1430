@@ -116,6 +116,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { loginAdmin } from "../services/ConnexionService";
+import { userStore } from "../store/store-accessor";
 
 @Component
 export default class LoginCMS extends Vue {
@@ -124,7 +125,7 @@ export default class LoginCMS extends Vue {
   public isLoading = false;
   public error = "";
 
-  public async adminLogin() {
+  public async adminLogin(): Promise<void> {
     this.isLoading = true;
     this.resetForm();
 
@@ -138,6 +139,10 @@ export default class LoginCMS extends Vue {
         console.log(result);
         this.isLoading = false;
         if (result.confirm) {
+          // Set the user in store
+          userStore.setUser(result.user);
+
+          // Redirect
           const path = "/cms/products"; //  process.env.REDIRECT_DASHBOARD;
           if (this.$route.path !== path) this.$router.push(path);
           window.location.href = path;
@@ -145,10 +150,12 @@ export default class LoginCMS extends Vue {
         }
         const err = `errors.${result.errorMsg}`;
         this.error = String(this.$t(err));
+        return;
       })
       .catch((error: any) => {
         this.isLoading = false;
         this.error = "";
+        return;
       });
   }
 

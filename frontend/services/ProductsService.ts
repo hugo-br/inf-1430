@@ -70,8 +70,6 @@ export async function findProducts(query: String): Promise<any> {
 /**
  * @desc    Add a new product into the database
  * @param   Product Product Informations
- * @return
- * @error
  **/
 export async function addProduct(product: Product): Promise<any> {
   return ApiAdmin()
@@ -86,9 +84,7 @@ export async function addProduct(product: Product): Promise<any> {
 
 /**
  * @desc    Edit an existing product into the database
- * @param   Product Product Informations
- * @return
- * @error
+ * @param   product interface informations
  **/
 export async function editProduct(product: Product): Promise<any> {
   return ApiAdmin()
@@ -103,20 +99,15 @@ export async function editProduct(product: Product): Promise<any> {
 
 /**
  * @desc    Api call to delete a product
- * @param   ProductId
+ * @param   productId
  **/
 export async function deleteProduct(produtId: string): Promise<any> {
   return ApiAdmin()
     .delete(`/products/${produtId}`)
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
       return Promise.reject(error);
     });
 }
