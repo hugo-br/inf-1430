@@ -22,17 +22,17 @@
     "rootDir": ".",
     "paths": {
       "@root/*": ["./*"],
-      "@src/*": ["src/*"],
+      "@src/*": ["./src/*"],
       "@config/*": ["config/*"],
-      "@common/*": ["src/common/*"],
-      "@frontend/*": ["frontend/*"],
-      "@backend/*": ["backend/*"],
-      "@public/*": ["public/*"],
-      "@schema/*": ["backend/schema/*"],
-      "@controller/*": ["backend/controller/*"],
-      "@middleware/*": ["backend/middleware/*"],
-      "@model/*": ["backend/model/*"],
-      "@service/*": ["backend/service/*"]
+      "@common/*": ["./src/common/*"],
+      "@frontend/*": ["./frontend/*"],
+      "@backend/*": ["./backend/*"],
+      "@public/*": ["./public/*"],
+      "@schema/*": ["./backend/schema/*"],
+      "@controller/*": ["./backend/controller/*"],
+      "@middleware/*": ["./backend/middleware/*"],
+      "@model/*": ["./backend/model/*"],
+      "@service/*": ["./backend/service/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
