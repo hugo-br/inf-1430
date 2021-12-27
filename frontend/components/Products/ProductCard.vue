@@ -40,7 +40,7 @@ export default class ProductCard extends Vue {
       false,
       /\.(png|jpg|jpeg|gif)$/i
     );
-    let img = "ruby";
+    let img = "diamond";
     return images("./" + img + ".png");
   }
 }
