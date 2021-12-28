@@ -31,6 +31,9 @@ import { Component, Prop, Vue } from "vue-property-decorator";
   components: {},
 })
 export default class ProductCard extends Vue {
+  @Prop()
+  public productID: string; 
+
   public isLoading = false;
   public source: string = "default";
 
@@ -40,7 +43,7 @@ export default class ProductCard extends Vue {
       false,
       /\.(png|jpg|jpeg|gif)$/i
     );
-    let img = "diamond";
+    let img = "default";
     return images("./" + img + ".png");
   }
 }
