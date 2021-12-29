@@ -1,22 +1,28 @@
 <template>
-  <div class="products-container">
+  <div class="products-container" :class="{ 'is-generic': isLoading }">
     <div class="product-card">
       <!-- Visible Face -->
-      <div class="face front" :class="{ 'is-generic': isLoading }">
+      <div class="face front">
         <div class="face-content card-header">
           <span class="product-exclusivity">New!</span>
-          <span class="product-price">350$</span>
+          <span class="product-price">{{ product.price }}$</span>
         </div>
         <div class="face-content card-body">
-          <img class="product-image" :src="image" />
+          <img
+            class="product-image"
+            :class="{ 'is-loading': isLoading || imageNotAvailable }"
+            :src="image"
+          />
         </div>
 
         <div class="face-content card-footer">
-          <span class="product-name"> Diamond </span>
+          <span class="product-name" :class="{ 'is-loading': isLoading }">
+            {{ product.name }}
+          </span>
         </div>
       </div>
 
-      <div class="face back">HERE</div>
+      <div class="face back">&nbsp;</div>
     </div>
     <div class="text-center flow-root w-full bottom-0">
       <button class="btn-buy">BUY</button>
@@ -26,16 +32,44 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { getProductByID, Product } from "../../services/ProductsService";
 
 @Component({
   components: {},
 })
 export default class ProductCard extends Vue {
   @Prop()
-  public productID: string; 
+  public productId: string;
 
-  public isLoading = false;
+  public isLoading = true;
+  public imageNotAvailable = false;
   public source: string = "default";
+  public product: Partial<Product> = {
+    name: String(this.$t("general.loading")),
+    images: "",
+  };
+
+  public mounted(): void {
+    this.fetchProd();
+    // this.$parent.$emit("notifications");
+  }
+
+  /**
+   * @desc    Get Products for the database
+   **/
+  public async fetchProd() {
+    getProductByID(this.productId)
+      .then((result: Partial<Product>) => {
+        this.$nextTick(function () {
+          console.log("poduct", result);
+          this.product = result;
+          this.isLoading = false;
+        });
+      })
+      .catch((error: any) => {
+        this.isLoading = true;
+      });
+  }
 
   get image(): string {
     var images = require.context(
@@ -43,8 +77,16 @@ export default class ProductCard extends Vue {
       false,
       /\.(png|jpg|jpeg|gif)$/i
     );
-    let img = "default";
-    return images("./" + img + ".png");
+    let img = this.product.images;
+
+    try {
+      this.imageNotAvailable = false;
+      return images("./" + img);
+    } catch (err: any) {
+      let img = "default";
+      this.imageNotAvailable = true;
+      return images("./" + img + ".png");
+    }
   }
 }
 </script>
@@ -55,7 +97,7 @@ export default class ProductCard extends Vue {
 
 .products-container {
   display: flex;
-  margin: 10px 20px 40px 20px;
+  margin: 10px 20px 60px 20px;
   padding: 20px;
   width: 350px;
   height: 450px;
@@ -68,6 +110,65 @@ export default class ProductCard extends Vue {
   flex-wrap: wrap;
   transition: all 0.4s ease, opacity 1s ease-out;
 
+  /* State when is loading or not available, use skeleton */
+  &.is-generic {
+    .product-card {
+      margin: 10px 20px 40px 20px;
+
+      &:hover {
+        .face.front {
+          transform: translateX(0);
+        }
+
+        .face.back {
+          transform: translateX(0);
+          box-shadow: 0 0 0 0 rgba(164, 182, 243, 0);
+        }
+      }
+      .face-content {
+        background: #999999;
+        border-color: #bdbdbd;
+        overflow: hidden;
+
+        .product-price,
+        .product-exclusivity {
+          display: none;
+        }
+      }
+
+      .card-header,
+      .card-footer {
+        &::after {
+          position: absolute;
+          z-index: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          height: 100%;
+          width: 50%;
+          transform: translateX(-100%);
+          background-size: 100%;
+          background-repeat: no-repeat;
+          background-image: linear-gradient(
+            90deg,
+            rgba(#fff, 0) 0,
+            rgba(#fff, 0.2) 20%,
+            rgba(#fff, 0.45) 50%,
+            rgba(#fff, 0)
+          );
+          animation: shimmer 2s infinite;
+          content: "";
+          display: block;
+        }
+      }
+    }
+    .btn-buy {
+      display: none;
+    }
+  }
+
+  /* Product Card */
   .product-card {
     position: relative;
     width: 100%;
@@ -109,14 +210,6 @@ export default class ProductCard extends Vue {
     padding: 20px;
     position: relative;
 
-    /* State when is loading or not available */
-    &.is-generic {
-      .face-content {
-        background: #999999;
-        border-color: #bdbdbd;
-      }
-    }
-
     .face-content {
       width: 100%;
       display: block;
@@ -135,6 +228,7 @@ export default class ProductCard extends Vue {
       font-weight: bold;
       color: lighten(@border, 25%);
       letter-spacing: 1px;
+      position: relative;
 
       span {
         display: inline-block;
@@ -144,13 +238,13 @@ export default class ProductCard extends Vue {
         float: right;
         padding: 10px;
         margin-left: 15px;
-        background: white;
-        color: @border;
+        background: #89791f;
+        color: white;
         font-weight: bold;
         font-size: 16px;
         border-radius: 5px;
-        transition: color 0.4s ease;
-        border: transparent solid thin;
+        transition: all 0.4s ease;
+        border: white solid thin;
       }
     }
 
@@ -162,6 +256,7 @@ export default class ProductCard extends Vue {
       text-align: center;
       border-radius: 50%;
       transition: border 0.6s ease 0.1s;
+      position: relative;
 
       .product-image {
         max-width: 100%;
@@ -173,6 +268,10 @@ export default class ProductCard extends Vue {
         margin: auto;
         transform: translateY(20px) scale(0.95);
         transition: transform 0.7s ease-in;
+
+        &.is-loading {
+          animation: loadingImg 4s infinite;
+        }
       }
     }
     .card-footer {
@@ -184,6 +283,24 @@ export default class ProductCard extends Vue {
       border: transparent solid thin;
       color: lighten(@border, 45%);
       transition: color 0.4s ease;
+      position: relative;
+
+      .product-name {
+        color: #35ffff;
+
+        &.is-loading {
+          line-height: 42px;
+          font-size: 12px;
+          color: #d0ffff;
+          height: 50px;
+          display: block;
+
+          &:after {
+            content: " ...";
+            margin-left: -5px;
+          }
+        }
+      }
     }
   }
 
@@ -194,16 +311,17 @@ export default class ProductCard extends Vue {
     /* box-shadow: 0 10px 50px rgba(245, 245, 245, 0.8); */
   }
 
-  /* Hover */
+  /* On Hover */
   .product-card {
     &:hover {
       .face.front {
         transform: translateX(-30px);
 
         .product-price {
-          background-color: transparent;
-          border-color: @border;
-          color: white;
+          background-color: black;
+          border-color: #c8af21;
+          color: #c8af21;
+          font-size: 24px;
         }
 
         /* Name */
@@ -250,6 +368,26 @@ export default class ProductCard extends Vue {
       border: 2px solid lighten(@border, 25%);
       color: lighten(@border, 25%);
     }
+  }
+}
+
+/* Animations */
+@keyframes loadingImg {
+  0%,
+  100% {
+    filter: invert(0);
+  }
+  50% {
+    filter: invert(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
   }
 }
 </style>

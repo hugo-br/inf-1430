@@ -33,10 +33,19 @@ import AdminEditPage from "../cms/admins/AdminEditPage.vue";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  /* Boutique */
+  // #region Routes Boutiques
+
   {
     path: "/",
-    name: "TestPage",
+    name: "category",
+    components: {
+      default: ShopCategoryPage,
+      header: Navigation,
+    },
+  },
+  {
+    path: "/category/:categoryId?",
+    name: "category",
     components: {
       default: ShopCategoryPage,
       header: Navigation,
@@ -54,20 +63,17 @@ const routes: Array<RouteConfig> = [
         alias: "boutique",
         name: "boutique",
       },
-      /*    {
-        path: 'extractions',
-        name: 'Extractions',
-        meta: {
-          role: User.FdmOperator,
-          fail: '403',
-        },
-      },
-  */
     ],
   },
-  /* CMS */
+  // #endregion
+
+  // #region Routes CMS
   {
     path: "/cms",
+    /* meta: {
+      role: User.FdmOperator,
+      fail: '403',
+    }, */
     components: {
       default: Dashboard,
     },
@@ -123,16 +129,6 @@ const routes: Array<RouteConfig> = [
         name: "edit-admin",
         component: AdminEditPage,
       },
-
-      /*    {
-          path: 'extractions',
-          name: 'Extractions',
-          meta: {
-            role: User.FdmOperator,
-            fail: '403',
-          },
-        },
-    */
     ],
   },
   {
@@ -141,6 +137,8 @@ const routes: Array<RouteConfig> = [
     alias: "/cms-login",
     component: LoginCMS,
   },
+
+  // #endregion
 
   {
     path: "/home",
@@ -159,28 +157,6 @@ const routes: Array<RouteConfig> = [
     path: "/about",
     name: "about",
     component: About,
-  },
-  {
-    path: "/settings",
-    // You could also have named views at the top
-    component: About,
-    children: [
-      {
-        path: "emails",
-        component: About,
-      },
-      {
-        path: "profile",
-        components: {
-          default: About,
-          helper: About,
-        },
-        meta: {
-          can: "approuver",
-          fail: "/",
-        },
-      },
-    ],
   },
 ];
 

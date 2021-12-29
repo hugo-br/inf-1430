@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts">
+import { Console } from "console";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getAllCategories, Category } from "../../services/CategoryService";
 
@@ -29,7 +30,7 @@ interface CategoryChoice extends Category {
 })
 export default class CategoryChoices extends Vue {
   // region Props and Data
-  @Prop()
+  @Prop({ default: [] })
   public selectedCategories: string[];
 
   public categories: Partial<CategoryChoice>[] = [];
@@ -48,7 +49,7 @@ export default class CategoryChoices extends Vue {
         this.$nextTick(function () {
           result.forEach((cat: Category) => {
             const c = { ...cat, selected: false };
-            this.categories.push(cat);
+            this.categories.push(c);
           });
 
           this.updatedSelectedCategories();

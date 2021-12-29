@@ -3,7 +3,7 @@ const host = config.get("host");
 const port = config.get("port");
 
 module.exports = {
- /* pages: {
+  /* pages: {
     index: {
       entry: "frontend/main.ts",
     },

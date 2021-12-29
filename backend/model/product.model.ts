@@ -15,7 +15,7 @@ export interface ProductDocument extends mongoose.Document {
   price: Number;
   lastUser: Types.ObjectId;
   isPublished: Boolean;
-  images: Array<string>;
+  images: string;
 }
 
 // creation de la table dans la base de donnnee
@@ -38,7 +38,7 @@ const ProductSchema = new mongoose.Schema(
     price: { type: Number, min: 0, default: 0 },
     lastUser: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
     isPublished: { type: Boolean, default: false },
-    images: [{ type: String }],
+    images: { type: String },
   },
   { timestamps: true }
 );

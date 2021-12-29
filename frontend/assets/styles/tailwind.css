@@ -4,6 +4,25 @@
 @tailwind utilities;
 
 @layer base {
+  /* Reset CSS */
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
+  p {
+    overflow-wrap: break-word;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
 }
 
 @import "buttons/buttons.css";

@@ -8,6 +8,7 @@ import {
   findAndUpdate,
   deleteProduct,
   findAllProducts,
+  findProductByID,
 } from "../service/product.service";
 import { updateCategoryAfterProductDeleted } from "../service/category.service";
 
@@ -21,9 +22,9 @@ export async function createProductHandler(req: Request, res: Response) {
   const body = req.body;
   try {
     const product = await createProduct({ ...body, lastUser: adminId });
-    return res.send("Product added");
+    return res.send({ message: "Product added", confirm: true });
   } catch (err: any) {
-    return res.send("Error : " + err);
+    return res.send({ message: "Error : " + err, confirm: false });
   }
 }
 
@@ -66,9 +67,21 @@ export async function getAllProductsHandler(req: Request, res: Response) {
 }
 
 // retourner
-export async function getProductsHandlerByID(req: Request, res: Response) {
+export async function getProductsHandlerByProductID(
+  req: Request,
+  res: Response
+) {
   const prodId = get(req, "params.productId");
   const product = await findProduct({ productId: prodId });
+  if (!product) {
+    return res.sendStatus(404).send("aucun produit");
+  }
+  return res.send(product);
+}
+
+export async function getProductsHandlerByID(req: Request, res: Response) {
+  const prodId = get(req, "params.productId");
+  const product = await findProductByID(prodId);
   if (!product) {
     return res.sendStatus(404).send("aucun produit");
   }
@@ -80,12 +93,10 @@ export async function getProductsHandler(req: Request, res: Response) {
   const request = get(req, "params.query");
   const parsed = parser.parse(request);
   const product = await findProducts(parsed);
-  /* 
   if (!product) {
-    return res.sendStatus(404).send("aucun produit");
+    return res.send({ confirm: false, message: "aucun produit" });
   }
-  return res.send(product); */
-  return res.send(200);
+  return res.send({ confirm: true, products: product });
 }
 
 // supprimer
