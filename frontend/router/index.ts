@@ -54,25 +54,25 @@ const routes: Array<RouteConfig> = [
   // #endregion
 
   // #region Routes Boutique
-    {
-      path: "/shop",
-      components: {
-        default: Boutique,
-      },
-      children: [
-        {
-          path: "/",
-          name: "all-products",
-          component: ShopCategoryPage,
-        },
-        {
-          path: "/category/:categoryId?",
-          name: "product-category",
-          component: ShopCategoryPage,
-        },
-      ],
+  {
+    path: "/shop",
+    components: {
+      default: Boutique,
     },
-    // #endregion
+    children: [
+      {
+        path: "/",
+        name: "all-products",
+        component: ShopCategoryPage,
+      },
+      {
+        path: "/category/:categoryId?",
+        name: "product-category",
+        component: ShopCategoryPage,
+      },
+    ],
+  },
+  // #endregion
 
   // #region Routes CMS
   {

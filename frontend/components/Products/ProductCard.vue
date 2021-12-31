@@ -289,16 +289,16 @@ export default class ProductCard extends Vue {
       position: relative;
 
       .product-name {
-          color: #21aed9;
-          font-family: 'Courgette', cursive;
-          font-size: 30px;
-          line-height: 28px;
-          cursor: pointer;
-          transition: color 0.4s ease;
+        color: #21aed9;
+        font-family: "Courgette", cursive;
+        font-size: 30px;
+        line-height: 28px;
+        cursor: pointer;
+        transition: color 0.4s ease;
 
-          &:hover {
-            color: lighten(#21aed9, 20%);
-          }
+        &:hover {
+          color: lighten(#21aed9, 20%);
+        }
 
         &.is-loading {
           line-height: 42px;
@@ -320,7 +320,7 @@ export default class ProductCard extends Vue {
   .face.back {
     background: @border;
     z-index: 0;
-    
+
     /* Heart Icon */
     .like-icon {
       opacity: 0;

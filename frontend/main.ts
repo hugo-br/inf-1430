@@ -10,10 +10,25 @@ import "./assets/styles/tailwind.css";
 /* import the fontawesome core */
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUserSecret, faUser, faHeart, faCrown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserSecret,
+  faUser,
+  faHeart,
+  faCrown,
+  faShoppingCart,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 /* add icons to the library */
-library.add(faUserSecret, faUser, faHeart, farHeart, faCrown);
+library.add(
+  faUserSecret,
+  faUser,
+  faHeart,
+  farHeart,
+  faCrown,
+  faShoppingCart,
+  faSearch
+);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 const user = "";

@@ -28,7 +28,11 @@ export function findCategoryAndProducts(
   options: QueryOptions = { lean: true }
 ) {
   return Category.findOne(query, {}, options)
-    .populate({ path: "products", select: ["_id", "name"], match: { isPublished: true} })
+    .populate({
+      path: "products",
+      select: ["_id", "name"],
+      match: { isPublished: true },
+    })
     .exec();
 }
 

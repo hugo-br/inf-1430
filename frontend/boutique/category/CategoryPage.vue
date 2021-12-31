@@ -1,8 +1,13 @@
 <template>
   <div class="category-page">
-    <div class="category-header">
-      <h1>HEADER</h1>
+    <!-- Category Header -->
+    <div class="category-header-wrap" :style="{ 'background-image': 'url(' + image + ')' }">
+      <CategoryHeader :title="headerTitle" :description="headerDesc" />
     </div>
+    <!-- Filters -->
+    <div class="product-filter">
+    </div>
+    <!-- Products Display -->
     <div class="product-grid" v-if="catProducts.length > 0">
       <ProductsGrid :products="catProducts" />
     </div>
@@ -10,12 +15,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import ProductsGrid from "./ProductsGrid.vue";
+import CategoryHeader from "./CategoryHeader.vue";
 import { getCategory, Category } from "../../services/CategoryService";
 import {
-  getAllAvailableProducts,
-  Product,
+  getAllAvailableProducts
 } from "../../services/ProductsService";
 
 interface productsArray {
@@ -25,16 +30,22 @@ interface productsArray {
 @Component({
   components: {
     ProductsGrid,
+    CategoryHeader
   },
 })
 export default class ShopCategoryPage extends Vue {
   public categoryId = this.$route.params.categoryId ?? "all";
   public catProducts: productsArray[] = [];
+  public defaultBackground = "background.jpg";
+  public headerTitle = "";
+  public headerDesc = "";
 
   // #region Functions
   public created() {
     if (this.categoryId === "all") {
       this.getAllProducts();
+      this.headerTitle = "Tous les produits";
+      this.headerDesc = "Magasinez notre collection complète";
     } else {
       this.getOneCategory(this.categoryId);
     }
@@ -68,6 +79,22 @@ export default class ShopCategoryPage extends Vue {
     }
   }
 
+  get image(): string {
+    var images = require.context(
+      "../../../public/images/",
+      false,
+      /\.(png|jpg|jpeg|gif)$/i
+    );
+    let img = this.defaultBackground;
+
+    try {
+      return images("./" + img);
+    } catch (err: any) {
+      let img = "background";
+      return images("./" + img + ".jpg");
+    }
+  }
+
   // #endregion
 }
 </script>
@@ -78,15 +105,34 @@ export default class ShopCategoryPage extends Vue {
   width: 100%;
   height: auto;
 
+    .category-header-wrap {
+    width: 100%;
+    padding: 30px 30px 0 30px;
+    height: auto;
+    border-bottom: 1px #264d4d solid;
+    color: white;
+    background: black;
+    position: relative;
+    background-repeat: repeat-x;
+    background-size: contain;
+    background-position-x: 0;
+    background-position-y: 0;
+  }
+
+ .product-filter {
+    width: 100%;
+    padding: 20px 60px 40px;
+    display: block;
+    background-color: darken(#111a21, 5%);
+  }
+
   .product-grid {
     width: 100%;
     min-height: 100vh;
     background-color: darken(#111a21, 5%);
   }
-  .category-header {
-    width: 100%;
-    padding: 20px;
-    border-bottom: thin gold solid;
-  }
+
+
+
 }
 </style>
