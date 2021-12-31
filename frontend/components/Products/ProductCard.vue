@@ -22,7 +22,10 @@
         </div>
       </div>
 
-      <div class="face back">&nbsp;</div>
+      <!-- Hidden Face -->
+      <div class="face back">
+        <font-awesome-icon :icon="['far', 'heart']" class="like-icon" />
+      </div>
     </div>
     <div class="text-center flow-root w-full bottom-0">
       <button class="btn-buy">BUY</button>
@@ -286,7 +289,16 @@ export default class ProductCard extends Vue {
       position: relative;
 
       .product-name {
-        color: #35ffff;
+          color: #21aed9;
+          font-family: 'Courgette', cursive;
+          font-size: 30px;
+          line-height: 28px;
+          cursor: pointer;
+          transition: color 0.4s ease;
+
+          &:hover {
+            color: lighten(#21aed9, 20%);
+          }
 
         &.is-loading {
           line-height: 42px;
@@ -308,7 +320,17 @@ export default class ProductCard extends Vue {
   .face.back {
     background: @border;
     z-index: 0;
-    /* box-shadow: 0 10px 50px rgba(245, 245, 245, 0.8); */
+    
+    /* Heart Icon */
+    .like-icon {
+      opacity: 0;
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      transition: opacity 0.4s ease-in;
+      cursor: pointer;
+      z-index: 3;
+    }
   }
 
   /* On Hover */
@@ -343,6 +365,9 @@ export default class ProductCard extends Vue {
       .face.back {
         transform: translateX(20px);
         box-shadow: -21px -5px 20px 6px rgba(164, 182, 243, 0.205);
+        .like-icon {
+          opacity: 1;
+        }
       }
     }
   }
@@ -350,7 +375,7 @@ export default class ProductCard extends Vue {
   /* Buy button */
   .btn-buy {
     background-color: #d1e5e4;
-    margin-top: 15px;
+    margin-top: 20px;
     padding: 5px 20px;
     z-index: 4;
     width: 60%;

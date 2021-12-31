@@ -5,7 +5,7 @@ import PageTest from "../pages/Test.vue";
 
 // #region Boutique
 import Navigation from "../boutique/navigation/navigation.vue";
-import Homepage from "../boutique/Homepage.vue";
+import Boutique from "../boutique/Boutique.vue";
 import ShopCategoryPage from "../boutique/category/CategoryPage.vue";
 // #endregion
 
@@ -51,21 +51,28 @@ const routes: Array<RouteConfig> = [
       header: Navigation,
     },
   },
-  {
-    path: "/store",
-    components: {
-      default: Homepage,
-      header: Navigation,
-    },
-    children: [
-      {
-        path: "/boutique",
-        alias: "boutique",
-        name: "boutique",
-      },
-    ],
-  },
   // #endregion
+
+  // #region Routes Boutique
+    {
+      path: "/shop",
+      components: {
+        default: Boutique,
+      },
+      children: [
+        {
+          path: "/",
+          name: "all-products",
+          component: ShopCategoryPage,
+        },
+        {
+          path: "/category/:categoryId?",
+          name: "product-category",
+          component: ShopCategoryPage,
+        },
+      ],
+    },
+    // #endregion
 
   // #region Routes CMS
   {
@@ -139,25 +146,6 @@ const routes: Array<RouteConfig> = [
   },
 
   // #endregion
-
-  {
-    path: "/home",
-    name: "Homepage",
-    components: {
-      default: Homepage,
-      header: Navigation,
-    },
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: About,
-  },
-  {
-    path: "/about",
-    name: "about",
-    component: About,
-  },
 ];
 
 const router = new VueRouter({

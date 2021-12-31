@@ -1,5 +1,8 @@
 <template>
-  <div class="product-page">
+  <div class="category-page">
+    <div class="category-header">
+      <h1>HEADER</h1>
+    </div>
     <div class="product-grid" v-if="catProducts.length > 0">
       <ProductsGrid :products="catProducts" />
     </div>
@@ -71,14 +74,19 @@ export default class ShopCategoryPage extends Vue {
 
 <style scoped lang="less">
 @background: #111a21;
-.product-page {
+.category-page {
   width: 100%;
-  height: 100vh;
+  height: auto;
 
   .product-grid {
     width: 100%;
     min-height: 100vh;
     background-color: darken(#111a21, 5%);
+  }
+  .category-header {
+    width: 100%;
+    padding: 20px;
+    border-bottom: thin gold solid;
   }
 }
 </style>

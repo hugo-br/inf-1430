@@ -23,7 +23,15 @@
   select {
     font: inherit;
   }
+
+  .font{
+    font-family: 'Courgette', cursive;
+  }
+  
 }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 
 @import "buttons/buttons.css";
 @import "forms/index.css";
