@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve:frontend": "vue-cli-service serve frontend/main.ts --port 8000",
+    "serve:frontend": "vue-cli-service serve frontend/main.ts --port 8001",
     "serve:backend": "nodemon --config nodemon.json backend/app.ts",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",

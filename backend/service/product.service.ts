@@ -31,6 +31,10 @@ export function findProduct(
   return Product.findOne(query, {}, options);
 }
 
+export function findProductByID(id: string) {
+  return Product.findById(id);
+}
+
 export function findProducts(query: FilterQuery<ProductDocument>) {
   return Product.find(query.filter)
     .select(query.select)
@@ -50,11 +54,14 @@ export async function findAndUpdate(
     { $pull: { products: oldProduct._id } }
   );
 
+  console.log(oldProduct);
   const product = await Product.findOneAndUpdate(query, update, options);
+  console.log("categorie", product.categories);
   await Category.updateMany(
     { _id: product.categories },
     { $push: { products: product._id } }
   );
+  console.log(product);
   return product;
 }
 

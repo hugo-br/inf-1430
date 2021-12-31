@@ -12,6 +12,7 @@ export interface Category {
   lastUser?: string;
   isPublished?: Boolean;
   images?: string;
+  products?: Array<any>;
 }
 
 /**

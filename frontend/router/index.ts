@@ -5,7 +5,7 @@ import PageTest from "../pages/Test.vue";
 
 // #region Boutique
 import Navigation from "../boutique/navigation/navigation.vue";
-import Homepage from "../boutique/Homepage.vue";
+import Boutique from "../boutique/Boutique.vue";
 import ShopCategoryPage from "../boutique/category/CategoryPage.vue";
 // #endregion
 
@@ -33,41 +33,54 @@ import AdminEditPage from "../cms/admins/AdminEditPage.vue";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  /* Boutique */
+  // #region Routes Boutiques
+
   {
     path: "/",
-    name: "TestPage",
+    name: "category",
     components: {
       default: ShopCategoryPage,
       header: Navigation,
     },
   },
   {
-    path: "/store",
+    path: "/category/:categoryId?",
+    name: "category",
     components: {
-      default: Homepage,
+      default: ShopCategoryPage,
       header: Navigation,
+    },
+  },
+  // #endregion
+
+  // #region Routes Boutique
+  {
+    path: "/shop",
+    components: {
+      default: Boutique,
     },
     children: [
       {
-        path: "/boutique",
-        alias: "boutique",
-        name: "boutique",
+        path: "/",
+        name: "all-products",
+        component: ShopCategoryPage,
       },
-      /*    {
-        path: 'extractions',
-        name: 'Extractions',
-        meta: {
-          role: User.FdmOperator,
-          fail: '403',
-        },
+      {
+        path: "/category/:categoryId?",
+        name: "product-category",
+        component: ShopCategoryPage,
       },
-  */
     ],
   },
-  /* CMS */
+  // #endregion
+
+  // #region Routes CMS
   {
     path: "/cms",
+    /* meta: {
+      role: User.FdmOperator,
+      fail: '403',
+    }, */
     components: {
       default: Dashboard,
     },
@@ -123,16 +136,6 @@ const routes: Array<RouteConfig> = [
         name: "edit-admin",
         component: AdminEditPage,
       },
-
-      /*    {
-          path: 'extractions',
-          name: 'Extractions',
-          meta: {
-            role: User.FdmOperator,
-            fail: '403',
-          },
-        },
-    */
     ],
   },
   {
@@ -142,46 +145,7 @@ const routes: Array<RouteConfig> = [
     component: LoginCMS,
   },
 
-  {
-    path: "/home",
-    name: "Homepage",
-    components: {
-      default: Homepage,
-      header: Navigation,
-    },
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: About,
-  },
-  {
-    path: "/about",
-    name: "about",
-    component: About,
-  },
-  {
-    path: "/settings",
-    // You could also have named views at the top
-    component: About,
-    children: [
-      {
-        path: "emails",
-        component: About,
-      },
-      {
-        path: "profile",
-        components: {
-          default: About,
-          helper: About,
-        },
-        meta: {
-          can: "approuver",
-          fail: "/",
-        },
-      },
-    ],
-  },
+  // #endregion
 ];
 
 const router = new VueRouter({

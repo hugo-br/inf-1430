@@ -18,13 +18,24 @@ export interface Product {
 
 /**
  * @desc    Request a product with his ID
- * @param   String   Product ID
+ * @param   String   Product ID || _id
  * @return  Information for the specific product ID
  * @error   Error message
  **/
 export async function getProduct(produtId: string): Promise<any> {
   return Api()
     .get(`/products/${produtId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
+}
+
+export async function getProductByID(id: string): Promise<any> {
+  return Api()
+    .get(`/products/id/${id}`)
     .then((response) => {
       return response.data;
     })
@@ -41,6 +52,18 @@ export async function getProduct(produtId: string): Promise<any> {
 export async function getAllProducts(): Promise<any> {
   return Api()
     .get(`/products/`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
+}
+
+export async function getAllAvailableProducts(): Promise<any> {
+  const query = "isPublished=true&select=_id";
+  return Api()
+    .get(`/products/find/${query}`)
     .then((response) => {
       return response.data;
     })

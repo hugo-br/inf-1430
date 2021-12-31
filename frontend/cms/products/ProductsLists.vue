@@ -43,14 +43,14 @@
         <span v-else-if="props.column.field == 'isPublished'">
           <button
             v-if="props.row.isPublished"
-            class="btn-table-links bg-blue-800 hover:bg-blue-900 border-white"
+            class="btn-table-links info border-white"
             @click="publish(props.row.productId, false)"
           >
             {{ $t("cms.buttons.published") }}
           </button>
           <button
             v-if="!props.row.isPublished"
-            class="btn-table-links bg-yellow-800 hover:bg-yellow-900 border-white"
+            class="btn-table-links warning border-white"
             @click="publish(props.row.productId, true)"
           >
             {{ $t("cms.buttons.unpublished") }}
@@ -120,8 +120,8 @@ export default class ProductsLists extends Vue {
       html: true,
       sortable: true,
       type: "number",
-      thClass: "text-center",
-      tdClass: "text-center",
+      thClass: "vgt-center-align",
+      tdClass: "vgt-center-align",
     },
     {
       label: "Status",
@@ -129,10 +129,9 @@ export default class ProductsLists extends Vue {
       type: "boolean",
       sortable: true,
       firstSortType: "desc",
-      // tdClass: this.isPublished,
       width: "20%",
-      thClass: "text-center",
-      tdClass: "text-center",
+      thClass: "vgt-center-align",
+      tdClass: "vgt-center-align",
     },
     {
       label: "Action",
@@ -140,8 +139,8 @@ export default class ProductsLists extends Vue {
       html: true,
       sortable: false,
       width: "20%",
-      thClass: "text-center",
-      tdClass: "text-center",
+      thClass: "vgt-center-align",
+      tdClass: "vgt-center-align",
     },
   ];
 
@@ -228,4 +227,8 @@ export default class ProductsLists extends Vue {
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.text-center {
+  text-align: center !important;
+}
+</style>

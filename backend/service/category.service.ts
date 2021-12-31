@@ -18,12 +18,21 @@ export function findCategory(
   return Category.findOne(query, {}, options);
 }
 
+/**
+ * @desc    Returns all availables products in one particular category
+ * @param   query  CategoryID
+ * @return  Category information + products of this category (_id and name)
+ */
 export function findCategoryAndProducts(
   query: FilterQuery<CategoryDocument>,
   options: QueryOptions = { lean: true }
 ) {
   return Category.findOne(query, {}, options)
-    .populate("products", "name")
+    .populate({
+      path: "products",
+      select: ["_id", "name"],
+      match: { isPublished: true },
+    })
     .exec();
 }
 

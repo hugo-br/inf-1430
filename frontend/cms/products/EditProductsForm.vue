@@ -79,7 +79,17 @@
         <!-- Right Section -->
         <div class="right-info">
           <div>
-            <div class="info-form-row"></div>
+            <div class="info-form-row">
+              <div class="info-form-items">
+                <label for="image">Nom de l'image</label>
+                <input
+                  type="text"
+                  id="image"
+                  placeholder="Nom de l'image..."
+                  v-model="product.images"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

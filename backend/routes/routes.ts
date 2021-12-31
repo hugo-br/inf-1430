@@ -9,6 +9,7 @@ import {
 import { createUserSchema, createSessionSchema } from "@schema/user.schema";
 import {
   getProductsHandlerByID,
+  getProductsHandlerByProductID,
   getProductsHandler,
   getAllProductsHandler,
 } from "@backend/controller/product.controller";
@@ -57,7 +58,15 @@ export default (app: Express) => {
    * @param   String  :productId - product ID
    * @return  Object  Informations on the product
    **/
-  app.get("/api/products/:productId", getProductsHandlerByID);
+  app.get("/api/products/:productId", getProductsHandlerByProductID);
+
+  /**
+   * @func    request [GET]
+   * @desc    Get a specific product and return the result as an object
+   * @param   String  :productId - product ID
+   * @return  Object  Informations on the product
+   **/
+  app.get("/api/products/id/:productId", getProductsHandlerByID);
 
   /**
    * @func    request [GET]

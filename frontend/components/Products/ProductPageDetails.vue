@@ -1,5 +1,5 @@
 <template>
-  <div>vignette</div>
+  <div>Product Page</div>
 </template>
 
 <script lang="ts">

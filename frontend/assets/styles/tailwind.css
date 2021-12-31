@@ -3,10 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-}
+@layer base {}
 
 @import "buttons/buttons.css";
 @import "forms/index.css";
 @import "cms/index.css";
 @import "category/category.less";
+@import "reset.css";
