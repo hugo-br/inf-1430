@@ -1,15 +1,19 @@
 <template>
   <div class="category-page">
     <!-- Category Header -->
-    <div class="category-header-wrap" :style="{ 'background-image': 'url(' + image + ')' }">
+    <div
+      class="category-header-wrap"
+      :style="{ 'background-image': 'url(' + image + ')' }"
+    >
       <CategoryHeader :title="headerTitle" :description="headerDesc" />
     </div>
     <!-- Filters -->
-    <div class="product-filter">
-    </div>
+    <div class="product-filter"></div>
     <!-- Products Display -->
-    <div class="product-grid" v-if="catProducts.length > 0">
-      <ProductsGrid :products="catProducts" />
+    <div class="product-grid">
+      <div v-if="catProducts.length > 0">
+        <ProductsGrid :products="catProducts" />
+      </div>
     </div>
   </div>
 </template>
@@ -20,17 +24,14 @@ import ProductsGrid from "./ProductsGrid.vue";
 import CategoryHeader from "./CategoryHeader.vue";
 import { getCategory, Category } from "../../services/CategoryService";
 import {
-  getAllAvailableProducts
+  getAllAvailableProducts,
+  productsArray,
 } from "../../services/ProductsService";
-
-interface productsArray {
-  _id: string;
-}
 
 @Component({
   components: {
     ProductsGrid,
-    CategoryHeader
+    CategoryHeader,
   },
 })
 export default class ShopCategoryPage extends Vue {
@@ -72,6 +73,8 @@ export default class ShopCategoryPage extends Vue {
       getCategory(this.categoryId).then((result: Category) => {
         this.$nextTick(function () {
           this.catProducts = [...result.products];
+          this.headerTitle = result.name;
+          this.headerDesc = result.description;
         });
       });
     } catch (err: any) {
@@ -105,9 +108,10 @@ export default class ShopCategoryPage extends Vue {
   width: 100%;
   height: auto;
 
-    .category-header-wrap {
+  /* Category Header */
+  .category-header-wrap {
     width: 100%;
-    padding: 30px 30px 0 30px;
+    padding: 40px 30px 0 30px;
     height: auto;
     border-bottom: 1px #264d4d solid;
     color: white;
@@ -116,10 +120,10 @@ export default class ShopCategoryPage extends Vue {
     background-repeat: repeat-x;
     background-size: contain;
     background-position-x: 0;
-    background-position-y: 0;
+    background-position-y: 14px;
   }
 
- .product-filter {
+  .product-filter {
     width: 100%;
     padding: 20px 60px 40px;
     display: block;
@@ -131,8 +135,5 @@ export default class ShopCategoryPage extends Vue {
     min-height: 100vh;
     background-color: darken(#111a21, 5%);
   }
-
-
-
 }
 </style>

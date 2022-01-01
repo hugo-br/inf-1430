@@ -28,7 +28,9 @@
       </div>
     </div>
     <div class="text-center flow-root w-full bottom-0">
-      <button class="btn-buy">BUY</button>
+      <button class="btn-buy">
+        {{ $t("general.buy") }}
+      </button>
     </div>
   </div>
 </template>
@@ -44,34 +46,15 @@ export default class ProductCard extends Vue {
   @Prop()
   public productId: string;
 
+  @Prop()
+  public product: Partial<Product>;
+
   public isLoading = true;
   public imageNotAvailable = false;
   public source: string = "default";
-  public product: Partial<Product> = {
-    name: String(this.$t("general.loading")),
-    images: "",
-  };
 
   public mounted(): void {
-    this.fetchProd();
-    // this.$parent.$emit("notifications");
-  }
-
-  /**
-   * @desc    Get Products for the database
-   **/
-  public async fetchProd() {
-    getProductByID(this.productId)
-      .then((result: Partial<Product>) => {
-        this.$nextTick(function () {
-          console.log("poduct", result);
-          this.product = result;
-          this.isLoading = false;
-        });
-      })
-      .catch((error: any) => {
-        this.isLoading = true;
-      });
+    this.isLoading = false;
   }
 
   get image(): string {
@@ -97,6 +80,7 @@ export default class ProductCard extends Vue {
 <style scoped lang="less">
 @background: #111a21;
 @border: #306261;
+@color: #21aed9;
 
 .products-container {
   display: flex;
@@ -289,7 +273,7 @@ export default class ProductCard extends Vue {
       position: relative;
 
       .product-name {
-        color: #21aed9;
+        color: @color;
         font-family: "Courgette", cursive;
         font-size: 30px;
         line-height: 28px;
@@ -297,7 +281,7 @@ export default class ProductCard extends Vue {
         transition: color 0.4s ease;
 
         &:hover {
-          color: lighten(#21aed9, 20%);
+          color: lighten(@color, 20%);
         }
 
         &.is-loading {

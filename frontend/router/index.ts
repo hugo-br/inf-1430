@@ -7,6 +7,7 @@ import PageTest from "../pages/Test.vue";
 import Navigation from "../boutique/navigation/navigation.vue";
 import Boutique from "../boutique/Boutique.vue";
 import ShopCategoryPage from "../boutique/category/CategoryPage.vue";
+import ShopProductPage from "../boutique/product/ShopProductPage.vue";
 // #endregion
 
 // #region CMS
@@ -33,26 +34,16 @@ import AdminEditPage from "../cms/admins/AdminEditPage.vue";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  // #region Routes Boutiques
-
+  // Homepage
   {
     path: "/",
-    name: "category",
+    redirect: "/shop",
+    name: "home",
     components: {
-      default: ShopCategoryPage,
+      default: Boutique,
       header: Navigation,
     },
   },
-  {
-    path: "/category/:categoryId?",
-    name: "category",
-    components: {
-      default: ShopCategoryPage,
-      header: Navigation,
-    },
-  },
-  // #endregion
-
   // #region Routes Boutique
   {
     path: "/shop",
@@ -66,9 +57,14 @@ const routes: Array<RouteConfig> = [
         component: ShopCategoryPage,
       },
       {
-        path: "/category/:categoryId?",
+        path: "category/:categoryId?",
         name: "product-category",
         component: ShopCategoryPage,
+      },
+      {
+        path: "product/:productId?",
+        name: "products",
+        component: ShopProductPage,
       },
     ],
   },

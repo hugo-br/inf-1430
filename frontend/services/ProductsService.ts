@@ -1,3 +1,4 @@
+import { Many } from "lodash";
 import Api from "./Api";
 import ApiAdmin from "./ApiAdmin";
 
@@ -14,6 +15,27 @@ export interface Product {
   endDate?: Date;
   images?: string;
   categories?: string[];
+}
+
+/*
+ * Display of products on category pages
+ */
+export interface productsArray {
+  _id: string;
+  productId: string;
+  name: string;
+  quantity: number;
+  price: number;
+  images: string;
+  createdAt: Date;
+}
+
+/*
+ * For the filters on the category page
+ */
+export interface FilterOptions {
+  element: "price" | "name" | "quantity";
+  order: Many<boolean | "asc" | "desc">;
 }
 
 /**
@@ -61,7 +83,20 @@ export async function getAllProducts(): Promise<any> {
 }
 
 export async function getAllAvailableProducts(): Promise<any> {
-  const query = "isPublished=true&select=_id";
+  const query =
+    "isPublished=true&select=_id,productId,name,price,quantity,images,createdAt";
+  return Api()
+    .get(`/products/find/${query}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
+}
+
+export async function getCategoryProducts(categoryId: string): Promise<any> {
+  const query = `isPublished=true&select=_id,productId,name,price,quantity,images,createdAt&elemMatch=categoryId=${categoryId}`;
   return Api()
     .get(`/products/find/${query}`)
     .then((response) => {
