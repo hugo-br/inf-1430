@@ -30,11 +30,15 @@
 
             <!-- Add/Remove Section -->
             <div class="quantity-section">
-              <button class="plus">+</button>
+              <button class="plus" @click="increase()" :disabled="this.product.quantity === 0">+</button>
               <span>{{ quantity }}</span>
-              <button class="minus"><strong>-</strong></button>
+              <button class="minus" @click="decrease()" :disabled="this.product.quantity === 0">
+                <strong>-</strong>
+              </button>
             </div>
-            <button class="btn-buy btn-cart">Ajouter au panier</button>
+            <button class="btn-buy btn-cart" @click="add()">
+              Ajouter au panier
+            </button>
             <button class="btn-buy btn-checkout">Acheter maintenant</button>
           </div>
         </div>
@@ -49,6 +53,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { getProduct, Product } from "../../services/ProductsService";
+import { cartStore } from "../../store/store-accessor";
 
 @Component({
   components: {},
@@ -58,9 +63,13 @@ export default class ShopProductPage extends Vue {
   public imageNotAvailable = true;
   public isLoading = true;
   public quantity = 0;
+  public minimum = 0;
+
   public product: Partial<Product> = {
     name: String(this.$t("general.loading")),
     images: "",
+    price: 0,
+    quantity: 0
   };
 
   public mounted(): void {
@@ -83,6 +92,33 @@ export default class ShopProductPage extends Vue {
       .catch((error: any) => {
         this.isLoading = true;
       });
+  }
+
+  /* Change the quantity */
+  public decrease(): void {
+    if (this.quantity === 0) return;
+
+    this.quantity = this.quantity - 1;
+  }
+
+  public increase(): void {
+    if (this.quantity >= this.product.quantity) return;
+    this.quantity = this.quantity + 1;
+  }
+
+  public add(): void {
+    if (this.quantity === 0) return;
+
+    const payload = {
+      productId: this.product.productId,
+      name: this.product.name,
+      images: this.product.images,
+      quantity: Number(this.quantity),
+      price: Number(this.product.price),
+    };
+    cartStore.addToCart(payload);
+    this.product.quantity = Number(this.product.quantity) - this.quantity;
+    this.quantity = 0;
   }
 
   get image(): string {
@@ -233,7 +269,7 @@ body {
         color: white;
         position: relative;
 
-/* Buy Now */
+        /* Buy Now */
         .buy-title {
           padding: 20px 0;
           margin-top: 20px;
@@ -242,6 +278,7 @@ body {
           letter-spacing: 1px;
         }
 
+        /* Marketing phrase */
         .catchphrase {
           font-size: 14px;
           line-height: 24px;
@@ -287,6 +324,12 @@ body {
 
             &:hover {
               background-color: #c3c7ca;
+            }
+
+            &:disabled {
+              cursor: not-allowed;
+              background-color: #c3c7ca;
+              color: grey;
             }
 
             &.plus {

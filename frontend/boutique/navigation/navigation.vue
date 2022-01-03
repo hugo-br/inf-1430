@@ -18,7 +18,7 @@
           class="inline mr-3 logo-icon"
         />
       </div>
-      <div id="action-icons" class="ml-auto">
+      <div id="action-icons" class="ml-auto" @click="showShoppingCart()">
         <font-awesome-icon
           :icon="['fa', 'shopping-cart']"
           class="inline mr-5 logo-icon"
@@ -35,7 +35,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 @Component
-export default class Navigation extends Vue {}
+export default class Navigation extends Vue {
+  public showShoppingCart(): void {}
+}
 </script>
 
 <style scoped lang="less">
