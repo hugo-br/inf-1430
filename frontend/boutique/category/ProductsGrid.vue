@@ -11,9 +11,9 @@
 </template>
 
 <script lang="ts">
-import { Many, orderBy } from "lodash";
+import { orderBy } from "lodash";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import ProductCard from "../../components/Products/ProductCard.vue";
+import ProductCard from "../product/ProductCard.vue";
 import { productsArray, FilterOptions } from "../../services/ProductsService";
 
 @Component({
@@ -26,12 +26,20 @@ export default class ProductsGrid extends Vue {
   public products: productsArray[];
 
   // Options by default, price up
-  @Prop({ default: { element: "price", order: "desc" } })
+  @Prop()
   public filters: FilterOptions;
 
   // Return the ordered list of products
   get listProducts(): productsArray[] {
-    return orderBy(this.products, this.filters.element, this.filters.order);
+    return orderBy(
+      this.products,
+      this.currentFilter.element,
+      this.currentFilter.order
+    );
+  }
+
+  get currentFilter(): FilterOptions {
+    return { element: "price", order: "desc" };
   }
 
   @Watch("products")

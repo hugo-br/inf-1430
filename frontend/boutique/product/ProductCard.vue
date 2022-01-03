@@ -4,21 +4,29 @@
       <!-- Visible Face -->
       <div class="face front">
         <div class="face-content card-header">
-          <span class="product-exclusivity">New!</span>
+          <span class="product-exclusivity"> {{ $t("general.new") }}!</span>
           <span class="product-price">{{ product.price }}$</span>
         </div>
         <div class="face-content card-body">
-          <img
-            class="product-image"
-            :class="{ 'is-loading': isLoading || imageNotAvailable }"
-            :src="image"
-          />
+          <router-link
+            :to="{ name: 'products', params: { productId: product.productId } }"
+          >
+            <img
+              class="product-image"
+              :class="{ 'is-loading': isLoading || imageNotAvailable }"
+              :src="image"
+            />
+          </router-link>
         </div>
 
         <div class="face-content card-footer">
-          <span class="product-name" :class="{ 'is-loading': isLoading }">
-            {{ product.name }}
-          </span>
+          <router-link
+            :to="{ name: 'products', params: { productId: product.productId } }"
+          >
+            <span class="product-name" :class="{ 'is-loading': isLoading }">
+              {{ product.name }}
+            </span>
+          </router-link>
         </div>
       </div>
 
@@ -28,16 +36,20 @@
       </div>
     </div>
     <div class="text-center flow-root w-full bottom-0">
-      <button class="btn-buy">
-        {{ $t("general.buy") }}
-      </button>
+      <router-link
+        :to="{ name: 'products', params: { productId: product.productId } }"
+      >
+        <button class="btn-buy">
+          {{ $t("general.buy") }}
+        </button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { getProductByID, Product } from "../../services/ProductsService";
+import { Product } from "../../services/ProductsService";
 
 @Component({
   components: {},
@@ -54,6 +66,7 @@ export default class ProductCard extends Vue {
   public source: string = "default";
 
   public mounted(): void {
+    console.log(this.product.productId);
     this.isLoading = false;
   }
 

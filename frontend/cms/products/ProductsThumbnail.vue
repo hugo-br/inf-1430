@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import ProductCard from "../../components/Products/ProductCard.vue";
+import ProductCard from "../../boutique/product/ProductCard.vue";
 
 @Component({
   components: {

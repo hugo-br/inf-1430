@@ -1,12 +1,15 @@
 <template>
   <nav>
     <div class="navigation">
+      <!-- Clickable Logo -->
       <div id="logo" class="font">
-        <font-awesome-icon
-          :icon="['fa', 'crown']"
-          class="inline mr-3 logo-icon"
-        />
-        <h1 class="inline">Rubydor</h1>
+        <router-link :to="{ name: 'all-products' }">
+          <font-awesome-icon
+            :icon="['fa', 'crown']"
+            class="inline mr-3 logo-icon"
+          />
+          <h1 class="inline">Rubydor</h1>
+        </router-link>
       </div>
       <div id="search-bar">
         <input type="text" class="inline" placeholder="Trouvez votre diamant" />

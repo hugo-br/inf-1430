@@ -104,6 +104,11 @@ export default class ShopCategoryPage extends Vue {
 
 <style scoped lang="less">
 @background: #111a21;
+
+body {
+  background-color: @background;
+}
+
 .category-page {
   width: 100%;
   height: auto;
