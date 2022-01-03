@@ -5,7 +5,7 @@ import { Product } from "../services/ProductsService";
  * @desc   Store for the shopping cart
  **/
 
-interface cartProduct {
+export interface cartProduct {
   productId: string;
   name: string;
   images: string;
@@ -56,7 +56,11 @@ export default class CartStore extends VuexModule {
   }
 
   /* Return the entire Cart */
-  get cart(): Array<Partial<Product>> {
+  get cartItems(): Array<Partial<Product>> {
     return this._cart;
+  }
+
+  get numberCartItems(): number {
+    return Number(this._cart.length);
   }
 }

@@ -18,10 +18,11 @@
           class="inline mr-3 logo-icon"
         />
       </div>
-      <div id="action-icons" class="ml-auto" @click="showShoppingCart()">
+      <div id="action-icons" class="ml-auto">
         <font-awesome-icon
           :icon="['fa', 'shopping-cart']"
           class="inline mr-5 logo-icon"
+          @click="showShoppingCart()"
         />
         <font-awesome-icon
           :icon="['fa', 'user']"
@@ -29,14 +30,30 @@
         />
       </div>
     </div>
+
+    <!-- Menus Dropdown -->
+    <MenuDropdown v-show="!showCart" @close="showShoppingCart()">
+      <template v-slot:content>
+        <ShoppingCart />
+      </template>
+    </MenuDropdown>
   </nav>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-@Component
+import MenuDropdown from "../components/MenuDropdown.vue";
+import ShoppingCart from "../cart/ShoppingCart.vue";
+
+@Component({
+  components: { MenuDropdown, ShoppingCart },
+})
 export default class Navigation extends Vue {
-  public showShoppingCart(): void {}
+  public showCart = false;
+
+  public showShoppingCart(): void {
+    this.showCart = !this.showCart;
+  }
 }
 </script>
 
@@ -46,6 +63,7 @@ export default class Navigation extends Vue {
 nav {
   height: 100%;
   width: 100%;
+  position: relative;
   background: rgb(4, 8, 10);
   background: linear-gradient(138deg, rgba(4, 8, 10, 1) 0%, #1c0d22 68%);
 
@@ -96,6 +114,13 @@ nav {
     #action-icons {
       color: rgb(175, 174, 174);
       width: 300px;
+      cursor: pointer;
+
+      svg {
+        &:hover {
+          color: lighten(rgb(175, 174, 174), 20%);
+        }
+      }
     }
   }
 }

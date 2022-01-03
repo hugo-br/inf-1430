@@ -30,9 +30,19 @@
 
             <!-- Add/Remove Section -->
             <div class="quantity-section">
-              <button class="plus" @click="increase()" :disabled="this.product.quantity === 0">+</button>
+              <button
+                class="plus"
+                @click="increase()"
+                :disabled="this.product.quantity === 0"
+              >
+                +
+              </button>
               <span>{{ quantity }}</span>
-              <button class="minus" @click="decrease()" :disabled="this.product.quantity === 0">
+              <button
+                class="minus"
+                @click="decrease()"
+                :disabled="this.product.quantity === 0"
+              >
                 <strong>-</strong>
               </button>
             </div>
@@ -69,7 +79,7 @@ export default class ShopProductPage extends Vue {
     name: String(this.$t("general.loading")),
     images: "",
     price: 0,
-    quantity: 0
+    quantity: 0,
   };
 
   public mounted(): void {
@@ -176,7 +186,6 @@ body {
         width: calc(70% - 50px);
         margin-right: 40px;
         height: 100%;
-        float: left;
         color: white;
 
         .product-basic,
@@ -247,6 +256,7 @@ body {
             clear: both;
             text-align: left;
             margin-top: 20px;
+            text-align: justify;
           }
         }
       }
