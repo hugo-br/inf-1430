@@ -44,15 +44,21 @@ export default class CartStore extends VuexModule {
     this._cart[foundIndx].quantity = quantity;
   }
 
-  @Action
-  public removeFromCart(obj: Partial<Product>): void {
+  @Mutation
+  public removeFromCart(productId: string): void {
     const foundIndx = this._cart.findIndex(
-      (prod) => prod.productId === obj.productId
+      (prod) => prod.productId === productId
     );
     if (foundIndx > -1) {
       this._cart.splice(foundIndx, 1);
     }
     return;
+  }
+
+  @Mutation
+  public removeAll(): void {
+    console.log("here");
+    this._cart = [];
   }
 
   /* Return the entire Cart */

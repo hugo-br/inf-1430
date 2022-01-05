@@ -14,6 +14,15 @@
               <span class="product-availability">{{ $t("general.new") }}</span>
               <h1 class="product-name font">{{ product.name }}</h1>
               <span class="product-price">Prix : {{ product.price }} $</span>
+              <div class="product-rating mt-2">
+                <span
+                  v-for="(star, index) in ratings"
+                  :key="index"
+                  class="inline mr-1"
+                >
+                  <font-awesome-icon :icon="['fa', 'star']" />
+                </span>
+              </div>
               <p class="product-description">{{ product.description }}</p>
             </div>
           </div>
@@ -33,23 +42,35 @@
               <button
                 class="plus"
                 @click="increase()"
-                :disabled="this.product.quantity === 0"
+                :disabled="
+                  this.product.quantity === 0 ||
+                  this.quantity >= this.product.quantity
+                "
               >
-                +
+                <font-awesome-icon :icon="['fa', 'plus']" />
               </button>
               <span>{{ quantity }}</span>
               <button
                 class="minus"
                 @click="decrease()"
-                :disabled="this.product.quantity === 0"
+                :disabled="this.product.quantity === 0 || this.quantity === 0"
               >
-                <strong>-</strong>
+                <font-awesome-icon :icon="['fa', 'minus']" />
               </button>
             </div>
-            <button class="btn-buy btn-cart" @click="add()">
+            <button
+              class="btn-buy btn-cart"
+              @click="add()"
+              :disabled="this.quantity === 0"
+            >
               Ajouter au panier
             </button>
-            <button class="btn-buy btn-checkout">Acheter maintenant</button>
+            <button
+              class="btn-buy btn-checkout"
+              :disabled="this.quantity === 0"
+            >
+              Acheter maintenant
+            </button>
           </div>
         </div>
 
@@ -74,6 +95,7 @@ export default class ShopProductPage extends Vue {
   public isLoading = true;
   public quantity = 0;
   public minimum = 0;
+  public ratings = 5;
 
   public product: Partial<Product> = {
     name: String(this.$t("general.loading")),
@@ -151,17 +173,19 @@ export default class ShopProductPage extends Vue {
 }
 </script>
 
+<style>
+body {
+  background-color: #080d10;
+}
+</style>
+
 <style scoped lang="less">
 @background: #080d10;
 @border: #306261;
 @color: #21aed9;
 
-body {
-  background-color: @background;
-}
-
 .product-page {
-  min-height: calc(100vh - (65px + 50px));
+  min-height: calc(100vh - (66px + 50px));
   height: auto;
   display: block;
   width: 100%;
@@ -269,7 +293,7 @@ body {
         padding: 0 20px;
         height: 100%;
         float: right;
-        border: @border solid 1px;
+        border: @color solid 1px;
         border-radius: 15px;
         background: lighten(@background, 5%);
         flex-direction: column;
@@ -278,14 +302,16 @@ body {
         align-items: center;
         color: white;
         position: relative;
+        box-shadow: 6px 5px 15px 0px rgba(165, 217, 233, 0.15);
 
         /* Buy Now */
         .buy-title {
           padding: 20px 0;
           margin-top: 20px;
-          font-size: 22px;
-          color: @color;
+          font-size: 24px;
+          color: white;
           letter-spacing: 1px;
+          font-weight: bolder;
         }
 
         /* Marketing phrase */
@@ -299,7 +325,7 @@ body {
         .quantity-availability {
           color: @color;
           font-size: 16px;
-          color: @color;
+          font-weight: bold;
         }
         .quantity-section {
           margin: 20px 0 20px;
@@ -320,31 +346,37 @@ body {
           }
 
           button {
-            background-color: white;
-            color: #21aed9;
+            background-color: #03030375;
+            color: white;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             font-size: 24px;
-            line-height: 30px;
+            line-height: 40px;
             padding: 0px;
             border: thin solid @color;
             transition: all 0.4s ease;
             position: relative;
 
-            &:hover {
+            svg {
+              position: absolute;
+              top: 8px;
+              left: 9px;
+            }
+
+            &:hover:not(:disabled) {
               background-color: #c3c7ca;
+              box-shadow: 1px 0px 10px 6px rgba(165, 217, 233, 0.15);
             }
 
             &:disabled {
               cursor: not-allowed;
-              background-color: #c3c7ca;
-              color: grey;
+              background-color: transparent;
+              border-color: rgb(80, 79, 79);
+              color: rgb(80, 79, 79);
             }
 
             &.plus {
-              color: @color;
-
               &:hover {
                 color: rgb(27, 139, 27);
                 border-color: rgb(7, 83, 7);
@@ -352,17 +384,9 @@ body {
             }
 
             &.minus {
-              color: darken(@color, 10%);
-
               &:hover {
                 color: rgb(139, 27, 27);
                 border-color: rgb(83, 7, 7);
-              }
-
-              strong {
-                position: absolute;
-                left: 9px;
-                top: -2px;
               }
             }
           }
@@ -392,6 +416,16 @@ body {
             color: lighten(@border, 25%);
           }
 
+          /* Disabled State */
+          &.btn-cart,
+          &.btn-checkout {
+            &:disabled {
+              cursor: not-allowed;
+              background-color: transparent;
+              border-color: #504f4f;
+              color: #504f4f;
+            }
+          }
           &.btn-cart {
             background-color: #0f3e34;
             border-color: darken(white, 20%);
@@ -402,8 +436,9 @@ body {
           }
 
           &.btn-checkout {
-            background-color: #d1e5e4;
-            color: @border;
+            background-color: transparent;
+            color: @color;
+            border-color: @color;
 
             &:hover {
               border-color: @color;

@@ -29,7 +29,7 @@ export default class MenuDropdown extends Vue {
   border: solid thin #1c0d22;
   background-color: white;
   right: calc(10px + ((100% - 1500px) / 2));
-  z-index: 1000;
+  z-index: 1001;
   padding: 10px;
 
   /* Scrollbar */

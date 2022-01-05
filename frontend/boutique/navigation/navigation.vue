@@ -31,28 +31,59 @@
       </div>
     </div>
 
-    <!-- Menus Dropdown -->
-    <MenuDropdown v-show="!showCart" @close="showShoppingCart()">
-      <template v-slot:content>
-        <ShoppingCart />
+    <!-- Shopping Cart -->
+    <MenuSlide v-show="showCart" @close="showShoppingCart()">
+      <template v-slot:header>
+        <div class="cart-header">
+          <h4 class="font">Mon Panier</h4>
+          <span class="cart-remove-all" @click="clearCart()" v-if="total > 0"
+            >Vider le panier</span
+          >
+        </div>
       </template>
-    </MenuDropdown>
+      <template v-slot:content>
+        <ShoppingCart
+          @update-price="updateTotal($event)"
+          :update="showCart"
+          :removeClicked="remove"
+        />
+      </template>
+      <template v-slot:footer>
+        <div class="cart-footer" v-if="total > 0">
+          <div class="cart-total">Total : {{ total }}$</div>
+          <button class="btn-checkout">Passer à la caisse</button>
+        </div>
+      </template>
+    </MenuSlide>
   </nav>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import MenuDropdown from "../components/MenuDropdown.vue";
+import MenuSlide from "../components/MenuSlide.vue";
 import ShoppingCart from "../cart/ShoppingCart.vue";
 
 @Component({
-  components: { MenuDropdown, ShoppingCart },
+  components: { MenuDropdown, ShoppingCart, MenuSlide },
 })
 export default class Navigation extends Vue {
   public showCart = false;
+  public total = 0;
+  public remove = true;
 
   public showShoppingCart(): void {
     this.showCart = !this.showCart;
+  }
+
+  public updateTotal(price: number): void {
+    this.total = price;
+  }
+
+  public clearCart(): void {
+    this.remove = !this.remove;
+    console.log("navigation");
+    this.$emit("removeAll");
   }
 }
 </script>
@@ -60,6 +91,7 @@ export default class Navigation extends Vue {
 <style scoped lang="less">
 @nav: #1b0923;
 @color: darken(gold, 10%);
+
 nav {
   height: 100%;
   width: 100%;
@@ -121,6 +153,89 @@ nav {
           color: lighten(rgb(175, 174, 174), 20%);
         }
       }
+    }
+  }
+}
+
+/* Shopping Cart Overwrite */
+
+/deep/ .menu-slide {
+  border-left: solid thin #cfa34d69;
+  background-color: #0c0c0c;
+  padding: 10px;
+  color: white;
+  box-shadow: inset 8px 1px 17px 6px #58585829;
+
+  .menu-slide-footer {
+    background-color: #ffffff05;
+    border-top: white thin solid;
+  }
+
+  .slide-close {
+    color: @color;
+    transition: color 0.4s ease-in;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+.cart-header {
+  color: @color;
+  margin-top: 10px;
+  position: relative;
+
+  .cart-remove-all {
+    font-size: 12px;
+    position: absolute;
+    bottom: -23px;
+    right: 10px;
+    color: #838383;
+    cursor: pointer;
+    transition: color 0.4s ease;
+
+    &:hover {
+      color: #d16161;
+    }
+  }
+}
+.cart-footer {
+  color: @color;
+  margin-top: 10px;
+
+  .cart-total {
+    font-size: 24px;
+    letter-spacing: 1px;
+    color: white;
+    font-weight: bolder;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+  }
+
+  /* Buy Button */
+  .btn-checkout {
+    background-color: darken(@color, 20%);
+    border: 2px solid darken(@color, 15%);
+    margin-top: 20px;
+    font-size: 14px;
+    padding: 5px 20px;
+    z-index: 4;
+    width: 100%;
+    max-width: 220px;
+    border-radius: 85px;
+    color: white;
+    font-weight: bolder;
+    box-shadow: 0px 0px 0px rgba(246, 246, 246, 0);
+    transition: background-color 0.4s ease-in, color 0.4s ease, border 0.4s ease,
+      box-shadow 0.4s ease-out;
+
+    &:hover {
+      background-color: darken(@color, 20%);
+      box-shadow: 0px 0px 11px rgba(182, 172, 32, 0.35);
+      border: 2px solid lighten(@color, 35%);
+      color: lighten(@color, 35%);
     }
   }
 }
