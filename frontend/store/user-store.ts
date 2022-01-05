@@ -14,7 +14,6 @@ export default class UserStore extends VuexModule {
 
   @Mutation
   public setUser(payload: any): void {
-    console.log("payload", payload);
     this._firstName = payload.firstName || "";
     this._lastName = payload.lastName || "";
     this._role = payload.role || "user";

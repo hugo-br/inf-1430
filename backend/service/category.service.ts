@@ -21,7 +21,7 @@ export function findCategory(
 /**
  * @desc    Returns all availables products in one particular category
  * @param   query  CategoryID
- * @return  Category information + products of this category (_id and name)
+ * @return  Category informations to display the category products, must matched ProductService->getAllAvailableProducts()
  */
 export function findCategoryAndProducts(
   query: FilterQuery<CategoryDocument>,
@@ -30,7 +30,15 @@ export function findCategoryAndProducts(
   return Category.findOne(query, {}, options)
     .populate({
       path: "products",
-      select: ["_id", "name"],
+      select: [
+        "_id",
+        "productId",
+        "name",
+        "price",
+        "quantity",
+        "images",
+        "createdAt",
+      ],
       match: { isPublished: true },
     })
     .exec();

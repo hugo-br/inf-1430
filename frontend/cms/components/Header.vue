@@ -17,8 +17,8 @@ import { userStore } from "../../store/store-accessor";
 @Component
 export default class Header extends Vue {
   public name: string = "";
+
   get userName(): string {
-    console.log(userStore.name);
     return userStore.name;
   }
 

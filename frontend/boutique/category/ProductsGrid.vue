@@ -2,21 +2,19 @@
   <div>
     <div class="products-wrapper" v-if="products.length > 0">
       <ProductCard
-        v-for="prod in products"
+        v-for="prod in listProducts"
         :key="prod._id"
-        :productId="prod._id"
+        :product="prod"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { orderBy } from "lodash";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import ProductCard from "../../components/Products/ProductCard.vue";
-
-interface productsArray {
-  _id: string;
-}
+import ProductCard from "../product/ProductCard.vue";
+import { productsArray, FilterOptions } from "../../services/ProductsService";
 
 @Component({
   components: {
@@ -26,6 +24,23 @@ interface productsArray {
 export default class ProductsGrid extends Vue {
   @Prop({ default: [] })
   public products: productsArray[];
+
+  // Options by default, price up
+  @Prop()
+  public filters: FilterOptions;
+
+  // Return the ordered list of products
+  get listProducts(): productsArray[] {
+    return orderBy(
+      this.products,
+      this.currentFilter.element,
+      this.currentFilter.order
+    );
+  }
+
+  get currentFilter(): FilterOptions {
+    return { element: "price", order: "desc" };
+  }
 
   @Watch("products")
   public productChange(): void {}

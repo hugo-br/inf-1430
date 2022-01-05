@@ -38,7 +38,7 @@ export default class Boutique extends Vue {
       document.querySelector("#navigation") === null
         ? 0
         : document.querySelector("#navigation").clientHeight;
-    this.isScrolled = window.pageYOffset > height + 100;
+    this.isScrolled = window.pageYOffset > height + 20;
   }
 }
 </script>

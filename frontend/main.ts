@@ -17,8 +17,17 @@ import {
   faCrown,
   faShoppingCart,
   faSearch,
+  faPlus,
+  faMinus,
+  faStar,
+  faTimesCircle,
+  faWindowClose,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import {
+  faHeart as farHeart,
+  faStar as farStar,
+} from "@fortawesome/free-regular-svg-icons";
 /* add icons to the library */
 library.add(
   faUserSecret,
@@ -27,7 +36,14 @@ library.add(
   farHeart,
   faCrown,
   faShoppingCart,
-  faSearch
+  faSearch,
+  faPlus,
+  faMinus,
+  faStar,
+  farStar,
+  faTimesCircle,
+  faWindowClose,
+  faTimes
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
