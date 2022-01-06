@@ -8,7 +8,9 @@
       <CategoryHeader :title="headerTitle" :description="headerDesc" />
     </div>
     <!-- Filters -->
-    <div class="product-filter"></div>
+    <div class="product-filter">
+      <CategoryFilter />
+    </div>
     <!-- Products Display -->
     <div class="product-grid">
       <div v-if="catProducts.length > 0">
@@ -22,6 +24,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import ProductsGrid from "./ProductsGrid.vue";
 import CategoryHeader from "./CategoryHeader.vue";
+import CategoryFilter from "./CategoryFilter.vue";
 import { getCategory, Category } from "../../services/CategoryService";
 import {
   getAllAvailableProducts,
@@ -32,6 +35,7 @@ import {
   components: {
     ProductsGrid,
     CategoryHeader,
+    CategoryFilter,
   },
 })
 export default class ShopCategoryPage extends Vue {
@@ -42,7 +46,7 @@ export default class ShopCategoryPage extends Vue {
   public headerDesc = "";
 
   // #region Functions
-  public created() {
+  public mounted() {
     if (this.categoryId === "all") {
       this.getAllProducts();
       this.headerTitle = "Tous les produits";
@@ -130,7 +134,7 @@ body {
 
   .product-filter {
     width: 100%;
-    padding: 20px 60px 40px;
+    padding: 20px 60px 20px;
     display: block;
     background-color: darken(#111a21, 5%);
   }

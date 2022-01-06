@@ -71,6 +71,7 @@ export default class Boutique extends Vue {
 
   #footer {
     background-color: @footer;
+    border-top: 2px solid white;
   }
 }
 </style>

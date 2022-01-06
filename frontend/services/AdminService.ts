@@ -66,10 +66,6 @@ export async function deleteAdmin(adminId: string): Promise<any> {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
       return Promise.reject(error);
     });
 }
