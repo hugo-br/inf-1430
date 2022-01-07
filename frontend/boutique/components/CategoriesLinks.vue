@@ -1,9 +1,14 @@
 <template>
   <ul>
     <li v-for="cat in categories" :key="cat.categoryId">
-      <a :href="'/shop/category/' + cat.categoryId">
+      <router-link
+        :to="{
+          name: 'product-category',
+          params: { categoryId: cat.categoryId },
+        }"
+      >
         {{ cat.name }}
-      </a>
+      </router-link>
     </li>
   </ul>
 </template>
@@ -25,7 +30,6 @@ export default class CategoriesLinks extends Vue {
 
   public mounted(): void {
     this.loadCategories();
-    // this.$parent.$on("refresh", this.refresh);
   }
 
   public loadCategories(): void {

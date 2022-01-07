@@ -59,6 +59,7 @@ export default class Footer extends Vue {}
       font-weight: bold;
       font-size: 18px;
       margin-bottom: 10px;
+      letter-spacing: 1px;
     }
   }
 }
