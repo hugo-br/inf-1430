@@ -82,7 +82,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getProduct, Product } from "../../services/ProductsService";
 import { cartStore } from "../../store/store-accessor";
 
@@ -169,6 +169,14 @@ export default class ShopProductPage extends Vue {
       this.imageNotAvailable = true;
       return images("./" + img + ".png");
     }
+  }
+
+    // Watch for updates
+  @Watch("$route")
+  public refreshPage() {
+    this.productId = this.$route.params.productId;
+    this.isLoading = false;
+    this.fetchProd();
   }
 }
 </script>

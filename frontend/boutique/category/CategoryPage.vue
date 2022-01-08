@@ -128,6 +128,7 @@ export default class ShopCategoryPage extends Vue {
     this.filter = obj;
   }
 
+  // Watch for updates
   @Watch("$route")
   public refreshPage() {
     this.categoryId = this.$route.params.categoryId ?? "all";
