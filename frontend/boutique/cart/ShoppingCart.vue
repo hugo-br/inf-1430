@@ -70,6 +70,7 @@ export default class ShoppingCart extends Vue {
 
   public removeItem(productId: string): void {
     cartStore.removeFromCart(productId);
+    this.updatedCart();
   }
 }
 </script>

@@ -23,6 +23,9 @@ import {
   faTimesCircle,
   faWindowClose,
   faTimes,
+  faSort,
+  faFilter,
+  faSlidersH,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart as farHeart,
@@ -43,7 +46,10 @@ library.add(
   farStar,
   faTimesCircle,
   faWindowClose,
-  faTimes
+  faTimes,
+  faSort,
+  faFilter,
+  faSlidersH
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

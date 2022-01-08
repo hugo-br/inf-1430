@@ -32,6 +32,18 @@ export async function getAllCategories(): Promise<any> {
     });
 }
 
+export async function getSlimCategories(): Promise<any> {
+  return Api()
+    .get(`/categories/`)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
+}
+
 export async function getCategory(categoryId: String): Promise<any> {
   return Api()
     .get(`/category/${categoryId}`)

@@ -39,11 +39,13 @@ export default class ProductsGrid extends Vue {
   }
 
   get currentFilter(): FilterOptions {
-    return { element: "price", order: "desc" };
+    if (!this.filters.element) return { element: "price", order: "desc" };
+
+    return this.filters;
   }
 
-  @Watch("products")
-  public productChange(): void {}
+  @Watch("filters")
+  public filtersChange(): void {}
 }
 </script>
 

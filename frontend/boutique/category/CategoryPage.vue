@@ -2,26 +2,38 @@
   <div class="category-page">
     <!-- Category Header -->
     <div
+      v-if="!isLoading"
       class="category-header-wrap"
       :style="{ 'background-image': 'url(' + image + ')' }"
     >
-      <CategoryHeader :title="headerTitle" :description="headerDesc" />
+      <CategoryHeader
+        v-if="!isLoading"
+        :title="headerTitle"
+        :description="headerDesc"
+      />
     </div>
     <!-- Filters -->
-    <div class="product-filter"></div>
+    <div class="product-filter">
+      <CategoryFilter v-if="!isLoading" @filters="sendFilters($event)" />
+    </div>
     <!-- Products Display -->
     <div class="product-grid">
       <div v-if="catProducts.length > 0">
-        <ProductsGrid :products="catProducts" />
+        <ProductsGrid
+          v-if="!isLoading"
+          :products="catProducts"
+          :filters="filter"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import ProductsGrid from "./ProductsGrid.vue";
 import CategoryHeader from "./CategoryHeader.vue";
+import CategoryFilter from "./CategoryFilter.vue";
 import { getCategory, Category } from "../../services/CategoryService";
 import {
   getAllAvailableProducts,
@@ -32,6 +44,7 @@ import {
   components: {
     ProductsGrid,
     CategoryHeader,
+    CategoryFilter,
   },
 })
 export default class ShopCategoryPage extends Vue {
@@ -40,9 +53,15 @@ export default class ShopCategoryPage extends Vue {
   public defaultBackground = "background.jpg";
   public headerTitle = "";
   public headerDesc = "";
+  public isLoading = true;
+  public filter = {};
 
   // #region Functions
-  public created() {
+  public mounted() {
+    this.loadPage();
+  }
+
+  public loadPage() {
     if (this.categoryId === "all") {
       this.getAllProducts();
       this.headerTitle = "Tous les produits";
@@ -60,6 +79,7 @@ export default class ShopCategoryPage extends Vue {
       .then((result: any) => {
         this.$nextTick(function () {
           this.catProducts = [...result.products];
+          this.isLoading = false;
         });
       })
       .catch((error: any) => console.error("Errors : ", error));
@@ -75,6 +95,7 @@ export default class ShopCategoryPage extends Vue {
           this.catProducts = [...result.products];
           this.headerTitle = result.name;
           this.headerDesc = result.description;
+          this.isLoading = false;
         });
       });
     } catch (err: any) {
@@ -96,6 +117,22 @@ export default class ShopCategoryPage extends Vue {
       let img = "background";
       return images("./" + img + ".jpg");
     }
+  }
+
+  public sendFilters(filter: string) {
+    const res = filter.split("-");
+    const obj = {
+      element: res[0],
+      order: res[1],
+    };
+    this.filter = obj;
+  }
+
+  // Watch for updates
+  @Watch("$route")
+  public refreshPage() {
+    this.categoryId = this.$route.params.categoryId ?? "all";
+    this.loadPage();
   }
 
   // #endregion
@@ -130,7 +167,7 @@ body {
 
   .product-filter {
     width: 100%;
-    padding: 20px 60px 40px;
+    padding: 20px 60px 20px;
     display: block;
     background-color: darken(#111a21, 5%);
   }
